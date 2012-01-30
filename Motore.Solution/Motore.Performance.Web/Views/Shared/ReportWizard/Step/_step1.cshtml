@@ -1,0 +1,35 @@
+﻿@model Motore.Library.Models.ReportWizard.Step
+<div class="reportWizardStep">
+@using (Html.BeginForm("SelectCustodian", "ReportWizard", FormMethod.Post, new { id = "SelectCustodianForm" }))
+{
+	<div class="custodians">
+		<ul>
+			<li>
+				<input type="radio" name="Custodian" value="Schwab" checked="checked" />
+				Schwab
+			</li>
+			<li class="disabled" title="E-Trade portfolios are not yet supported.">
+				<input type="radio" name="Custodian" value="E-Trade" disabled="disabled" />
+				E-Trade
+			</li>
+			<li class="disabled" title="Fidelity portfolios are not yet supported.">
+				<input type="radio" name="Custodian" value="Fidelity" disabled="disabled" />
+				Fidelity
+			</li>
+			<li class="disabled" title="TD Ameritrade portfolios are not yet supported.">
+				<input type="radio" name="Custodian" value="TD Ameritrade" disabled="disabled" />
+				TD Ameritrade
+			</li>
+			<li class="disabled" title="Scottrade portfolios are not yet supported.">
+				<input type="radio" name="Custodian" value="Scottrade" disabled="disabled" />
+				Scottrade
+			</li>
+		</ul>
+	</div>
+	<div class="buttons">
+		<button type="submit">Continue</button>
+	</div>
+	<input type="hidden" name="StepNumber" value="@Model.StepNumber" />
+	<input type="hidden" name="Token" value="@Model.Token" />
+}
+</div>

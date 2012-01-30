@@ -1,0 +1,21 @@
+﻿<div id="AlphaCollectEmail">
+	<div class="titlebar">Alpha Program</div>
+	<div class="info">
+		Want to know more? Enter your email address below and we'll keep you up to date
+		as we make progress on our beta program.
+	</div>
+@using (Html.BeginForm("SubmitCustomerEmail", "Customer", FormMethod.Post, new { id = "SubmitCustomerEmailForm" }))
+{	
+	<div class="userInput">
+		<input type="text" id="CustomerEmail" name="CustomerEmail" />
+		<br />
+		<button type="submit" id="SubmitCustomerEmailButton" name="SubmitCustomerEmailButton" value="true">Yes, Notify Me!</button>
+	</div>
+	<div class="privacy">
+		* We won't sell, rent, give away, divulge, disclose or otherwise do anything 
+		with your email address other than to keep you notfied about the progress 
+		of Reputrade Performance Reporting.
+	</div>
+}
+</div>
+<script src="../../../Scripts/motore/forms/CollectCustomerEmail.js" type="text/javascript"></script>

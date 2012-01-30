@@ -1,0 +1,22 @@
+﻿@model Motore.Library.Models.ReportWizard.Benchmarks
+<div class="reportWizardStep">
+@using (Html.BeginForm("SetAssumptions", "ReportWizard", FormMethod.Post, new { id = "SetAssumptionsForm" }))
+{
+	<h2>Benchmarks</h2>
+	<div class="fileUpload">
+		Select benchmark(s) against which you'd like to compare your portfolio's performance.
+		<ul>
+			<li><input type="checkbox" name="index_spx" checked="checked" />S&P 500 (SPX:IND)</li>
+			<li class="disabled" title="The Russell 1000 benchmark comparison is not currently enabled."><input type="checkbox" name="index_rui" disabled="disabled" />Russel 1000 (^RUI)/li>
+			<li class="disabled" title="The NASDAQ Composite benchmark comparison is not currently enabled."><input type="checkbox" name="index_ccmp" disabled="disabled" />NASDAQ Composite Index (CCMP:IND)</li>
+			<li class="disabled" title="The MSCI World benchmark comparison is not currently enabled."><input type="checkbox" name="index_mxwo" disabled="disabled" />MSCI World Index (MXWO:IND)</li>
+		</ul>
+		
+	</div>
+	<div class="buttons">
+		<button type="submit">Continue</button>
+	</div>
+	<input type="hidden" name="StepNumber" value="@Model.StepNumber" />
+	<input type="hidden" name="Token" value="@Model.Token" />
+}
+</div>

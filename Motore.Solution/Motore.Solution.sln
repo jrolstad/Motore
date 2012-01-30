@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Motore.Performance.Web", "Motore.Performance.Web\Motore.Performance.Web.csproj", "{B89015F3-DA91-4107-9695-F4548B1B37FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Motore.Library", "Motore.Library\Motore.Library.csproj", "{B1EF7AF5-1190-4511-A623-AA8FF742FB61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Motore.Library.Tests", "Motore.Library.Tests\Motore.Library.Tests.csproj", "{62C84B42-DF7C-48D3-80DA-2D4B877B0F15}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B89015F3-DA91-4107-9695-F4548B1B37FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B89015F3-DA91-4107-9695-F4548B1B37FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B89015F3-DA91-4107-9695-F4548B1B37FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B89015F3-DA91-4107-9695-F4548B1B37FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1EF7AF5-1190-4511-A623-AA8FF742FB61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1EF7AF5-1190-4511-A623-AA8FF742FB61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1EF7AF5-1190-4511-A623-AA8FF742FB61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1EF7AF5-1190-4511-A623-AA8FF742FB61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62C84B42-DF7C-48D3-80DA-2D4B877B0F15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62C84B42-DF7C-48D3-80DA-2D4B877B0F15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62C84B42-DF7C-48D3-80DA-2D4B877B0F15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62C84B42-DF7C-48D3-80DA-2D4B877B0F15}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,12 @@
+﻿@model Motore.Library.Models.ReportWizard.Step
+@{
+    ViewBag.Title = "Step";
+}
+
+<h2>Step</h2>
+@{
+	string partialViewName = String.Format("~/Views/Shared/ReportWizard/Step/_step{0}.cshtml", Model.StepNumber);
+}
+@Html.Partial(partialViewName, Model)
+<p />
+Token: @Model.Token

@@ -1,0 +1,17 @@
+﻿@model Motore.Library.Models.ReportWizard.Step
+<div class="reportWizardStep">
+@using (Html.BeginForm("UploadTransactionFile", "ReportWizard", FormMethod.Post, new { id = "UploadTransactionFileForm" }))
+{
+	<h2>Upload Transaction File</h2>
+	<div class="fileUpload">
+		Browse to a transaction file on your computer.
+		<p />
+		<input type="file" name="postedFile" id="transactionFile" />
+	</div>
+	<div class="buttons">
+		<button type="submit">Continue</button>
+	</div>
+	<input type="hidden" name="StepNumber" value="@Model.StepNumber" />
+	<input type="hidden" name="Token" value="@Model.Token" />
+}
+</div>

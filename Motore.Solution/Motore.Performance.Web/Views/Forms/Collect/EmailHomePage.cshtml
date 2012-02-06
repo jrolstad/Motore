@@ -1,6 +1,6 @@
 ﻿<div id="AlphaCollectEmail">
 
-@using (Html.BeginForm("SubmitCustomerEmail", "Customer", FormMethod.Post, new { id = "SubmitCustomerEmailForm" }))
+@using (Ajax.BeginForm("SubmitCustomerEmail", "Customer",new AjaxOptions()))
 {	
 	<div class="userInput">
         <input type="text" id="CustomerEmail" name="CustomerEmail" />

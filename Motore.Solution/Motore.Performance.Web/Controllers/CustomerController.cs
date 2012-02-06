@@ -12,6 +12,7 @@ namespace Motore.Performance.Web.Controllers
     public class CustomerController : Controller
     {
         [HttpPost]
+        
         public ActionResult SubmitCustomerEmail(SubmitCustomerEmailModel model)
         {
             var program = new AlphaProgram();

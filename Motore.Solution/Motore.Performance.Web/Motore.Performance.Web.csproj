@@ -75,6 +75,9 @@
     <Content Include="Content\images\header\header1.png" />
     <Content Include="Content\images\header\header2.png" />
     <Content Include="Content\images\header\header3.png" />
+    <Content Include="Content\images\home\chart.png" />
+    <Content Include="Content\images\home\help.png" />
+    <Content Include="Content\images\home\users.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\css\Site.css" />
     <Content Include="Scripts\jquery\plugins\form\jquery.form.js" />

@@ -22,4 +22,6 @@
 $(function () {
     var $form = $("#SubmitCustomerEmailForm");
     $form.ajaxForm(submitCustomerEmailOptions);
+
+    $("#SubmitCustomerEmailButton").button();
 });

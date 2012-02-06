@@ -1,31 +1,41 @@
 ﻿@{
     ViewBag.Title = "Reputrade Performance Reporting";
 }
-
-<div id="Home">
-<div class="collectEmail">
-@Html.Partial("~/Views/Forms/Collect/EmailHomePage.cshtml")
-</div>
-Reputrade Performance Reporting will give you quick and accurate performance reporting information for your investment
-portfolios.
-<p />
-<ul>
-	<li>What was your pre-tax performance?</li>
-	<li>What was your after-tax performance?</li>
-	<li>How did you compare with selected benchmarks, like the S&P 500 or Russell 1000?</li>
-</ul>
-Blah blah blah Blah blah blah Blah blah blah Blah blah blah Blah blah blah Blah blah blah Blah blah blah.
-<p />
-<ul>
-	<li>Blah blah blah Blah blah blah</li>
-	<li>Blah blah blah</li>
-	<li>Blah blah blah Blah blah blah Blah blah blah </li>
-	<li>Blah blah blah Blah blah blah </li>
-</ul>
-<p />
-Blah blah blah Blah blah blah Blah blah blah vBlah blah blah Blah blah blah Blah blah blah Blah blah blah Blah blah blah 
-Blah blah blah Blah blah blah Blah blah blah Blah blah blah Blah blah blah 
-Blah blah blah Blah blah blah Blah blah blah Blah blah blah Blah blah blah Blah blah blah 
-Blah blah blah Blah blah blah Blah blah blah Blah blah blah 
-<div class="clear"></div>
-</div>
+<table class="home">
+    <tr>
+        <td rowspan="4" class="home-intro">
+            <h1>
+                Performance Reporting made easy
+            </h1>
+        </td>
+    </tr>
+    <tr>
+        <td class="home-intro-feature-icon home-intro-feature-chart"></td>
+        <td class="home-intro-feature">
+            <h2>What is Reputrade?</h2>
+            <div class="home-intro-feature-text"> Reputrade Performance Reporting will give you quick and accurate performance reporting information for your investment portfolios.
+            </div>
+        </td>
+    </tr>
+    <tr>
+         <td class="home-intro-feature-icon home-intro-feature-why"></td>
+        <td class="home-intro-feature">
+            <h2>Why use Reputrade?</h2>
+            <div class="home-intro-feature-text">
+            If you need a quick and easy way to analyze how your investments have performed over time.
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="home-intro-feature-icon home-intro-feature-signup"></td>
+        <td class="home-intro-feature">
+            <h2>Want to know more?</h2>
+            <div class="home-intro-feature-text">
+                Want to know more? Enter your email address below and we'll keep you up to date as we make progress on our beta program.
+            </div>
+            <div class="collectEmail">
+                @Html.Partial("~/Views/Forms/Collect/EmailHomePage.cshtml")
+            </div>
+        </td>
+    </tr>
+</table>		    

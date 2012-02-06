@@ -1,14 +1,9 @@
 ﻿<div id="AlphaCollectEmail">
-	<div class="titlebar">Alpha Program</div>
-	<div class="info">
-		Want to know more? Enter your email address below and we'll keep you up to date
-		as we make progress on our beta program.
-	</div>
+
 @using (Html.BeginForm("SubmitCustomerEmail", "Customer", FormMethod.Post, new { id = "SubmitCustomerEmailForm" }))
 {	
 	<div class="userInput">
 		<input type="text" id="CustomerEmail" name="CustomerEmail" />
-		<br />
 		<button type="submit" id="SubmitCustomerEmailButton" name="SubmitCustomerEmailButton" value="true">Yes, Notify Me!</button>
 	</div>
 	<div class="privacy">

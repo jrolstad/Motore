@@ -1,9 +1,9 @@
 body
 {
     font-size: 1.1em;
-    font-family: "Georgia, Times New Roman";
+    font-family: "Helvetica Neue UltraLight", "HelveticaNeue-UltraLight", "Helvetica Neue", "HelveticaNeue", "Raleway", sans-serif; 
     color: #232323;
-    background-color: #fff;
+    background-color: rgb(243, 243, 243);
     line-height:1.5em;
 }
 
@@ -12,6 +12,7 @@ footer,
 nav,
 section {
     display: block;
+    background-color: rgb(243, 243, 243);
 }
 
 /* Styles for basic forms
@@ -77,7 +78,7 @@ textarea
 
 #Container
 {
-	background-color:White;
+	background-color:transparent;
 	width:85%;
 	margin:0 auto;
 }
@@ -106,37 +107,16 @@ textarea
 }
 #Home div.collectEmail
 {
-	float:right;
-	width:30%;
-	position:relative;
+	width:100%;
 	top:2px;
-	padding-left:20px;
-	padding-bottom:20px;
 }
 div.clear
 {
 	clear:both;
 	height:1px;
 }
-#AlphaCollectEmail
-{
-	border:solid 1px #dddddd;
-	padding:10px;
-}
-#AlphaCollectEmail .titlebar
-{
-	text-align:center;
-	text-transform:uppercase;
-	font-weight:bold;
-	color:White;
-	background-color:#095206;
-}
-#AlphaCollectEmail .info
-{
-	font-size:80%;
-	line-height:1.2em;
-	margin:10px 0px 10px 0px;
-}
+
+
 #AlphaCollectEmail .privacy
 {
 	font-size:75%;
@@ -146,21 +126,48 @@ div.clear
 }
 #AlphaCollectEmail #CustomerEmail
 {
-	width:90%;
+    width: 50%;
 }
+
+
+
 #NavBar
 {
-	background-color:#095206;
+	background-color:gray;
+    height: 75px;
 	font-family:Verdana,arial,helvetica;
 	font-size:0.9em;
 	line-height:1.0em;
 	padding:1px 0px 1px 12px;
+	    vertical-align:middle;
+	      background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4E6073), to(#153344));
+  background: -webkit-linear-gradient(270deg,#4E6073, #153344);
+  background: -moz-linear-gradient(270deg,#4E6073, #153344);
+  background: -ms-linear-gradient(270deg,#4E6073, #153344);
+  background: -o-linear-gradient(270deg,#4E6073, #153344);
+  background: linear-gradient(270deg,#4E6073, #153344);
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 4px 10px 0 rgba(0, 0, 0, .25);
+  -moz-box-shadow: 0 4px 10px 0 rgba(0, 0, 0, .25);
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, .25);
+  -pie-box-shadow: 0 4px 10px 0 #999;
 }
 #NavBar ul
 {
 	margin-left:0px;
 	left:0px;
 	padding:0px;
+    float: right;
+}
+#AppName {
+    display: inline;
+    float: left;
+    padding: 5px;
+}
+#NavBar a {
+    color: white;
 }
 #NavBar li
 {
@@ -184,3 +191,37 @@ div.reportWizardStep .custodians li.disabled
 {
 	color:#666666;
 }
+
+/* @group Intro */
+.home{ vertical-align: top;}
+
+.home-intro {vertical-align: top;width: 500px;}
+.home-intro h1 {margin: 0 0 15px; color: #666; 
+                font-family: "Helvetica Neue UltraLight", "HelveticaNeue-UltraLight", "Helvetica Neue", "HelveticaNeue", "Raleway", sans-serif; 
+                font-size: 40px; font-weight: 100; letter-spacing: 2px; line-height: 1; text-indent: 3px;}
+
+.home-intro-feature {  color: #888582;vertical-align: top;}
+.home-intro-feature h2 {
+    margin: 0 0 3px;
+    color: #394B5E;
+    font-family: Helvetica, Arial, 'Liberation';  
+    font-size:medium; 
+    font-style: normal; 
+    font-weight: 600;
+}
+ 
+.home-intro-feature-text{ display: block;min-height: 100px;}
+.home-intro-feature-icon {
+    display: block;
+    float: left;
+    left: 0;
+    top: 3px;
+    height: 64px;
+    width: 64px;
+    margin-right: 5px;
+    vertical-align: top;
+   
+  }
+ .home-intro-feature-chart{ background-image: url('../images/home/chart.png');background-repeat: no-repeat;}
+ .home-intro-feature-why { background-image: url('../images/home/help.png');background-repeat: no-repeat;}
+ .home-intro-feature-signup { background-image: url('../images/home/users.png');background-repeat: no-repeat;}

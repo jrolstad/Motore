@@ -3,7 +3,7 @@ body
     font-size: 1.1em;
     font-family: "Helvetica Neue UltraLight", "HelveticaNeue-UltraLight", "Helvetica Neue", "HelveticaNeue", "Raleway", sans-serif; 
     color: #232323;
-    background-color: rgb(243, 243, 243);
+    background-color: white;
     line-height:1.5em;
 }
 
@@ -127,8 +127,12 @@ div.clear
 #AlphaCollectEmail #CustomerEmail
 {
     width: 50%;
+    font-size: 18px;
+   
 }
-
+#SubmitCustomerEmailButton {
+    font-size: 16px;
+}
 
 
 #NavBar

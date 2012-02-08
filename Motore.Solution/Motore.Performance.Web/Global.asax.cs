@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Motore.Performance.Web.Attributes;
+using log4net.Config;
 
 namespace Motore.Performance.Web
 {
@@ -14,7 +16,7 @@ namespace Motore.Performance.Web
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            filters.Add(new HandleErrorAndLogAttribute());
         }
 
         public static void RegisterRoutes(RouteCollection routes)
@@ -43,6 +45,8 @@ namespace Motore.Performance.Web
 
         protected void Application_Start()
         {
+            XmlConfigurator.Configure();
+
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);

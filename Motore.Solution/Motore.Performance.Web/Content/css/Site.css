@@ -229,3 +229,8 @@ div.reportWizardStep .custodians li.disabled
  .home-intro-feature-chart{ background-image: url('../images/home/chart.png');background-repeat: no-repeat;}
  .home-intro-feature-why { background-image: url('../images/home/help.png');background-repeat: no-repeat;}
  .home-intro-feature-signup { background-image: url('../images/home/users.png');background-repeat: no-repeat;}
+ 
+ .notification {
+     color: #153344;
+     font-weight: bold;
+ }

@@ -1,10 +1,11 @@
 ﻿<div id="AlphaCollectEmail">
 
-@using (Ajax.BeginForm("SubmitCustomerEmail", "Customer",new AjaxOptions()))
+@using (Ajax.BeginForm("SubmitCustomerEmail", "Customer",new AjaxOptions{OnSuccess = "showSubmitEmailResponse"}))
 {	
-	<div class="userInput">
+	<div>
         <input type="text" id="CustomerEmail" name="CustomerEmail" />
-		<button type="submit" id="SubmitCustomerEmailButton" name="SubmitCustomerEmailButton" value="true">Yes, Notify Me!</button>
+        <button type="submit" id="SubmitCustomerEmailButton" name="SubmitCustomerEmailButton" value="true">Yes, Notify Me!</button>
+        <div id="customerEmailSubmitResult" class="notification"></div>
 	</div>
 	<div class="privacy">
 		* We won't sell, rent, give away, divulge, disclose or otherwise do anything 
@@ -13,4 +14,4 @@
 	</div>
 }
 </div>
-<script src="../../../Scripts/motore/forms/CollectCustomerEmail.js" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/motore/forms/CollectCustomerEmail.js")" type="text/javascript"></script>

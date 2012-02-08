@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace Motore.Performance.Web.Controllers
 {
+    /// <summary>
+    /// Controller for the home page
+    /// </summary>
     public class HomeController : Controller
     {
-        //
-        // GET: /Home/
-
-        public ActionResult Index()
+        /// <summary>
+        /// Shows the main site / landing page
+        /// </summary>
+        /// <returns></returns>
+        public ViewResult Index()
         {
             return View();
         }

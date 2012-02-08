@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{55477A
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Motore.Performance.Web.Tests", "Motore.Performance.Web.Tests\Motore.Performance.Web.Tests.csproj", "{DA5F1D9B-21EB-4691-848F-57D07597C5B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{62C84B42-DF7C-48D3-80DA-2D4B877B0F15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62C84B42-DF7C-48D3-80DA-2D4B877B0F15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62C84B42-DF7C-48D3-80DA-2D4B877B0F15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA5F1D9B-21EB-4691-848F-57D07597C5B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA5F1D9B-21EB-4691-848F-57D07597C5B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA5F1D9B-21EB-4691-848F-57D07597C5B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA5F1D9B-21EB-4691-848F-57D07597C5B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

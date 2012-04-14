@@ -67,6 +67,7 @@
     <Compile Include="Factories\QueueFactory.cs" />
     <Compile Include="Factories\ReportWizardStepFactory.cs" />
     <Compile Include="Logging\Log.cs" />
+    <Compile Include="MarketData\MarketDataRequestProcessor.cs" />
     <Compile Include="MarketData\MarketDataRequestQueue.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Logging\WriteLogResponse.cs" />

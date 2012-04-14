@@ -17,7 +17,19 @@ namespace Motore.Library.Logging
         public virtual void WriteDebug(string message)
         {
             var logger = GetLogger();
-            logger.Debug(message);
+            if (logger.IsDebugEnabled)
+            {
+                logger.Debug(message);
+            }
+        }
+
+        public virtual void LogException(Exception exc)
+        {
+            var logger = GetLogger();
+            if (logger.IsErrorEnabled)
+            {
+                logger.Error(exc.ToString());
+            }
         }
 
         private ILog GetLogger()

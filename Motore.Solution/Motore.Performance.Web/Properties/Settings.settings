@@ -3,10 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="AwsAccessKey" Type="System.String" Scope="Application">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">AKIAJY4RNZPB6YFPJRIQ</Value>
     </Setting>
     <Setting Name="AwsSecretKey" Type="System.String" Scope="Application">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">4ur+Ng7rBmDp2mfJpacMxRCSNDHKCQOL715a6GdC</Value>
+    </Setting>
+    <Setting Name="MarketDataRequestQueueUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://us-west-2.queue.amazonaws.com/948403467844/MarketDataRequests</Value>
     </Setting>
   </Settings>
 </SettingsFile>

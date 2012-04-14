@@ -1,0 +1,34 @@
+﻿@model Motore.Library.Models.MarketData.MarketDataRequestResponse
+@{
+    ViewBag.Title = "Market Data Request";
+}
+
+<h2>Market Data Request</h2>
+<p/>
+@if (Model != null)
+{
+    <div>
+        Request submitted.<br/>
+        Request ID: @Model.RequestId<br/>
+        Message ID: @Model.MessageId
+    </div>
+    <p />
+}
+<div>
+    Enter an instrument identifer (e.g. MSFT) and press the SUBMIT button.  What you're doing is telling
+    the system that you want to go get market data for the ticker and persist it into our Reputrade database(s).
+</div>
+<div>
+    @using (Html.BeginForm("SubmitMarketDataRequest", "MarketData", FormMethod.Post))
+    {
+        <input type="text" name="Identifier" id="Identifier" size="10" maxlength="20" />
+        <p/>
+        <button type="submit">Submit</button>
+    }
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#Identifier").focus().select();
+    })
+</script>

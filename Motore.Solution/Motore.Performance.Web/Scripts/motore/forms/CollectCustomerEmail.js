@@ -1,8 +1,8 @@
 ﻿$(function () {
-
     $("#SubmitCustomerEmailButton").button();
 });
 
 function showSubmitEmailResponse(response) {
-    $("#customerEmailSubmitResult").html(response.message);
+    $("#CustomerEmailSubmitResult").html(response.message);
+    $("#CustomerEmailInput").hide();
 }

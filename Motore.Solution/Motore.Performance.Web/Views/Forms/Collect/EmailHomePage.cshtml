@@ -1,16 +1,16 @@
 ﻿<div id="AlphaCollectEmail">
 
-@using (Ajax.BeginForm("SubmitCustomerEmail", "Customer",new AjaxOptions{OnSuccess = "showSubmitEmailResponse"}))
+@using (Ajax.BeginForm("SubmitCustomerEmail", "Customer", new AjaxOptions { OnSuccess = "showSubmitEmailResponse" }))
 {	
-	<div>
+    <div id="CustomerEmailInput">
         <input type="text" id="CustomerEmail" name="CustomerEmail" />
         <button type="submit" id="SubmitCustomerEmailButton" name="SubmitCustomerEmailButton" value="true">Yes, Notify Me!</button>
-        <div id="customerEmailSubmitResult" class="notification"></div>
-	</div>
+    </div>
+    <div id="CustomerEmailSubmitResult" class="notification"></div>
 	<div class="privacy">
 		* We won't sell, rent, give away, divulge, disclose or otherwise do anything 
 		with your email address other than to keep you notfied about the progress 
-		of Reputrade Performance Reporting.
+		of RepuTrade Cloud Performance Reporting.
 	</div>
 }
 </div>

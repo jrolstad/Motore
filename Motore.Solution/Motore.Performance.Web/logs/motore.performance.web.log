@@ -1,0 +1,97 @@
+2012-04-13 17:38:28,920|ERROR|Motore.Performance.Web.Attributes.HandleErrorAndLogAttribute|(null)|System.Web.HttpParseException (0x80004005): Unexpected "using" keyword after "@" character.  Once inside code, you do not need to prefix constructs like "using" with "@".
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Mvc.BuildManagerWrapper.System.Web.Mvc.IBuildManager.FileExists(String virtualPath)
+   at System.Web.Mvc.BuildManagerViewEngine.FileExists(ControllerContext controllerContext, String virtualPath)
+   at System.Web.Mvc.VirtualPathProviderViewEngine.GetPathFromGeneralName(ControllerContext controllerContext, List`1 locations, String name, String controllerName, String areaName, String cacheKey, String[]& searchedLocations)
+   at System.Web.Mvc.VirtualPathProviderViewEngine.GetPath(ControllerContext controllerContext, String[] locations, String[] areaLocations, String locationsPropertyName, String name, String controllerName, String cacheKeyPrefix, Boolean useCache, String[]& searchedLocations)
+   at System.Web.Mvc.VirtualPathProviderViewEngine.FindView(ControllerContext controllerContext, String viewName, String masterName, Boolean useCache)
+   at System.Web.Mvc.ViewEngineCollection.<>c__DisplayClassc.<FindView>b__b(IViewEngine e)
+   at System.Web.Mvc.ViewEngineCollection.Find(Func`2 lookup, Boolean trackSearchedPaths)
+   at System.Web.Mvc.ViewEngineCollection.FindView(ControllerContext controllerContext, String viewName, String masterName)
+   at System.Web.Mvc.ViewResult.FindView(ControllerContext context)
+   at System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass1c.<InvokeActionResultWithFilters>b__19()
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilter(IResultFilter filter, ResultExecutingContext preContext, Func`1 continuation)
+   at System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass1c.<>c__DisplayClass1e.<InvokeActionResultWithFilters>b__1b()
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName)|
+2012-04-13 17:39:05,800|DEBUG|Log|(null)|This is a message|
+2012-04-13 17:39:05,814|ERROR|Motore.Performance.Web.Attributes.HandleErrorAndLogAttribute|(null)|System.InvalidOperationException: The view '~/Views/Test/WriteLog.cshtml' or its master was not found or no view engine supports the searched locations. The following locations were searched:
+~/Views/Test/WriteLog.cshtml
+~/Views/Test/Your log message was written.master
+~/Views/Shared/Your log message was written.master
+~/Views/Test/Your log message was written.cshtml
+~/Views/Test/Your log message was written.vbhtml
+~/Views/Shared/Your log message was written.cshtml
+~/Views/Shared/Your log message was written.vbhtml
+   at System.Web.Mvc.ViewResult.FindView(ControllerContext context)
+   at System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass1c.<InvokeActionResultWithFilters>b__19()
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilter(IResultFilter filter, ResultExecutingContext preContext, Func`1 continuation)
+   at System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass1c.<>c__DisplayClass1e.<InvokeActionResultWithFilters>b__1b()
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName)|
+2012-04-13 17:44:54,048|DEBUG|Motore.Library.Logging.Log|(null)|Test item to log|
+2012-04-13 17:45:00,298|ERROR|Motore.Performance.Web.Attributes.HandleErrorAndLogAttribute|(null)|System.InvalidOperationException: The view '~/Views/Test/WriteLog.cshtml' or its master was not found or no view engine supports the searched locations. The following locations were searched:
+~/Views/Test/WriteLog.cshtml
+~/Views/Test/Your log message was written.master
+~/Views/Shared/Your log message was written.master
+~/Views/Test/Your log message was written.cshtml
+~/Views/Test/Your log message was written.vbhtml
+~/Views/Shared/Your log message was written.cshtml
+~/Views/Shared/Your log message was written.vbhtml
+   at System.Web.Mvc.ViewResult.FindView(ControllerContext context)
+   at System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass1c.<InvokeActionResultWithFilters>b__19()
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilter(IResultFilter filter, ResultExecutingContext preContext, Func`1 continuation)
+   at System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass1c.<>c__DisplayClass1e.<InvokeActionResultWithFilters>b__1b()
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName)|
+2012-04-13 17:49:00,968|DEBUG|Motore.Library.Logging.Log|(null)|Test log message|
+[2012-04-13 17:53:09,146]|DEBUG|Motore.Library.Logging.Log|(null)|Write another log message
+[2012-04-13 17:53:16,116]|DEBUG|Motore.Library.Logging.Log|(null)|Yet another log message
+[2012-04-13 19:29:51,303]|ERROR|Motore.Performance.Web.Attributes.HandleErrorAndLogAttribute|(null)|System.NotImplementedException: The method or operation is not implemented.
+   at Motore.Library.Configuration.Config.get_MarketDataRequestQueueUrl() in C:\Users\Anthony\Documents\RepuTrade\github\Motore\Motore.Solution\Motore.Library\Configuration\Config.cs:line 22
+   at Motore.Library.MarketData.MarketDataRequestQueue.get_ServiceUrl() in C:\Users\Anthony\Documents\RepuTrade\github\Motore\Motore.Solution\Motore.Library\MarketData\MarketDataRequestQueue.cs:line 60
+   at Motore.Library.Queuing.AwsSqsQueueBase.GetClient() in C:\Users\Anthony\Documents\RepuTrade\github\Motore\Motore.Solution\Motore.Library\Queuing\AwsSqsQueueBase.cs:line 20
+   at Motore.Library.MarketData.MarketDataRequestQueue.Add(MarketDataRequest request) in C:\Users\Anthony\Documents\RepuTrade\github\Motore\Motore.Solution\Motore.Library\MarketData\MarketDataRequestQueue.cs:line 14
+   at Motore.Performance.Web.Controllers.MarketDataController.SubmitMarketDataRequest(MarketDataRequest request) in C:\Users\Anthony\Documents\RepuTrade\github\Motore\Motore.Solution\Motore.Performance.Web\Controllers\MarketDataController.cs:line 23
+   at lambda_method(Closure , ControllerBase , Object[] )
+   at System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<InvokeActionMethodWithFilters>b__12()
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodFilter(IActionFilter filter, ActionExecutingContext preContext, Func`1 continuation)
+   at System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<>c__DisplayClass17.<InvokeActionMethodWithFilters>b__14()
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName)
+[2012-04-13 19:34:25,146]|ERROR|Motore.Performance.Web.Attributes.HandleErrorAndLogAttribute|(null)|System.ArgumentNullException: Value cannot be null.
+Parameter name: awsAccessKeyId
+   at Amazon.Runtime.ImmutableCredentials..ctor(String awsAccessKeyId, String awsSecretAccessKey, String token, Boolean useSecureStringForSecretKey)
+   at Amazon.Runtime.BasicAWSCredentials..ctor(String accessKey, String secretKey, Boolean useSecureString)
+   at Amazon.Runtime.BasicAWSCredentials..ctor(String accessKey, String secretKey)
+   at Motore.Library.Aws.AwsClient.get_AwsCredentials() in C:\Users\Anthony\Documents\RepuTrade\github\Motore\Motore.Solution\Motore.Library\Aws\AwsClient.cs:line 23
+   at Motore.Library.Queuing.AwsSqsQueueBase.GetClient() in C:\Users\Anthony\Documents\RepuTrade\github\Motore\Motore.Solution\Motore.Library\Queuing\AwsSqsQueueBase.cs:line 24
+   at Motore.Library.MarketData.MarketDataRequestQueue.Add(MarketDataRequest request) in C:\Users\Anthony\Documents\RepuTrade\github\Motore\Motore.Solution\Motore.Library\MarketData\MarketDataRequestQueue.cs:line 14
+   at Motore.Performance.Web.Controllers.MarketDataController.SubmitMarketDataRequest(MarketDataRequest request) in C:\Users\Anthony\Documents\RepuTrade\github\Motore\Motore.Solution\Motore.Performance.Web\Controllers\MarketDataController.cs:line 23
+   at lambda_method(Closure , ControllerBase , Object[] )
+   at System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<InvokeActionMethodWithFilters>b__12()
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodFilter(IActionFilter filter, ActionExecutingContext preContext, Func`1 continuation)
+   at System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<>c__DisplayClass17.<InvokeActionMethodWithFilters>b__14()
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName)

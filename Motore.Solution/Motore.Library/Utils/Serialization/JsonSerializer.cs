@@ -19,7 +19,7 @@ namespace Motore.Library.Utils.Serialization
                 return jsonData;
             }
 #if DEBUG
-            catch (Exception exc)
+            catch (Exception)
             {
                 throw;
             }

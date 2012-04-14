@@ -76,7 +76,9 @@
     <Compile Include="Attributes\HandleErrorAndLogAttribute.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MarketDataController.cs" />
     <Compile Include="Controllers\ReportWizardController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -100,7 +102,10 @@
     <Content Include="Content\css\Site.css" />
     <Content Include="Scripts\jquery\plugins\form\jquery.form.js" />
     <Content Include="Scripts\motore\forms\CollectCustomerEmail.js" />
-    <Content Include="Web.config" />
+    <Content Include="test.htm" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -152,10 +157,13 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="log4net.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="Views\Test\WriteLog.cshtml" />
+    <Content Include="Views\MarketData\MakeRequest.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -1,0 +1,34 @@
+﻿@model Motore.Library.Models.Logging.WriteLogResponse
+@{
+    ViewBag.Title = "Write Log Test";
+}
+<h2>Write Log</h2>
+<p/>
+@if ((Model == null) || String.IsNullOrWhiteSpace(Model.Message))
+{
+    <div>
+        Use this form to test that our logging code actually writes stuff to the log.  You'll
+        need to manually inspect whatever logs you think should be written to - i.e, this page
+        is dumb and just writes.
+    </div>
+    <p/>
+    using (Html.BeginForm("WriteLog", "Test", FormMethod.Post))
+    {
+        <textarea name="Message" id="LogMessage" rows="6" cols="70"></textarea>
+        <p/>
+        <button type="submit" name="SubmitButton" value="Submit">Submit</button>
+    }
+}
+else
+{
+    <h1>@Model.Message</h1>
+    <p/>
+    @Html.ActionLink("Write another", "WriteLog", "Test")
+}
+
+<script type="text/javascript">
+    $(function () {
+        $("#LogMessage").focus().select();
+    });
+
+</script>

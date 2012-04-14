@@ -45,6 +45,7 @@ namespace Motore.Performance.Web
 
         protected void Application_Start()
         {
+            // this is for log4net
             XmlConfigurator.Configure();
 
             AreaRegistration.RegisterAllAreas();

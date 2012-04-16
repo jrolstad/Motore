@@ -18,8 +18,7 @@ namespace Motore.Performance.Web.Controllers
         [HttpPost]
         public ActionResult WriteLog(string message)
         {
-            var log = new Log();
-            log.WriteDebug(message);
+            Log.WriteDebug(message);
             var model = new WriteLogResponse
                             {
                                 Message = "Your log message was written",

@@ -5,13 +5,14 @@ using Motore.Library.Utils;
 namespace Motore.Library.MarketData
 {
     [DataContract]
-    public class MarketDataRequest
+    public class InstrumentMarketDataRequest
     {
-        private DateTime? _endDate;
         private string _requestId;
+        private string _identifier;
+        private DateTime? _endDate;
         private DateTime? _startDate;
 
-        public MarketDataRequest()
+        public InstrumentMarketDataRequest()
         {
             _requestId = DateUtils.ToTimestamp(DateTime.Now).ToString();
             _endDate = DateTime.Now;
@@ -26,7 +27,11 @@ namespace Motore.Library.MarketData
         }
 
         [DataMember(IsRequired = true, Name = "identifier", EmitDefaultValue = false, Order = 2)]
-        public virtual string Identifier { get; set; }
+        public virtual string Identifier
+        {
+            get { return _identifier; }
+            set { _identifier = value; }
+        }
 
         public virtual DateTime? StartDate
         {

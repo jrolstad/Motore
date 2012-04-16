@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Motore.Performance.Web.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketDataRequestService", "MarketDataRequestService\MarketDataRequestService.csproj", "{0130DA09-13EB-4167-9714-F8527DF73B7D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketData.Yahoo", "MarketData.Yahoo\MarketData.Yahoo.csproj", "{BCEBBC13-D19F-44DB-93E5-0EC43C3DAA22}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,16 @@ Global
 		{0130DA09-13EB-4167-9714-F8527DF73B7D}.Release|Mixed Platforms.Build.0 = Release|x86
 		{0130DA09-13EB-4167-9714-F8527DF73B7D}.Release|x86.ActiveCfg = Release|x86
 		{0130DA09-13EB-4167-9714-F8527DF73B7D}.Release|x86.Build.0 = Release|x86
+		{BCEBBC13-D19F-44DB-93E5-0EC43C3DAA22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCEBBC13-D19F-44DB-93E5-0EC43C3DAA22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCEBBC13-D19F-44DB-93E5-0EC43C3DAA22}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BCEBBC13-D19F-44DB-93E5-0EC43C3DAA22}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BCEBBC13-D19F-44DB-93E5-0EC43C3DAA22}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BCEBBC13-D19F-44DB-93E5-0EC43C3DAA22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCEBBC13-D19F-44DB-93E5-0EC43C3DAA22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCEBBC13-D19F-44DB-93E5-0EC43C3DAA22}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BCEBBC13-D19F-44DB-93E5-0EC43C3DAA22}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BCEBBC13-D19F-44DB-93E5-0EC43C3DAA22}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

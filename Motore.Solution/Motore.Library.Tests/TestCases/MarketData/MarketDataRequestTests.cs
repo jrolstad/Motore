@@ -18,7 +18,7 @@ namespace Motore.Library.Tests.TestCases.MarketData
 
             // act
 
-            var req = new MarketDataRequest();
+            var req = new InstrumentMarketDataRequest();
 
             // assert
             var id = req.RequestId;

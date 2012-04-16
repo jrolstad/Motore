@@ -17,7 +17,7 @@ namespace Motore.Library.Tests.TestCases.MarketData
         {
             // arrange
             var queue = new MarketDataRequestQueue();
-            var request = new MarketDataRequest();
+            var request = new InstrumentMarketDataRequest();
 
             // act
             queue.Add(request);
@@ -29,7 +29,7 @@ namespace Motore.Library.Tests.TestCases.MarketData
             // arrange
             var queue = MockRepository.GeneratePartialMock<MarketDataRequestQueue>();
             queue.Expect(q => q.GetClient()).Repeat.Once();
-            var request = MockRepository.GenerateStub<MarketDataRequest>();
+            var request = MockRepository.GenerateStub<InstrumentMarketDataRequest>();
             
             // act
             queue.Add(request);

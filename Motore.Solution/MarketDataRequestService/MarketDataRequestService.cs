@@ -37,13 +37,13 @@ namespace MarketDataRequestService
             catch (Exception exc)
             {
                 _running = false;
-                var log = new Log();
-                log.LogException(exc);
+                Log.LogException(exc);
             }
         }
 
         protected override void OnStart(string[] args)
         {
+            Log.WriteInfo("The MarketDataRequestService is starting.");
             _running = true;
             base.OnStart(args);
             Run();

@@ -17,7 +17,7 @@ namespace Motore.Performance.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult SubmitMarketDataRequest(MarketDataRequest request)
+        public ActionResult SubmitMarketDataRequest(InstrumentMarketDataRequest request)
         {
             var queue = this.MarketDataRequestQueue;
             var response = queue.Add(request);

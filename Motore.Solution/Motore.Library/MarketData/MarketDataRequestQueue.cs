@@ -4,6 +4,7 @@ using System.Linq;
 using Amazon.SQS;
 using Amazon.SQS.Model;
 using Motore.Library.Configuration;
+using Motore.Library.Exceptions;
 using Motore.Library.Logging;
 using Motore.Library.Queuing;
 using Motore.Library.Utils.Serialization;
@@ -14,6 +15,8 @@ namespace Motore.Library.MarketData
     {
         public virtual AddQueueResponse Add(InstrumentMarketDataRequest request)
         {
+            this.CheckRequestForValidity(request);
+
             var client = this.GetClient();
             var messageBody = this.GetMessageBody(request);
             var sendMessageRequest = new SendMessageRequest
@@ -24,7 +27,7 @@ namespace Motore.Library.MarketData
             return this.Convert(response);
         }
 
-        public virtual List<InstrumentMarketDataRequest> GetRequests()
+        public virtual List<CombinedMarketDataRequest> GetRequests()
         {
             var client = this.GetClient();
             var queueReceiveRequest = new ReceiveMessageRequest
@@ -36,10 +39,31 @@ namespace Motore.Library.MarketData
         }
 
         #region Protected Methods
-        
-        protected internal virtual List<InstrumentMarketDataRequest> Convert(ReceiveMessageResponse response)
+
+        /// <summary>
+        /// This is overridden with no additional behavior to allow for mocking
+        /// </summary>
+        /// <returns></returns>
+        protected internal override AmazonSQSClient GetClient()
         {
-            var list = new List<InstrumentMarketDataRequest>();
+            return base.GetClient();
+        }
+
+        protected internal virtual void CheckRequestForValidity(InstrumentMarketDataRequest request)
+        {
+            if (request == null)
+            {
+                throw new ArgumentNullException("request", "The InstrumentMarketDataRequest object can not be null");
+            }
+            if (String.IsNullOrWhiteSpace(request.Identifier))
+            {
+                throw new Exception(String.Format("The request's identifier property is null or blank."));
+            }
+        }
+
+        protected internal virtual List<CombinedMarketDataRequest> Convert(ReceiveMessageResponse response)
+        {
+            var list = new List<CombinedMarketDataRequest>();
             if ((response != null)
                 && (response.IsSetReceiveMessageResult()))
             {
@@ -47,15 +71,29 @@ namespace Motore.Library.MarketData
                 if (result.IsSetMessage())
                 {
                     var queueMessages = result.Message;
-                    list.AddRange(queueMessages
-                        .Select(this.Convert)
-                        .Where(marketDataRequest => marketDataRequest != null));
+                    CombinedMarketDataRequest marketDataRequest = null;
+                    foreach (var qm in queueMessages)
+                    {
+                        try
+                        {
+                            marketDataRequest = this.Convert(qm);
+                            if (marketDataRequest != null)
+                            {
+                                list.Add(marketDataRequest);
+                            }
+                        }
+                        catch (PossiblyPoisonMessageException ppme)
+                        {
+                            // what to do here?
+                        }
+                        
+                    }
                 }
             }
 
             return list;
         }
-    
+
         protected internal virtual string GetMessageBody(Message message)
         {
             string body = null;
@@ -79,26 +117,34 @@ namespace Motore.Library.MarketData
             return body;
         }
 
-        protected internal virtual InstrumentMarketDataRequest Convert(Message message)
+        protected internal virtual CombinedMarketDataRequest Convert(Message message)
         {
-            InstrumentMarketDataRequest marketDataRequest = null;
+            CombinedMarketDataRequest marketDataRequest = null;
             try
             {
                 var body = this.GetMessageBody(message);
                 try
                 {
-                    marketDataRequest = body.DeserializeFromJson<InstrumentMarketDataRequest>();
+                    marketDataRequest = body.DeserializeFromJson<CombinedMarketDataRequest>();
                 }
                 catch (Exception exc)
                 {
+                    // if we can't deserialize, we may have a poison message
                     var msg =
                         String.Format(
-                            "The message with ID '{0}' could not be deserialized into a MarketDataRequest object.",
+                            "The message with ID '{0}' could not be deserialized into a CombinedMarketDataRequest object.",
                             message.MessageId);
                     Log.LogException(msg);
+                    var details = msg;
                     msg = String.Format("Raw body of the message with ID '{0}':\r\n\t{1}", message.MessageId, body);
                     Log.LogException(msg);
+                    details += ("\r\n" + msg);
+                    throw new PossiblyPoisonMessageException(message.MessageId, details);
                 }
+            }
+            catch (PossiblyPoisonMessageException)
+            {
+                throw;
             }
             catch (Exception exc)
             {

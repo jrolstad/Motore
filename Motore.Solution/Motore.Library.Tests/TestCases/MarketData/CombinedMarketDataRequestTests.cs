@@ -8,22 +8,23 @@ using NUnit.Framework;
 namespace Motore.Library.Tests.TestCases.MarketData
 {
     [TestFixture]
-    public class MarketDataRequestTests
+    public class CombinedMarketDataRequestTests
     {
         [Test]
         public virtual void RequestId_defaults_to_today_timestamp()
         {
             // arrange
-            var expected = DateTime.Now.ToUniversalTime().ToString("yyyyMMdd");
+            var expectedBeginning = DateTime.Now.ToUniversalTime().ToString("yyyyMMdd");
 
             // act
-
-            var req = new InstrumentMarketDataRequest();
+            var req = new CombinedMarketDataRequest();
 
             // assert
             var id = req.RequestId;
-            var start = id.Substring(0, 8);
-            NUnit.Framework.Assert.That(start, Is.EqualTo(expected));
+            Assert.That(id.Length, Is.EqualTo(17));
+
+            var actualBeginning = id.Substring(0, 8);
+            Assert.That(actualBeginning, Is.EqualTo(expectedBeginning));
         }
     }
 }

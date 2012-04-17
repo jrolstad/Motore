@@ -67,9 +67,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestCases\MarketData\CombinedMarketDataRequestTests.cs" />
     <Compile Include="TestCases\MarketData\MarketDataRequestProcessorTests.cs" />
     <Compile Include="TestCases\MarketData\MarketDataRequestQueueTests.cs" />
-    <Compile Include="TestCases\MarketData\MarketDataRequestTests.cs" />
+    <Compile Include="TestCases\MarketData\InstrumentMarketDataRequestTests.cs" />
     <Compile Include="TestCases\Programs\AlphaProgramTests\When_saving_an_interested_customer.cs" />
     <Compile Include="TestCases\UtilsTests\JsonResponseTests.cs" />
   </ItemGroup>
@@ -80,6 +81,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+    <Content Include="log4net.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

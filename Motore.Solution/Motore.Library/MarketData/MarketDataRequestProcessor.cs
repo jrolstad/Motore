@@ -25,9 +25,14 @@ namespace Motore.Library.MarketData
             throw new NotImplementedException();
         }
 
+        protected internal virtual void ProcessRequest(CombinedMarketDataRequest request)
+        {
+            request.InstrumentRequests.ForEach(ProcessRequest);
+        }
+
         protected internal virtual void ProcessRequest(InstrumentMarketDataRequest request)
         {
-            throw new NotImplementedException();
+            var provider = this.GetMarketDataProvider(request);
         }
 
         protected internal virtual MarketDataRequestQueue MarketDataRequestQueue

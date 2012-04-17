@@ -5,6 +5,7 @@ using System.Text;
 using Motore.Library.MarketData;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Rhino.Mocks.Interfaces;
 
 namespace Motore.Library.Tests.TestCases.MarketData
 {
@@ -23,7 +24,7 @@ namespace Motore.Library.Tests.TestCases.MarketData
             // arrange
             var processor = MockRepository.GenerateMock<MarketDataRequestProcessor>();
             var queue = MockRepository.GenerateMock<MarketDataRequestQueue>();
-            var list = new List<InstrumentMarketDataRequest>();
+            var list = new List<CombinedMarketDataRequest>();
             queue.Expect(q => q.GetRequests()).Return(list);
             processor.Expect(p => p.MarketDataRequestQueue).Repeat.Once().Return(queue);
             
@@ -42,7 +43,8 @@ namespace Motore.Library.Tests.TestCases.MarketData
             var request = MockRepository.GenerateStub<InstrumentMarketDataRequest>();
             var provider = MockRepository.GenerateStub<IMarketDataProvider>();
             processor.Expect(p => p.GetMarketDataProvider(request)).Return(provider);
-            
+            processor.Expect(p => p.ProcessRequest(request)).CallOriginalMethod(OriginalCallOptions.CreateExpectation);
+
             // act
             processor.ProcessRequest(request);
 

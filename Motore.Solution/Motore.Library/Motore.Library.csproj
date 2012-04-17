@@ -64,6 +64,7 @@
     <Compile Include="Assertions\Assert.cs" />
     <Compile Include="Aws\AwsClient.cs" />
     <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Exceptions\PossiblyPoisonMessageException.cs" />
     <Compile Include="Factories\ProviderFactory.cs" />
     <Compile Include="Factories\QueueFactory.cs" />
     <Compile Include="Factories\ReportWizardStepFactory.cs" />

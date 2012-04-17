@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Directus.SimpleDb.Providers;
+using Motore.Library.Configuration;
 using Motore.Library.Models;
 using Motore.Library.Programs;
 using Motore.Library.Utils.Json;
@@ -17,7 +18,7 @@ namespace Motore.Performance.Web.Controllers
         /// <summary>
         /// Default constructor
         /// </summary>
-        public CustomerController():this(new AlphaProgram(new SimpleDBProvider<Customer, string>(Properties.Settings.Default.AwsAccessKey,Properties.Settings.Default.AwsSecretKey)))
+        public CustomerController():this(new AlphaProgram(new SimpleDBProvider<Customer, string>(Config.AwsAccessKey,Config.AwsSecretKey)))
         {
             
         }

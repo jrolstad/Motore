@@ -73,6 +73,10 @@
       <Project>{B89015F3-DA91-4107-9695-F4548B1B37FA}</Project>
       <Name>Motore.Performance.Web</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Motore.Utils\Motore.Utils.csproj">
+      <Project>{4FF9029B-77CC-4C12-8A7E-4C5FA2EC667D}</Project>
+      <Name>Motore.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

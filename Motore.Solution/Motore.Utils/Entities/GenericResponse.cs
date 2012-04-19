@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Motore.Library.Utils.Entities
+namespace Motore.Utils.Entities
 {
     public class GenericResponse
     {

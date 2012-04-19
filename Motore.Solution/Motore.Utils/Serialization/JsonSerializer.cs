@@ -3,7 +3,7 @@ using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
 
-namespace Motore.Library.Utils.Serialization
+namespace Motore.Utils.Serialization
 {
     public static class JsonSerializer
     {

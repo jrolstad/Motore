@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Motore.Library.Utils
+namespace Motore.Utils
 {
     public class DateUtils
     {

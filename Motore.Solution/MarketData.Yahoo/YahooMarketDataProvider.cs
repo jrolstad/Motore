@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
-using Motore.Library.MarketData;
+using Motore.MarketData;
 
 namespace MarketData.Yahoo
 {
-    public class YahooMarketData : IMarketDataProvider
+    public class YahooMarketDataProvider : IMarketDataProvider
     {
         public virtual List<DailyInstrumentMarketData> GetMarketData(InstrumentMarketDataRequest request)
         {

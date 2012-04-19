@@ -1,6 +1,6 @@
 ﻿using Directus.SimpleDb.Providers;
 using Motore.Library.Models;
-using Motore.Library.Utils.Entities;
+using Motore.Utils.Entities;
 using Rolstad.System.Dates;
 
 namespace Motore.Library.Programs

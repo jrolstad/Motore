@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Motore.Library.Utils;
+using Motore.Utils;
 
 namespace Motore.Library.Models.ReportWizard
 {

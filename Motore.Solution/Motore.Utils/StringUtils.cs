@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Motore.Library.Utils
+namespace Motore.Utils
 {
     public class StringUtils
     {

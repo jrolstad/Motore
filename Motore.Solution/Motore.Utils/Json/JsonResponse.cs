@@ -1,7 +1,7 @@
 ﻿using System.Runtime.Serialization;
-using Motore.Library.Utils.Entities;
+using Motore.Utils.Entities;
 
-namespace Motore.Library.Utils.Json
+namespace Motore.Utils.Json
 {
     [DataContract(Name="response")]
     public class JsonResponse

@@ -7,7 +7,8 @@ using Motore.Library.Configuration;
 using Motore.Library.Exceptions;
 using Motore.Library.Logging;
 using Motore.Library.Queuing;
-using Motore.Library.Utils.Serialization;
+using Motore.MarketData;
+using Motore.Utils.Serialization;
 
 namespace Motore.Library.MarketData
 {

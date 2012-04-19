@@ -2,6 +2,7 @@
 using Motore.Library.Factories;
 using Motore.Library.MarketData;
 using Motore.Library.Models;
+using Motore.MarketData;
 
 namespace Motore.Performance.Web.Controllers
 {

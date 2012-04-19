@@ -1,9 +1,9 @@
 ﻿using System.Web.Mvc;
 using Motore.Library.Programs;
-using Motore.Library.Utils.Entities;
-using Motore.Library.Utils.Json;
 using Motore.Performance.Web.Controllers;
 using Motore.Performance.Web.Models;
+using Motore.Utils.Entities;
+using Motore.Utils.Json;
 using NUnit.Framework;
 using Rhino.Mocks;
 

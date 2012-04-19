@@ -2,7 +2,7 @@
 using Directus.SimpleDb.Providers;
 using Motore.Library.Models;
 using Motore.Library.Programs;
-using Motore.Library.Utils.Entities;
+using Motore.Utils.Entities;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Rolstad.System.Dates;

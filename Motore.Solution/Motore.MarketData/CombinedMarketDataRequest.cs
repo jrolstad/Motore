@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Motore.Library.Utils;
+using Motore.Utils;
 
-namespace Motore.Library.MarketData
+namespace Motore.MarketData
 {
     [DataContract]
     public class CombinedMarketDataRequest

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Motore.Library.Utils.Json;
-using Motore.Library.Utils.Serialization;
+using Motore.Utils.Json;
+using Motore.Utils.Serialization;
 using NUnit.Framework;
 
-namespace Motore.Library.Tests.TestCases.UtilsTests
+namespace Motore.Utils.Tests.TestCases.UtilsTests
 {
     [TestFixture]
     public class JsonResponseTests

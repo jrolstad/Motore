@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Motore.Library.MarketData;
+using Motore.MarketData;
 using NUnit.Framework;
 
-namespace Motore.Library.Tests.TestCases.MarketData
+namespace Motore.MarketData.Tests.TestCases.MarketData
 {
     [TestFixture]
-    public class CombinedMarketDataRequestTests
+    public class InstrumentMarketDataRequestTests
     {
         [Test]
         public virtual void RequestId_defaults_to_today_timestamp()
@@ -17,7 +17,8 @@ namespace Motore.Library.Tests.TestCases.MarketData
             var expectedBeginning = DateTime.Now.ToUniversalTime().ToString("yyyyMMdd");
 
             // act
-            var req = new CombinedMarketDataRequest();
+
+            var req = new InstrumentMarketDataRequest();
 
             // assert
             var id = req.RequestId;

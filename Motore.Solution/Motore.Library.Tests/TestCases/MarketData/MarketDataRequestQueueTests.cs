@@ -5,6 +5,7 @@ using System.Text;
 using Amazon.SQS;
 using Motore.Library.Exceptions;
 using Motore.Library.MarketData;
+using Motore.MarketData;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Rhino.Mocks.Interfaces;

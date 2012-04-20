@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{BB7905C6-B4D4-462F-BA3C-2BE3D3FBF27A}</ProjectGuid>
+    <ProjectGuid>{D5D5E37F-1B94-453A-8400-7F1D7A3CC942}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Motore.MarketData</RootNamespace>
-    <AssemblyName>Motore.MarketData</AssemblyName>
+    <RootNamespace>Motore.MarketData.Yahoo</RootNamespace>
+    <AssemblyName>Motore.MarketData.Yahoo</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,7 +33,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,14 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CombinedMarketDataRequest.cs" />
-    <Compile Include="DailyInstrumentMarketData.cs" />
-    <Compile Include="IHistoricalStockDataProvider.cs" />
-    <Compile Include="IMarketDataProvider.cs" />
-    <Compile Include="InstrumentMarketDataRequest.cs" />
+    <Compile Include="DateFactory.cs" />
+    <Compile Include="HistoricalStockDataCsvProvider.cs" />
+    <Compile Include="UrlBuilder.cs" />
+    <Compile Include="YahooMarketDataProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Motore.MarketData\Motore.MarketData.csproj">
+      <Project>{BB7905C6-B4D4-462F-BA3C-2BE3D3FBF27A}</Project>
+      <Name>Motore.MarketData</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Motore.Utils\Motore.Utils.csproj">
       <Project>{4FF9029B-77CC-4C12-8A7E-4C5FA2EC667D}</Project>
       <Name>Motore.Utils</Name>

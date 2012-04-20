@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text;
-using Motore.MarketData;
 
-namespace MarketData.Yahoo
+namespace Motore.MarketData.Yahoo
 {
     public class YahooMarketDataProvider : IMarketDataProvider
     {

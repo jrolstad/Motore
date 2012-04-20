@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MarketData.Yahoo")]
+[assembly: AssemblyTitle("Motore.MarketData.Yahoo")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("MarketData.Yahoo")]
+[assembly: AssemblyProduct("Motore.MarketData.Yahoo")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,8 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("53b3292a-7ebf-4705-ad9b-62062fa04a6d")]
+[assembly: Guid("e5039abe-e956-4bc1-9463-ff3901a8c663")]
+[assembly: InternalsVisibleTo("Motore.MarketData.Yahoo.Tests")]
 
 // Version information for an assembly consists of the following four values:
 //

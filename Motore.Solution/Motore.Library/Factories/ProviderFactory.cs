@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MarketData.Yahoo;
 using Motore.Library.MarketData;
 using Motore.MarketData;
+using Motore.MarketData.Yahoo;
 
 namespace Motore.Library.Factories
 {

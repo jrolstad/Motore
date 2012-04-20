@@ -61,7 +61,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assertions\Assert.cs" />
     <Compile Include="Aws\AwsClient.cs" />
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Exceptions\PossiblyPoisonMessageException.cs" />
@@ -89,9 +88,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\MarketData.Yahoo\MarketData.Yahoo.csproj">
-      <Project>{BCEBBC13-D19F-44DB-93E5-0EC43C3DAA22}</Project>
-      <Name>MarketData.Yahoo</Name>
+    <ProjectReference Include="..\Motore.MarketData.Yahoo\Motore.MarketData.Yahoo.csproj">
+      <Project>{D5D5E37F-1B94-453A-8400-7F1D7A3CC942}</Project>
+      <Name>Motore.MarketData.Yahoo</Name>
     </ProjectReference>
     <ProjectReference Include="..\Motore.MarketData\Motore.MarketData.csproj">
       <Project>{BB7905C6-B4D4-462F-BA3C-2BE3D3FBF27A}</Project>

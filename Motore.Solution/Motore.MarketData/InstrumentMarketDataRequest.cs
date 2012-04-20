@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using Motore.Utils;
+using Motore.Utils.Dates;
 
 namespace Motore.MarketData
 {

@@ -7,7 +7,7 @@ using System.Linq;
 using System.ServiceProcess;
 using System.Text;
 using System.Threading;
-using Motore.Library.Logging;
+using Motore.Utils.Logging;
 using Motore.Library.MarketData;
 
 namespace MarketDataRequestService

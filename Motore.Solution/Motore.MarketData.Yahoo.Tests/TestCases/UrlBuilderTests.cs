@@ -14,8 +14,8 @@ namespace Motore.MarketData.Yahoo.Tests.TestCases
         {
             // arrange
             var s = "GOOG";
-            var start = new Mdy {Month = 0, Day = 4, Year = 2011};
-            var end = new Mdy {Month = 0, Day = 4, Year = 2011};
+            var start = new YahooMdy {Month = 0, Day = 4, Year = 2011};
+            var end = new YahooMdy {Month = 0, Day = 4, Year = 2011};
             var expected = "http://ichart.yahoo.com/table.csv?s=GOOG&a=0&b=4&c=2011&d=0&e=4&f=2011&g=d&ignore=.csv";
             var builder = new UrlBuilder();
 

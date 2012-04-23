@@ -10,7 +10,7 @@ namespace Motore.MarketData.Yahoo
     {
         private const string _formatString = "http://ichart.yahoo.com/table.csv?s={0}&a={1}&b={2}&c={3}&d={4}&e={5}&f={6}&g=d&ignore=.csv";
 
-        public virtual string BuildCsvUrl(string identifier, Mdy start, Mdy end)
+        public virtual string BuildCsvUrl(string identifier, YahooMdy start, YahooMdy end)
         {
             var sd = start.Day;
             var sm = start.Month;

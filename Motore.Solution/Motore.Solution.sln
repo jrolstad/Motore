@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Motore.MarketData.Yahoo.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Motore.MarketData.Yahoo", "Motore.MarketData.Yahoo\Motore.MarketData.Yahoo.csproj", "{D5D5E37F-1B94-453A-8400-7F1D7A3CC942}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Motore.TestHelpers", "Motore.TestHelpers\Motore.TestHelpers.csproj", "{D257E185-9073-4895-8C37-CA64D8979C26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -149,6 +151,16 @@ Global
 		{D5D5E37F-1B94-453A-8400-7F1D7A3CC942}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{D5D5E37F-1B94-453A-8400-7F1D7A3CC942}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D5D5E37F-1B94-453A-8400-7F1D7A3CC942}.Release|x86.ActiveCfg = Release|Any CPU
+		{D257E185-9073-4895-8C37-CA64D8979C26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D257E185-9073-4895-8C37-CA64D8979C26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D257E185-9073-4895-8C37-CA64D8979C26}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D257E185-9073-4895-8C37-CA64D8979C26}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D257E185-9073-4895-8C37-CA64D8979C26}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D257E185-9073-4895-8C37-CA64D8979C26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D257E185-9073-4895-8C37-CA64D8979C26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D257E185-9073-4895-8C37-CA64D8979C26}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D257E185-9073-4895-8C37-CA64D8979C26}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D257E185-9073-4895-8C37-CA64D8979C26}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using Motore.Utils.Exceptions.Web;
 
 namespace Motore.Utils.Web
 {
@@ -11,42 +12,60 @@ namespace Motore.Utils.Web
     {   
         public virtual IEnumerable<string> GetCsv(string url)
         {
-            var results = new List<string>();
-
-            var mimeType = MimeType.CSV;
-
-            var request = (HttpWebRequest) WebRequest.Create(url);
-            var response = (HttpWebResponse)request.GetResponse();
-            Stream responseStream = null;
+#if DEBUG
+            System.Diagnostics.Debug.WriteLine(String.Format("Getting data at {0}", url));
+#endif
             try
             {
-                responseStream = response.GetResponseStream();
-                StreamReader reader = null;
+
+                var results = new List<string>();
+
+                var mimeType = MimeType.CSV;
+
+                var request = (HttpWebRequest) WebRequest.Create(url);
+                var response = (HttpWebResponse)request.GetResponse();
+                Stream responseStream = null;
                 try
                 {
-                    reader = new StreamReader(responseStream);
-                    var line = reader.ReadLine();
-                    results.Add(line);
+                    responseStream = response.GetResponseStream();
+                    StreamReader reader = null;
+                    try
+                    {
+                        reader = new StreamReader(responseStream);
+                        var line = reader.ReadLine();
+                        results.Add(line);
+                    }
+                    finally
+                    {
+                        if (reader != null)
+                        {
+                            reader.Close();
+                            reader.Dispose();
+                        }
+                    }
                 }
                 finally
                 {
-                    if (reader != null)
+                    if (responseStream != null)
                     {
-                        reader.Close();
-                        reader.Dispose();
+                        responseStream.Close();
+                        responseStream.Dispose();
                     }
                 }
-            }
-            finally
-            {
-                if (responseStream != null)
-                {
-                    responseStream.Close();
-                    responseStream.Dispose();
-                }
-            }
 
-            return results;
+                return results;
+
+            }
+            catch (System.Net.WebException we)
+            {
+                var errorResponse = we.Response as HttpWebResponse;
+                if ((errorResponse != null)
+                    && (errorResponse.StatusCode == HttpStatusCode.NotFound))
+                {
+                    throw new NotFoundException(url);
+                }
+                throw;
+            }
         }
     }
 }

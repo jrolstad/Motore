@@ -8,12 +8,12 @@ namespace Motore.MarketData.Yahoo
 {
     public class DateFactory
     {
-        public virtual Mdy ConvertDate(DateTime inputDate)
+        public virtual YahooMdy ConvertDate(DateTime inputDate)
         {
-            var mdy = new Mdy
+            var mdy = new YahooMdy
                           {
                               Year = inputDate.Year,
-                              Month = inputDate.Month - 1,
+                              Month = inputDate.Month,
                               Day = inputDate.Day
                           };
 

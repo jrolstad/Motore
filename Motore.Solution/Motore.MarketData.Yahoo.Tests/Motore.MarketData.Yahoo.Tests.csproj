@@ -53,12 +53,22 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestCases\DateFactoryTests.cs" />
+    <Compile Include="TestCases\HistoricalStockDataCsvProviderTests.cs" />
     <Compile Include="TestCases\UrlBuilderTests.cs" />
+    <Compile Include="TestCases\YahooMarketDataProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Motore.MarketData.Yahoo\Motore.MarketData.Yahoo.csproj">
       <Project>{D5D5E37F-1B94-453A-8400-7F1D7A3CC942}</Project>
       <Name>Motore.MarketData.Yahoo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Motore.MarketData\Motore.MarketData.csproj">
+      <Project>{BB7905C6-B4D4-462F-BA3C-2BE3D3FBF27A}</Project>
+      <Name>Motore.MarketData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Motore.TestHelpers\Motore.TestHelpers.csproj">
+      <Project>{D257E185-9073-4895-8C37-CA64D8979C26}</Project>
+      <Name>Motore.TestHelpers</Name>
     </ProjectReference>
     <ProjectReference Include="..\Motore.Utils\Motore.Utils.csproj">
       <Project>{4FF9029B-77CC-4C12-8A7E-4C5FA2EC667D}</Project>

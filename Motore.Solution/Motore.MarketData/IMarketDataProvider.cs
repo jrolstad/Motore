@@ -7,6 +7,6 @@ namespace Motore.MarketData
 {
     public interface IMarketDataProvider
     {
-        List<DailyInstrumentMarketData> GetMarketData(InstrumentMarketDataRequest request);
+        IEnumerable<DailyInstrumentMarketData> GetMarketData(InstrumentMarketDataRequest request);
     }
 }

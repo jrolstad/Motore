@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Motore.Library.Logging;
+using Motore.Utils.Logging;
 using Motore.Library.Models.Logging;
 
 namespace Motore.Performance.Web.Controllers

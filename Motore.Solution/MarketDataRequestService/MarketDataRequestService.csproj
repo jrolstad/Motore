@@ -59,6 +59,10 @@
       <Project>{B1EF7AF5-1190-4511-A623-AA8FF742FB61}</Project>
       <Name>Motore.Library</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Motore.Utils\Motore.Utils.csproj">
+      <Project>{4FF9029B-77CC-4C12-8A7E-4C5FA2EC667D}</Project>
+      <Name>Motore.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

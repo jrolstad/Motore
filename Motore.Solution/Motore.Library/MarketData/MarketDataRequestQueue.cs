@@ -5,7 +5,7 @@ using Amazon.SQS;
 using Amazon.SQS.Model;
 using Motore.Library.Configuration;
 using Motore.Library.Exceptions;
-using Motore.Library.Logging;
+using Motore.Utils.Logging;
 using Motore.Library.Queuing;
 using Motore.MarketData;
 using Motore.Utils.Serialization;

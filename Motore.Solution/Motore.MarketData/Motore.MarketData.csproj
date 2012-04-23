@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="CombinedMarketDataRequest.cs" />
     <Compile Include="DailyInstrumentMarketData.cs" />
+    <Compile Include="Exceptions\WebRequestException.cs" />
     <Compile Include="IHistoricalStockDataProvider.cs" />
     <Compile Include="IMarketDataProvider.cs" />
     <Compile Include="InstrumentMarketDataRequest.cs" />

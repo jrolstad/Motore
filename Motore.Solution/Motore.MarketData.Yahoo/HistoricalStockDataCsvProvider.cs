@@ -14,6 +14,7 @@ namespace Motore.MarketData.Yahoo
         private UrlBuilder _urlBuilder = null;
         private DateFactory _dateFactory = null;
         private HttpClient _httpClient = null;
+        private IMarketDataFactory _marketDataFactory = null;
 
         public virtual IEnumerable<DailyInstrumentMarketData> GetMarketData(InstrumentMarketDataRequest request)
         {
@@ -47,6 +48,11 @@ namespace Motore.MarketData.Yahoo
             get { return _httpClient ?? (_httpClient = new HttpClient()); }
         }
 
+        protected internal virtual IMarketDataFactory MarketDataFactory
+        {
+            get { return _marketDataFactory ?? (_marketDataFactory = new YahooMarketDataFactory()); }
+        }
+
         #endregion
 
         #region Protected Methods
@@ -60,7 +66,17 @@ namespace Motore.MarketData.Yahoo
 
         protected internal IEnumerable<DailyInstrumentMarketData> ConvertCsvLines(IEnumerable<string> csvLines)
         {
-            throw new NotImplementedException();
+            var results = new List<DailyInstrumentMarketData>();
+            if (csvLines != null)
+            {
+                foreach (var line in csvLines)
+                {
+                    var data = this.MarketDataFactory.CreateDailyInstrumentMarketData(line);
+                    results.Add(data);
+                }
+            }
+
+            return results;
         }
 
         protected internal virtual YahooMdy ConvertDate(DateTime? date)

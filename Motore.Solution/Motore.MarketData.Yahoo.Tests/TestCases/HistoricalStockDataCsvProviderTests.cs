@@ -87,5 +87,34 @@ namespace Motore.MarketData.Yahoo.Tests.TestCases
             Assert.Throws<NotFoundException>(() => provider.GetResults(identifier, sy, ey));
         }
 
+        [Test]
+        public void ConvertCsvLines_returns_empty_list_for_null_input()
+        {
+            // arrange
+            var provider = new HistoricalStockDataCsvProvider();
+            
+            // act
+            var results = provider.ConvertCsvLines(null);
+
+            // assert
+            Assert.That(results, Is.InstanceOf<IEnumerable<DailyInstrumentMarketData>>());
+            Assert.That(results.Count(), Is.EqualTo(0));
+
+        }
+
+        [Test]
+        public void ConvertCsvLines_returns_empty_list_for_zero_count_input()
+        {
+            // arrange
+            var provider = new HistoricalStockDataCsvProvider();
+
+            // act
+            var results = provider.ConvertCsvLines(new List<string>());
+
+            // assert
+            Assert.That(results, Is.InstanceOf<IEnumerable<DailyInstrumentMarketData>>());
+            Assert.That(results.Count(), Is.EqualTo(0));
+
+        }
     }
 }

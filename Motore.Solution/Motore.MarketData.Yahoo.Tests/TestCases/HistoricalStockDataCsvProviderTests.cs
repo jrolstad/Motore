@@ -2,17 +2,48 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Motore.MarketData.Yahoo.Tests.Classes;
 using Motore.TestHelpers.Dates;
 using Motore.TestHelpers.MarketData;
 using Motore.Utils.Dates;
 using Motore.Utils.Exceptions.Web;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Rhino.Mocks.Interfaces;
 
 namespace Motore.MarketData.Yahoo.Tests.TestCases
 {
     [TestFixture]
     public class HistoricalStockDataCsvProviderTests
     {
+        [Test]
+        public void ConvertCsvLines_only_processes_lines_that_begin_with_number()
+        {
+            // arrange
+            const string identifier = "GOOG";
+            const string header = "Date, etc.";
+            const string row1 = "2012-04-15, etc.";
+            var lines = new List<string> {header, row1};
+
+            var factory = MockRepository.GenerateStrictMock<IMarketDataFactory>();
+            factory.Expect(f => f.CreateDailyInstrumentMarketData(identifier, row1)).Repeat.Once();
+
+            var provider = MockRepository.GenerateMock<HistoricalStockDataCsvProvider>();
+            provider.Expect(p => p.MarketDataFactory).Return(factory);
+            provider.Expect(p => p.IsDataRow(header)).Repeat.Once().Return(false);
+            provider.Expect(p => p.IsDataRow(row1)).Repeat.Once().Return(true);
+            provider.Expect(p => p.ConvertCsvLines(identifier, lines)).CallOriginalMethod(
+                OriginalCallOptions.CreateExpectation);
+
+            // act
+            provider.ConvertCsvLines(identifier, lines);
+
+            // assert
+            factory.VerifyAllExpectations();
+            provider.VerifyAllExpectations();
+
+        }
+
         [Test]
         [Category("Integration")]
         public void GetMarketData_does_not_throw()
@@ -94,7 +125,7 @@ namespace Motore.MarketData.Yahoo.Tests.TestCases
             var provider = new HistoricalStockDataCsvProvider();
             
             // act
-            var results = provider.ConvertCsvLines(null);
+            var results = provider.ConvertCsvLines("ticker", null);
 
             // assert
             Assert.That(results, Is.InstanceOf<IEnumerable<DailyInstrumentMarketData>>());
@@ -109,11 +140,29 @@ namespace Motore.MarketData.Yahoo.Tests.TestCases
             var provider = new HistoricalStockDataCsvProvider();
 
             // act
-            var results = provider.ConvertCsvLines(new List<string>());
+            var results = provider.ConvertCsvLines("ticker", new List<string>());
 
             // assert
             Assert.That(results, Is.InstanceOf<IEnumerable<DailyInstrumentMarketData>>());
             Assert.That(results.Count(), Is.EqualTo(0));
+
+        }
+
+        [Test]
+        public void ConvertCsvLines_returns_one_item_for_single_input_row()
+        {
+            // arrange
+            const string identifier = "YHOO";
+            string input = TestHelper.GetSampleHistoricalCsvLine(); 
+            var provider = new HistoricalStockDataCsvProvider();
+
+            // act
+            var results = provider.ConvertCsvLines(identifier, new List<string> { input });
+
+            // assert
+            Assert.That(results, Is.InstanceOf<IEnumerable<DailyInstrumentMarketData>>());
+            Assert.That(results.Count(), Is.EqualTo(1));
+            Assert.That(results.First().Identifier, Is.EqualTo(identifier));
 
         }
     }

@@ -1,0 +1,13 @@
+﻿Sample line would end up looking like the following:
+
+2010-01-25,546.59,549.88,525.61,529.94,4021800,529.94
+
+Where the columns are:
+
+DATE
+OPEN
+HIGH
+LOW
+CLOSE
+VOLUME
+ADJUSTED CLOSE

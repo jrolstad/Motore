@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Motore.Utils
+namespace Motore.Utils.Text
 {
     public class StringUtils
     {

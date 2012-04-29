@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dates\RandomDateHelper.cs" />
+    <Compile Include="EmbeddedResourceHelper.cs" />
     <Compile Include="MarketData\MarketDataTestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -5,6 +5,7 @@ using System.Text;
 using Motore.MarketData;
 using Motore.Utils.Assertions;
 using Motore.Utils.Dates;
+using Motore.Utils.Text;
 using Motore.Utils.Web;
 
 namespace Motore.MarketData.Yahoo
@@ -61,22 +62,30 @@ namespace Motore.MarketData.Yahoo
         {
             var url = this.UrlBuilder.BuildCsvUrl(identifier, start, end);
             var results = this.HttpClient.GetCsv(url);
-            return this.ConvertCsvLines(results);
+            return this.ConvertCsvLines(identifier, results);
         }
 
-        protected internal IEnumerable<DailyInstrumentMarketData> ConvertCsvLines(IEnumerable<string> csvLines)
+        protected internal virtual IEnumerable<DailyInstrumentMarketData> ConvertCsvLines(string identifier, IEnumerable<string> csvLines)
         {
             var results = new List<DailyInstrumentMarketData>();
             if (csvLines != null)
             {
                 foreach (var line in csvLines)
                 {
-                    var data = this.MarketDataFactory.CreateDailyInstrumentMarketData(line);
-                    results.Add(data);
+                    if (this.IsDataRow(line))
+                    {
+                        var data = this.MarketDataFactory.CreateDailyInstrumentMarketData(identifier, line);
+                        results.Add(data);
+                    }
                 }
             }
 
             return results;
+        }
+
+        protected internal virtual bool IsDataRow(string input)
+        {
+            return (input ?? "").BeginsWithNumber();
         }
 
         protected internal virtual YahooMdy ConvertDate(DateTime? date)

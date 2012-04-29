@@ -8,5 +8,6 @@ namespace Motore.MarketData
     public interface IMarketDataFactory
     {
         DailyInstrumentMarketData CreateDailyInstrumentMarketData(string input);
+        DailyInstrumentMarketData CreateDailyInstrumentMarketData(string identifier, string input);
     }
 }

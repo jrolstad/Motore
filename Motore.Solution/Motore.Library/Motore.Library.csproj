@@ -61,12 +61,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aws\Attributes\SimpleDbColumnAttribute.cs" />
+    <Compile Include="Aws\Attributes\SimpleDbDomainAttribute.cs" />
     <Compile Include="Aws\AwsClient.cs" />
     <Compile Include="Aws\AwsClientFactory.cs" />
     <Compile Include="Aws\SimpleDb\Domain.cs" />
     <Compile Include="Aws\SimpleDb\Domains.cs" />
+    <Compile Include="Aws\SimpleDb\ISimpleDbEntity.cs" />
     <Compile Include="Aws\SimpleDb\SimpleDbClient.cs" />
     <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Entities\PortfolioCalculationRequest.cs" />
     <Compile Include="Exceptions\PortfolioCalculationRequestValidationException.cs" />
     <Compile Include="Exceptions\PortfolioFileSizeException.cs" />
     <Compile Include="Exceptions\PossiblyPoisonMessageException.cs" />

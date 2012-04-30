@@ -21,6 +21,14 @@ namespace Motore.Library.Aws.SimpleDb
             _config = config;
         }
 
+        public virtual void SaveEntity<T>(ISimpleDbEntity entity) where T: ISimpleDbEntity
+        {
+            var request = this.CreatePutAttributesRequest<T>(entity);
+            this.Client.PutAttributes(request);
+
+            throw new NotImplementedException();
+        }
+
         public virtual Domains ListDomains(int maxNumberToRetrive = 100, string nextToken = null)
         {
             var results = new Domains();
@@ -54,6 +62,11 @@ namespace Motore.Library.Aws.SimpleDb
 
         #region Protected Properties
         
+        protected internal virtual PutAttributesRequest CreatePutAttributesRequest<T>(ISimpleDbEntity entity) where T:ISimpleDbEntity
+        {
+            throw new NotImplementedException();
+        }
+
         protected internal virtual AmazonSimpleDBClient Client
         {
             get

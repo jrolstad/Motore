@@ -1,0 +1,18 @@
+﻿@model Motore.Library.Models.Portfolio.PortfolioCalculationRequestModel
+@{
+    ViewBag.Title = "Request Portfolio Performance";
+}
+
+<div>
+    Browse to your portfolio extract on your local computer and click <b>Upload Portfolio</b>.
+    <p/>
+    (Note: I have a set of sample files in C:\Users\Anthony\Documents\RepuTrade\Sample Portfolios
+    <p/>
+    @using (Html.BeginForm("SubmitRequest", "PortfolioCalculationRequest", FormMethod.Post, new { enctype = "multipart/form-data", id = "UploadPortfolioFileForm" }))
+    {
+        <input type="text" name="RequestId" value="@Model.RequestId"/>
+        <input type="file" id="PortfolioFile" name="PortfolioFile" size="30"/>
+        <p/>
+        <button type="submit">Upload Portfolio File</button>
+    }
+</div>

@@ -77,6 +77,7 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MarketDataController.cs" />
+    <Compile Include="Controllers\PortfolioCalculationRequestController.cs" />
     <Compile Include="Controllers\ReportWizardController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
@@ -163,6 +164,18 @@
     <Content Include="log4net.config" />
     <Content Include="Views\Test\WriteLog.cshtml" />
     <Content Include="Views\MarketData\MakeRequest.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PortfolioCalculationRequest\Status.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PortfolioCalculationRequest\Submit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PortfolioCalculationRequest\ResponseOk.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PortfolioCalculationRequest\RequestException.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

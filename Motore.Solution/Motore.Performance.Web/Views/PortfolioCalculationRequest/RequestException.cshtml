@@ -1,0 +1,27 @@
+﻿@model Motore.Library.Models.Portfolio.PortfolioCalculationRequestExceptionModel
+@{
+    ViewBag.Title = "Exception";
+}
+
+<h2>Exception</h2>
+<p/>
+Something went wrong with their request.  Tell them here.
+<p/>
+Link them back to re-submit their request.
+<p/>
+The controller had better log all the errors that lead to this view.
+
+<p/>
+<p/>
+@if (Model.ValidationException != null)
+{
+    <div>
+        We're sorry!  We encountered errors while processing your request:
+    </div>
+    <div>
+        @Model.ValidationException.MessageAsHtml
+    </div>
+}
+<p/>
+<p/>
+You can @Html.ActionLink("try to submit your request again", "SubmitRequest", "PortfolioCalculationRequest", new { RequestId = Model.RequestId }, null).

@@ -95,3 +95,52 @@ Parameter name: awsAccessKeyId
    at System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<>c__DisplayClass17.<InvokeActionMethodWithFilters>b__14()
    at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
    at System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName)
+[2012-04-29 18:27:06,286]|ERROR|Motore.Performance.Web.Attributes.HandleErrorAndLogAttribute|(null)|System.Web.HttpParseException (0x80004005): The 'model' keyword must be followed by a type name on the same line.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Mvc.BuildManagerWrapper.System.Web.Mvc.IBuildManager.FileExists(String virtualPath)
+   at System.Web.Mvc.BuildManagerViewEngine.FileExists(ControllerContext controllerContext, String virtualPath)
+   at System.Web.Mvc.VirtualPathProviderViewEngine.GetPathFromSpecificName(ControllerContext controllerContext, String name, String cacheKey, String[]& searchedLocations)
+   at System.Web.Mvc.VirtualPathProviderViewEngine.GetPath(ControllerContext controllerContext, String[] locations, String[] areaLocations, String locationsPropertyName, String name, String controllerName, String cacheKeyPrefix, Boolean useCache, String[]& searchedLocations)
+   at System.Web.Mvc.VirtualPathProviderViewEngine.FindView(ControllerContext controllerContext, String viewName, String masterName, Boolean useCache)
+   at System.Web.Mvc.ViewEngineCollection.<>c__DisplayClassc.<FindView>b__b(IViewEngine e)
+   at System.Web.Mvc.ViewEngineCollection.Find(Func`2 lookup, Boolean trackSearchedPaths)
+   at System.Web.Mvc.ViewEngineCollection.FindView(ControllerContext controllerContext, String viewName, String masterName)
+   at System.Web.Mvc.ViewResult.FindView(ControllerContext context)
+   at System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass1c.<InvokeActionResultWithFilters>b__19()
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilter(IResultFilter filter, ResultExecutingContext preContext, Func`1 continuation)
+   at System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass1c.<>c__DisplayClass1e.<InvokeActionResultWithFilters>b__1b()
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName)
+[2012-04-29 18:36:16,485]|ERROR|Motore.Performance.Web.Attributes.HandleErrorAndLogAttribute|(null)|System.NotImplementedException: The method or operation is not implemented.
+   at Motore.Performance.Web.Controllers.PortfolioCalculationRequestController.SubmitRequest(PortfolioCalculationRequestModel model) in C:\Users\Anthony\Documents\RepuTrade\github\Motore\Motore.Solution\Motore.Performance.Web\Controllers\PortfolioCalculationRequestController.cs:line 21
+   at lambda_method(Closure , ControllerBase , Object[] )
+   at System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<InvokeActionMethodWithFilters>b__12()
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodFilter(IActionFilter filter, ActionExecutingContext preContext, Func`1 continuation)
+   at System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<>c__DisplayClass17.<InvokeActionMethodWithFilters>b__14()
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName)
+[2012-04-29 19:21:03,341]|ERROR|Motore.Utils.Logging.Log|(null)|Portfolio Calculation Request Error [ID d205ddca-1411-4b93-b91a-f152865998f6]: System.Exception: You must provide a portfolio file.
+[2012-04-29 19:24:09,846]|ERROR|Motore.Utils.Logging.Log|(null)|Portfolio Calculation Request Error [ID 1722c2ef-9f9c-4514-9481-c2c7fbb509d9]: System.Exception: Your portfolio file is too large.
+[2012-04-29 19:24:35,842]|ERROR|Motore.Utils.Logging.Log|(null)|Portfolio Calculation Request Error [ID 9cabb9cb-50b5-4cf4-9959-7aea44fc106a]: System.Exception: Your portfolio file is too large.
+[2012-04-29 19:35:51,520]|ERROR|Motore.Utils.Logging.Log|(null)|Portfolio Calculation Request Error [ID 2045a6f4-f445-4f59-9986-c23ab5a5e662]: Your portfolio file 'download_account_holdings.csv' is too large.  The maximum allowed size is 10 bytes.  Your file is 10240 bytes.
+[2012-04-29 19:43:13,255]|ERROR|Motore.Utils.Logging.Log|(null)|Portfolio Calculation Request Error [ID 0990e380-86c2-417b-8397-a129463b05d2]: Your portfolio file 'download_account_holdings.csv' is too large.  The maximum allowed size is 10 bytes.  Your file is 10240 bytes.
+[2012-04-29 19:44:00,708]|ERROR|Motore.Utils.Logging.Log|(null)|Portfolio Calculation Request Error [ID 1fedc2eb-42c3-4a0b-9518-25ce6d0d324e]: Your portfolio file 'download_account_holdings.csv' is too large.  The maximum allowed size is 10 bytes.  Your file is 10240 bytes.
+[2012-04-29 19:45:20,256]|ERROR|Motore.Utils.Logging.Log|(null)|Portfolio Calculation Request Error [ID 17bba6d3-ab26-4f2c-9d65-d62c18aca0a5]: Your portfolio file 'download_account_holdings.csv' is too large.  The maximum allowed size is 10 bytes.  Your file is 10240 bytes.
+[2012-04-29 19:48:15,037]|ERROR|Motore.Utils.Logging.Log|(null)|Portfolio Calculation Request Error [ID 6ef24aae-ff86-4f2d-ae2e-739fc8498d25]: Your portfolio file 'download_account_holdings.csv' is too large.  The maximum allowed size is 10 bytes.  Your file is 10240 bytes.
+[2012-04-29 19:49:53,048]|ERROR|Motore.Utils.Logging.Log|(null)|Portfolio Calculation Request Error [ID de128aac-1237-4bee-9f7e-82145d7230ef]: Your portfolio file 'download_account_holdings.csv' is too large.  The maximum allowed size is 10 bytes.  Your file is 10240 bytes.
+[2012-04-29 19:52:29,742]|ERROR|Motore.Utils.Logging.Log|(null)|Portfolio Calculation Request Error [ID 1bb0fb43-41e5-4f6f-b5e2-43eaec671e06]: Your portfolio file 'download_account_holdings.csv' is too large.  The maximum allowed size is 10 bytes.  Your file is 10240 bytes.
+[2012-04-29 19:52:41,397]|ERROR|Motore.Utils.Logging.Log|(null)|Portfolio Calculation Request Error [ID 1bb0fb43-41e5-4f6f-b5e2-43eaec671e06]: Your portfolio file 'download_account_holdings.csv' is too large.  The maximum allowed size is 10 bytes.  Your file is 10240 bytes.

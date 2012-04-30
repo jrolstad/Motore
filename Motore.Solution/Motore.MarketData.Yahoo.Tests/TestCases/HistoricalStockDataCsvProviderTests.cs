@@ -45,6 +45,23 @@ namespace Motore.MarketData.Yahoo.Tests.TestCases
         }
 
         [Test]
+        public void GetMarketData_returns_results_from_GetResults()
+        {
+            // arrange
+            var request = new InstrumentMarketDataRequest {Identifier = "YHOO"};
+            var expectedResults = new List<DailyInstrumentMarketData>();
+            var provider = MockRepository.GenerateMock<HistoricalStockDataCsvProvider>();
+            provider.Expect(p => p.GetMarketData(request)).CallOriginalMethod(OriginalCallOptions.CreateExpectation);
+            provider.Expect(p => p.GetResults(null, null, null)).IgnoreArguments().Repeat.Once().Return(expectedResults);
+
+            // act
+            var actualResults = provider.GetMarketData(request);
+
+            // assert
+            Assert.That(actualResults, Is.EqualTo(expectedResults));
+
+        }
+        [Test]
         [Category("Integration")]
         public void GetMarketData_does_not_throw()
         {

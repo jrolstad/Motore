@@ -13,7 +13,7 @@ namespace Motore.MarketData.Yahoo
             var mdy = new YahooMdy
                           {
                               Year = inputDate.Year,
-                              Month = inputDate.Month,
+                              Month = inputDate.Month - 1,
                               Day = inputDate.Day
                           };
 

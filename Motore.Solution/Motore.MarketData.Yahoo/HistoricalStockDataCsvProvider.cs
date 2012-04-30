@@ -27,9 +27,7 @@ namespace Motore.MarketData.Yahoo
             var endMdy = this.ConvertDate(request.EndDate);
 
             var results = this.GetResults(identifier, startMdy, endMdy);
-
-            throw new NotImplementedException();
-
+            return results;
         }
 
         #region Protected Properties

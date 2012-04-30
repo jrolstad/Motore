@@ -63,6 +63,8 @@
   <ItemGroup>
     <Compile Include="Aws\AwsClient.cs" />
     <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Exceptions\PortfolioCalculationRequestValidationException.cs" />
+    <Compile Include="Exceptions\PortfolioFileSizeException.cs" />
     <Compile Include="Exceptions\PossiblyPoisonMessageException.cs" />
     <Compile Include="Factories\ProviderFactory.cs" />
     <Compile Include="Factories\QueueFactory.cs" />
@@ -73,10 +75,13 @@
     <Compile Include="Models\Logging\WriteLogResponse.cs" />
     <Compile Include="Models\MarketData\MarketDataRequestResponse.cs" />
     <Compile Include="Models\ModelFactory.cs" />
+    <Compile Include="Models\Portfolio\PortfolioCalculationRequestExceptionModel.cs" />
+    <Compile Include="Models\Portfolio\PortfolioCalculationRequestModel.cs" />
     <Compile Include="Models\ReportWizard\Assumptions.cs" />
     <Compile Include="Models\ReportWizard\Custodian.cs" />
     <Compile Include="Models\ReportWizard\Step.cs" />
     <Compile Include="Models\ReportWizard\UploadFile.cs" />
+    <Compile Include="Portfolios\Requests\PortfolioCalculationRequestProvider.cs" />
     <Compile Include="Programs\AlphaProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queuing\AddQueueResponse.cs" />

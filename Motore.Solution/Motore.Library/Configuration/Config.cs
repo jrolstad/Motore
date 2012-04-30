@@ -30,5 +30,14 @@ namespace Motore.Library.Configuration
                 return configValue;
             }
         }
+
+        public static long MaximumPortfolioFileUploadSizeInBytes
+        {
+            get
+            {
+                var configValue = ConfigurationManager.AppSettings["MaximumPortfolioFileUploadSizeInBytes"];
+                return long.Parse(configValue);
+            }
+        }
     }
 }

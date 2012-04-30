@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestCases\Aws\SimpleDb\SimpleDbClientTests.cs" />
     <Compile Include="TestCases\Factories\ProviderFactoryTests.cs" />
     <Compile Include="TestCases\MarketData\MarketDataRequestProcessorTests.cs" />
     <Compile Include="TestCases\MarketData\MarketDataRequestQueueTests.cs" />

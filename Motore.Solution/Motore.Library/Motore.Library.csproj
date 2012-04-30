@@ -62,6 +62,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aws\AwsClient.cs" />
+    <Compile Include="Aws\AwsClientFactory.cs" />
+    <Compile Include="Aws\SimpleDb\Domain.cs" />
+    <Compile Include="Aws\SimpleDb\Domains.cs" />
+    <Compile Include="Aws\SimpleDb\SimpleDbClient.cs" />
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Exceptions\PortfolioCalculationRequestValidationException.cs" />
     <Compile Include="Exceptions\PortfolioFileSizeException.cs" />

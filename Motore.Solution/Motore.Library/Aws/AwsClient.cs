@@ -4,15 +4,27 @@ using System.Linq;
 using System.Text;
 using Amazon.Auth;
 using Amazon.Runtime;
+using Amazon.SimpleDB;
+
 using Motore.Library.Configuration;
 
 namespace Motore.Library.Aws
 {
     public abstract class AwsClient
     {
-        private AWSCredentials _credentials = null;
+        protected internal AWSCredentials _credentials = null;
 
-        protected internal AWSCredentials AwsCredentials
+        protected AwsClient()
+        {
+            
+        }
+
+        protected AwsClient(string accessKey, string secretKey)
+        {
+            _credentials = new BasicAWSCredentials(accessKey, secretKey);
+        }
+
+        protected internal virtual AWSCredentials AwsCredentials
         {
             get
             {

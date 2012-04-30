@@ -39,5 +39,14 @@ namespace Motore.Library.Configuration
                 return long.Parse(configValue);
             }
         }
+
+        public static string SimpleDbServiceUrl
+        {
+            get
+            {
+                var configValue = ConfigurationManager.AppSettings["SimpleDbServiceUrl"];
+                return configValue;
+            }
+        }
     }
 }

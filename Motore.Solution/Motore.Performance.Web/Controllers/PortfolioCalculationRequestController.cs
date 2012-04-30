@@ -38,6 +38,7 @@ namespace Motore.Performance.Web.Controllers
             try
             {
                 this.ValidateNewRequest(model);
+                this.Provider.SubmitRequest(model);
                 return View("~/Views/PortfolioCalculationRequest/ResponseOk.cshtml", model);
             }
             catch (PortfolioCalculationRequestValidationException pexc)

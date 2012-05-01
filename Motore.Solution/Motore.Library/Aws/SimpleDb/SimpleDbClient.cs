@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using Amazon.Runtime;
 using Amazon.SimpleDB;
 using Amazon.SimpleDB.Model;
+using Motore.Library.Aws.Attributes;
 using Motore.Library.Configuration;
 using Motore.Utils.Assertions;
 
@@ -62,9 +65,52 @@ namespace Motore.Library.Aws.SimpleDb
 
         #region Protected Properties
         
+        protected internal virtual string GetDomainNameOfEntity<T>(ISimpleDbEntity entity)
+        {
+            var domainAttribute =
+                (SimpleDbDomainAttribute)typeof (T).GetCustomAttributes(typeof (SimpleDbDomainAttribute), false).FirstOrDefault();
+            if (domainAttribute == null)
+            {
+                var msg =
+                    String.Format(
+                        "The ISimpleDbEntity of type '{0}' identified by the primary key '{1}' is not decorated with a SimpleDbDomain attribute.",
+                        (typeof (T)).ToString(), entity.SimpleDbEntityName);
+                throw new Exception(msg);
+            }
+            return domainAttribute.Domain;
+        }
+
         protected internal virtual PutAttributesRequest CreatePutAttributesRequest<T>(ISimpleDbEntity entity) where T:ISimpleDbEntity
         {
-            throw new NotImplementedException();
+            var putAttributeRequest = new PutAttributesRequest();
+            
+            var domain = this.GetDomainNameOfEntity<T>(entity);
+
+            putAttributeRequest.DomainName = domain;
+                
+            var props = typeof(T).GetProperties().Where(
+                prop => System.Attribute.IsDefined(prop, typeof(SimpleDbColumnAttribute)));
+
+            foreach (var prop in props)
+            {
+                var attributes = (SimpleDbColumnAttribute[])prop.GetCustomAttributes(typeof(SimpleDbColumnAttribute), false);
+                var columnName = attributes.First().Name;
+
+                var value = prop.GetValue(entity, (BindingFlags.GetProperty | BindingFlags.Instance), null, null,
+                              CultureInfo.InvariantCulture);
+
+                var putAttribute = new ReplaceableAttribute
+                                       {
+                                           Name = columnName,
+                                           Replace = true,
+                                           Value = value.ToString(),
+                                       };
+
+                putAttributeRequest.Attribute.Add(putAttribute);
+
+            }
+
+            return putAttributeRequest;
         }
 
         protected internal virtual AmazonSimpleDBClient Client

@@ -16,5 +16,13 @@ namespace Motore.Utils.Dates
                            Day = input.Day,
                        };
         }
+
+        public static long ToTimestamp(this DateTime dateTime)
+        {
+            const string fmt = "yyyyMMddHHmmssfff";
+            var dateString = dateTime.ToUniversalTime().ToString(fmt);
+            var result = Int64.Parse(dateString);
+            return result;
+        }
     }
 }

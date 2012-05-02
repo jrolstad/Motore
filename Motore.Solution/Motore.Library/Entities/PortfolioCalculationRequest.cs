@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Motore.Library.Aws.Attributes;
 using Motore.Library.Aws.SimpleDb;
+using Motore.Utils.Dates;
 
 namespace Motore.Library.Entities
 {
@@ -18,16 +19,17 @@ namespace Motore.Library.Entities
     [SimpleDbDomain(Domain="PortfolioCalculationRequest")]
     public class PortfolioCalculationRequest : ISimpleDbEntity
     {
-        public string SimpleDbEntityName
-        {
-            get { throw new NotImplementedException(); }
-        }
+        private DateTime _requestDate = SystemTime.Now();
 
-        [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "RequestId")]
+        [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "RequestId", IsPrimaryKey = true)]
         public virtual string RequestId { get; set; }
 
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "RequestDate")]
-        public virtual DateTime RequestDate { get; set; }
+        public virtual DateTime RequestDate
+        {
+            get { return _requestDate; }
+            set { _requestDate = value; }
+        }
 
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "ClientIp")]
         public string ClientIp { get; set; }

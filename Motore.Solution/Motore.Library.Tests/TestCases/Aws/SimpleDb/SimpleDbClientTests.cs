@@ -42,9 +42,10 @@ namespace Motore.Library.Tests.TestCases.Aws.SimpleDb
         {
             // arrange
             var timestamp = DateTime.Now.ToTimestamp();
+            var guid = Guid.NewGuid().ToString();
             var entity = new PortfolioCalculationRequest
             {
-                RequestId = Guid.NewGuid().ToString(),
+                RequestId = guid,
                 CreatedBy = "Anthony",
                 ModifiedBy = "Anthony",
                 CreateTimestamp = timestamp,
@@ -57,7 +58,33 @@ namespace Motore.Library.Tests.TestCases.Aws.SimpleDb
             var request = client.CreatePutAttributesRequest<PortfolioCalculationRequest>(entity);
 
             // assert
-            throw new NotImplementedException();
+            Assert.IsNotNull(request.Attribute);
+            Assert.That(request.Attribute.First(x => x.Name == "RequestId").Value, Is.EqualTo(guid));
+        }
+
+        [Test]
+        public void CreatePutAttributesRequest_sets_clientip_to_empty_string_if_null()
+        {
+            // arrange
+            var timestamp = DateTime.Now.ToTimestamp();
+            var entity = new PortfolioCalculationRequest
+            {
+                RequestId = Guid.NewGuid().ToString(),
+                CreatedBy = "Anthony",
+                ModifiedBy = "Anthony",
+                CreateTimestamp = timestamp,
+                ModifyTimestamp = timestamp,
+                ClientIp = null,
+            };
+
+            var client = AwsClientFactory.CreateSimpleDbClient();
+
+            // act
+            var request = client.CreatePutAttributesRequest<PortfolioCalculationRequest>(entity);
+            var attributeValue = request.Attribute.First(x => x.Name == "ClientIp").Value;
+
+            // assert
+            Assert.That(attributeValue, Is.EqualTo(""));
         }
         
     }

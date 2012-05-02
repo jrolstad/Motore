@@ -51,6 +51,7 @@
     <Compile Include="Dates\DateUtils.cs" />
     <Compile Include="Dates\Mdy.cs" />
     <Compile Include="Dates\MdyExtensions.cs" />
+    <Compile Include="Dates\SystemTime.cs" />
     <Compile Include="Entities\GenericResponse.cs" />
     <Compile Include="Exceptions\Web\NotFoundException.cs" />
     <Compile Include="GuidUtils.cs" />

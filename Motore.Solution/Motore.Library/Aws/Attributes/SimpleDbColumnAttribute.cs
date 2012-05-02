@@ -23,5 +23,7 @@ namespace Motore.Library.Aws.Attributes
         }
 
         public virtual string Name { get; set; }
+        public virtual bool IsPrimaryKey { get; set; }
+
     }
 }

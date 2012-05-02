@@ -66,9 +66,12 @@
     <Compile Include="Aws\AwsClient.cs" />
     <Compile Include="Aws\AwsClientFactory.cs" />
     <Compile Include="Aws\SimpleDb\Domain.cs" />
+    <Compile Include="Aws\SimpleDb\DomainAction.cs" />
+    <Compile Include="Aws\SimpleDb\DomainInitializer.cs" />
     <Compile Include="Aws\SimpleDb\Domains.cs" />
     <Compile Include="Aws\SimpleDb\ISimpleDbEntity.cs" />
     <Compile Include="Aws\SimpleDb\SimpleDbClient.cs" />
+    <Compile Include="Aws\SimpleDb\SimpleDbEntityHelper.cs" />
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Entities\PortfolioCalculationRequest.cs" />
     <Compile Include="Exceptions\PortfolioCalculationRequestValidationException.cs" />

@@ -17,6 +17,7 @@ namespace Motore.Library.Aws.SimpleDb
     {
         private Amazon.SimpleDB.AmazonSimpleDBClient _client = null;
         private Amazon.SimpleDB.AmazonSimpleDBConfig _config = null;
+        private SimpleDbEntityHelper _entityHelper = null;
 
         protected internal SimpleDbClient(AWSCredentials credentials, AmazonSimpleDBConfig config)
         {
@@ -24,12 +25,20 @@ namespace Motore.Library.Aws.SimpleDb
             _config = config;
         }
 
+        public virtual DomainAction CreateDomain(string name)
+        {
+            var request = new CreateDomainRequest
+                              {
+                                  DomainName = name,
+                              };
+            this.Client.CreateDomain(request);
+            return new DomainAction { Action = DomainActionType.Created, DomainName = name };
+        }
+
         public virtual void SaveEntity<T>(ISimpleDbEntity entity) where T: ISimpleDbEntity
         {
             var request = this.CreatePutAttributesRequest<T>(entity);
-            this.Client.PutAttributes(request);
-
-            throw new NotImplementedException();
+            var response = this.Client.PutAttributes(request);
         }
 
         public virtual Domains ListDomains(int maxNumberToRetrive = 100, string nextToken = null)
@@ -63,80 +72,17 @@ namespace Motore.Library.Aws.SimpleDb
             return results;
         }
 
-        #region Protected Properties
-
-        protected internal virtual string GetPrimaryKeyValueOfEntity<T>(ISimpleDbEntity entity)
-        {
-            string primaryKeyValue = null;
-            string primaryKeyPropertyName = null;
-
-            var columnProps = typeof(T).GetProperties().Where(
-                prop => System.Attribute.IsDefined(prop, typeof(SimpleDbColumnAttribute)));
-
-            var numberOfProperties = 0;
-
-            foreach (var prop in columnProps)
-            {
-                var primaryKeyAttribute =
-                    ((SimpleDbColumnAttribute[]) prop.GetCustomAttributes(typeof (SimpleDbColumnAttribute), false))
-                        .ToList()
-                        .FirstOrDefault(x => x.IsPrimaryKey);
-                if (primaryKeyAttribute != null)
-                {
-                    primaryKeyPropertyName = prop.Name;
-                    primaryKeyValue = prop.GetValue(entity, (BindingFlags.GetProperty | BindingFlags.Instance), null,
-                                                    null,
-                                                    CultureInfo.InvariantCulture) as string;
-
-
-                }
-                numberOfProperties++;
-            }
-
-            if (numberOfProperties <= 0)
-            {
-                var msg =
-                String.Format(
-                    "The ISimpleDbEntity of type '{0}' does not contain any properties decorated with the SimpleDbColumnAttribute.",
-                    (typeof(T)).ToString());
-                throw new Exception(msg);
-            }
-
-            if (String.IsNullOrWhiteSpace(primaryKeyValue))
-            {
-                var msg =
-                String.Format(
-                    "The ISimpleDbEntity of type '{0}' has a property '{1}' decorated with a SimpleDbColumnAttribute of type IsPrimaryKey=true, but the value is null or blank.",
-                    (typeof(T)).ToString(), primaryKeyPropertyName);
-                throw new Exception(msg);
-            }
-
-            return primaryKeyValue;
-        }
-
-        protected internal virtual string GetDomainNameOfEntity<T>(ISimpleDbEntity entity)
-        {
-            var domainAttribute =
-                (SimpleDbDomainAttribute)typeof (T).GetCustomAttributes(typeof (SimpleDbDomainAttribute), false).FirstOrDefault();
-            if (domainAttribute == null)
-            {
-                var pkValue = this.GetPrimaryKeyValueOfEntity<T>(entity);
-                var msg =
-                    String.Format(
-                        "The ISimpleDbEntity of type '{0}' identified by the primary key '{1}' is not decorated with a SimpleDbDomain attribute.",
-                        (typeof (T)).ToString(), pkValue);
-                throw new Exception(msg);
-            }
-            return domainAttribute.Domain;
-        }
+        #region Protected Methods
 
         protected internal virtual PutAttributesRequest CreatePutAttributesRequest<T>(ISimpleDbEntity entity) where T:ISimpleDbEntity
         {
             var putAttributeRequest = new PutAttributesRequest();
             
-            var domain = this.GetDomainNameOfEntity<T>(entity);
+            var domain = this.EntityHelper.GetDomainNameOfEntity<T>(entity);
+            var pk = this.EntityHelper.GetPrimaryKeyValueOfEntity<T>(entity);
 
             putAttributeRequest.DomainName = domain;
+            putAttributeRequest.ItemName = pk;
                 
             var props = typeof(T).GetProperties().Where(
                 prop => System.Attribute.IsDefined(prop, typeof(SimpleDbColumnAttribute)));
@@ -144,24 +90,31 @@ namespace Motore.Library.Aws.SimpleDb
             foreach (var prop in props)
             {
                 var attributes = (SimpleDbColumnAttribute[])prop.GetCustomAttributes(typeof(SimpleDbColumnAttribute), false);
-                var columnName = attributes.First().Name;
+                var attribute = attributes.First();
+                if (attribute.IsPrimaryKey == false)
+                {
+                    var columnName = attribute.Name;
 
-                var value = prop.GetValue(entity, (BindingFlags.GetProperty | BindingFlags.Instance), null, null,
-                              CultureInfo.InvariantCulture);
+                    var value = prop.GetValue(entity, (BindingFlags.GetProperty | BindingFlags.Instance), null, null,
+                                              CultureInfo.InvariantCulture);
 
-                var putAttribute = new ReplaceableAttribute
-                                       {
-                                           Name = columnName,
-                                           Replace = true,
-                                           Value = (value ?? "").ToString(),
-                                       };
+                    var putAttribute = new ReplaceableAttribute
+                                           {
+                                               Name = columnName,
+                                               Replace = true,
+                                               Value = (value ?? "").ToString(),
+                                           };
 
-                putAttributeRequest.Attribute.Add(putAttribute);
-
+                    putAttributeRequest.Attribute.Add(putAttribute);
+                }
             }
 
             return putAttributeRequest;
         }
+
+        #endregion
+
+        #region Protected Properties
 
         protected internal virtual AmazonSimpleDBClient Client
         {
@@ -169,6 +122,11 @@ namespace Motore.Library.Aws.SimpleDb
             {
                 return (_client ?? (_client = new AmazonSimpleDBClient(_credentials, _config)));
             }
+        }
+
+        protected internal virtual SimpleDbEntityHelper EntityHelper
+        {
+            get { return _entityHelper ?? (_entityHelper = new SimpleDbEntityHelper()); }
         }
 
         #endregion

@@ -20,9 +20,22 @@ namespace Motore.Library.Entities
     public class PortfolioCalculationRequest : ISimpleDbEntity
     {
         private DateTime _requestDate = SystemTime.Now();
+        private string _requestId = Guid.NewGuid().ToString();
+        private string _origin = null;
 
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "RequestId", IsPrimaryKey = true)]
-        public virtual string RequestId { get; set; }
+        public virtual string RequestId
+        {
+            get { return _requestId; }
+            set { _requestId = value; }
+        }
+
+        [SimpleDbColumn(Name="Origin", Multiplicity=ColumnMultiplicity.Single)]
+        public virtual string Origin
+        {
+            get { return _origin; }
+            set { _origin = value; }
+        }
 
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "RequestDate")]
         public virtual DateTime RequestDate

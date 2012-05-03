@@ -25,20 +25,30 @@ namespace Motore.Library.Aws.SimpleDb
             _config = config;
         }
 
+        public virtual List<T> Get<T>(int max, ref string nextToken) where T: ISimpleDbEntity
+        {
+            var selectRequest = this.CreateSelectRequest<T>(max, nextToken);
+            var response = this.GetSelectResponse(selectRequest);
+            var list = CreateListFromResponse<T>(response);
+            
+            return list;
+
+        }
+        
         public virtual DomainAction CreateDomain(string name)
         {
             var request = new CreateDomainRequest
                               {
                                   DomainName = name,
                               };
-            this.Client.CreateDomain(request);
+            this.GetClient().CreateDomain(request);
             return new DomainAction { Action = DomainActionType.Created, DomainName = name };
         }
 
         public virtual void SaveEntity<T>(ISimpleDbEntity entity) where T: ISimpleDbEntity
         {
             var request = this.CreatePutAttributesRequest<T>(entity);
-            var response = this.Client.PutAttributes(request);
+            var response = this.PutAttributes(request);
         }
 
         public virtual Domains ListDomains(int maxNumberToRetrive = 100, string nextToken = null)
@@ -55,7 +65,7 @@ namespace Motore.Library.Aws.SimpleDb
                 request.NextToken = nextToken;
             }
 
-            var response = this.Client.ListDomains(request);
+            var response = this.GetClient().ListDomains(request);
             if (response.IsSetListDomainsResult())
             {
                 var listDomainsResult = response.ListDomainsResult;
@@ -74,18 +84,107 @@ namespace Motore.Library.Aws.SimpleDb
 
         #region Protected Methods
 
+        protected internal virtual PutAttributesResponse PutAttributes(PutAttributesRequest request)
+        {
+            return this.GetClient().PutAttributes(request);
+        }
+
+        protected internal virtual SelectResponse GetSelectResponse(SelectRequest request)
+        {
+            return this.GetClient().Select(request);
+        }
+
+        protected internal virtual List<T> CreateListFromResponse<T>(SelectResponse response) where T: ISimpleDbEntity
+        {
+            var list = new List<T>();
+
+            if (response.IsSetSelectResult())
+            {
+                var selectResult = response.SelectResult;
+                if (selectResult.IsSetItem())
+                {
+                    var items = selectResult.Item;
+                    foreach (var item in items)
+                    {
+                        if (item.IsSetAttribute())
+                        {
+                            var attributes = item.Attribute;
+                            var obj = Activator.CreateInstance<T>();
+                            LoadFromSimpleDbAttributes(ref obj, attributes);
+                            list.Add(obj);
+                        }
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        protected internal virtual SelectRequest CreateSelectRequest<T>(int max, string nextToken)
+        {
+            var selectStatement = this.CreateSelectStatement<T>(max);
+            var selectRequest = new SelectRequest
+            {
+                SelectExpression = selectStatement,
+            };
+            if (!String.IsNullOrWhiteSpace(nextToken))
+            {
+                selectRequest.NextToken = nextToken;
+            }
+
+            return selectRequest;
+
+        }
+
+        protected internal virtual void LoadFromSimpleDbAttributes<T>(ref T obj, List<Amazon.SimpleDB.Model.Attribute> attributes) where T: ISimpleDbEntity
+        {
+            var type = typeof (T);
+            var props = typeof(T)
+                .GetProperties()
+                .Where(prop => System.Attribute.IsDefined(prop, typeof(SimpleDbColumnAttribute)));
+            
+            foreach (var prop in props)
+            {
+                var attr =
+                    (SimpleDbColumnAttribute)
+                    ((prop.GetCustomAttributes(typeof (SimpleDbColumnAttribute), false)).FirstOrDefault());
+
+                if (attr != null)
+                {
+                    var columnName = attr.Name;
+                    var simpleDbColumn =
+                        attributes.FirstOrDefault(
+                            c => c.Name.Equals(columnName, StringComparison.CurrentCultureIgnoreCase));
+                    if (simpleDbColumn != null)
+                    {
+                        var value = simpleDbColumn.IsSetValue() ? simpleDbColumn.Value : null;
+                        prop.SetValue(obj, value, (BindingFlags.Instance | BindingFlags.SetProperty | BindingFlags.IgnoreCase), null, null, CultureInfo.CurrentCulture);
+                    }
+                }
+            }
+        }
+
+        protected internal virtual string CreateSelectStatement<T>(int max)
+        {
+            var domainName = this.EntityHelper.GetDomainNameOfEntity<T>();
+            var statementFmt = "SELECT * FROM {0} LIMIT {1}";
+            var statement = String.Format(statementFmt, domainName, max);
+            return statement;
+        }
+
         protected internal virtual PutAttributesRequest CreatePutAttributesRequest<T>(ISimpleDbEntity entity) where T:ISimpleDbEntity
         {
             var putAttributeRequest = new PutAttributesRequest();
             
-            var domain = this.EntityHelper.GetDomainNameOfEntity<T>(entity);
+            var domain = this.EntityHelper.GetDomainNameOfEntity<T>();
             var pk = this.EntityHelper.GetPrimaryKeyValueOfEntity<T>(entity);
 
             putAttributeRequest.DomainName = domain;
             putAttributeRequest.ItemName = pk;
                 
-            var props = typeof(T).GetProperties().Where(
-                prop => System.Attribute.IsDefined(prop, typeof(SimpleDbColumnAttribute)));
+            var props = typeof(T)
+                .GetProperties()
+                .Where(prop => System.Attribute.IsDefined(prop, typeof(SimpleDbColumnAttribute)));
 
             foreach (var prop in props)
             {
@@ -116,12 +215,9 @@ namespace Motore.Library.Aws.SimpleDb
 
         #region Protected Properties
 
-        protected internal virtual AmazonSimpleDBClient Client
+        protected internal virtual AmazonSimpleDBClient GetClient()
         {
-            get
-            {
-                return (_client ?? (_client = new AmazonSimpleDBClient(_credentials, _config)));
-            }
+            return (_client ?? (_client = new AmazonSimpleDBClient(_credentials, _config)));
         }
 
         protected internal virtual SimpleDbEntityHelper EntityHelper
@@ -131,5 +227,6 @@ namespace Motore.Library.Aws.SimpleDb
 
         #endregion
 
+        
     }
 }

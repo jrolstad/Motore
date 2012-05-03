@@ -7,6 +7,8 @@ using Motore.Library.Aws.SimpleDb;
 using Motore.Library.Entities;
 using Motore.Utils.Dates;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Rhino.Mocks.Interfaces;
 
 namespace Motore.Library.Tests.TestCases.Aws.SimpleDb
 {
@@ -18,6 +20,53 @@ namespace Motore.Library.Tests.TestCases.Aws.SimpleDb
         {
             var initializer = new DomainInitializer();
             initializer.Initialize();
+        }
+
+        [Test]
+        public void CreateSelectStatement_gets_domain_name_from_EntityHelper()
+        {
+            // arrange
+            var client = MockRepository.GenerateMock<SimpleDbClient>(null, null);
+            var helper = MockRepository.GenerateMock<SimpleDbEntityHelper>();
+            client.Stub(c => c.EntityHelper).Return(helper);
+            client.Expect(c => c.CreateSelectStatement<PortfolioCalculationRequest>(99)).Repeat.Once().CallOriginalMethod(
+                OriginalCallOptions.CreateExpectation);
+
+            // act
+            client.CreateSelectStatement<PortfolioCalculationRequest>(99);
+
+            // assert
+            helper.AssertWasCalled(h=>h.GetDomainNameOfEntity<PortfolioCalculationRequest>());
+        }
+
+        [Test]
+        public void Get_T_calls_CreateSelectRequest_T()
+        {
+            // arrange
+            string nextToken = null;
+            const string selectStatement = "foo bar bat";
+            var client = MockRepository.GenerateMock<SimpleDbClient>(null, null);
+            client.Expect(p => p.Get<PortfolioCalculationRequest>(2, ref nextToken)).Repeat.Once().CallOriginalMethod(
+                OriginalCallOptions.CreateExpectation);
+            // act
+            client.Get<PortfolioCalculationRequest>(2, ref nextToken);
+
+            // assert
+            client.AssertWasCalled(x => x.CreateSelectRequest<PortfolioCalculationRequest>(2, nextToken));
+            
+        }
+
+        [Test]
+        [Category("Integration")]
+        [Category("AWS")]
+        public void Get_PortfolioCalculationRequests_does_not_throw()
+        {
+            // arrange
+            var client = AwsClientFactory.CreateSimpleDbClient();
+            string nextToken = null;
+
+            // act
+            client.Get<PortfolioCalculationRequest>(2, ref nextToken);
         }
 
         [Test]

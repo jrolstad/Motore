@@ -9,7 +9,7 @@ namespace Motore.Utils.Dates
     {
 
 #if DEBUG
-        public static Func<DateTime> Now = () => DateTime.Now;
+        public static Func<DateTime> Now = () => DateTime.UtcNow;
 #else
         public static DateTime Now()
         {

@@ -59,17 +59,18 @@ namespace Motore.Library.Aws.SimpleDb
             return primaryKeyValue;
         }
 
-        public virtual string GetDomainNameOfEntity<T>(ISimpleDbEntity entity)
+        public virtual string GetDomainNameOfEntity<T>()
         {
+            var type = typeof (T);
+
             var domainAttribute =
-                (SimpleDbDomainAttribute)typeof(T).GetCustomAttributes(typeof(SimpleDbDomainAttribute), false).FirstOrDefault();
+                (SimpleDbDomainAttribute)type.GetCustomAttributes(typeof(SimpleDbDomainAttribute), false).FirstOrDefault();
             if (domainAttribute == null)
             {
-                var pkValue = this.GetPrimaryKeyValueOfEntity<T>(entity);
                 var msg =
                     String.Format(
-                        "The ISimpleDbEntity of type '{0}' identified by the primary key '{1}' is not decorated with a SimpleDbDomain attribute.",
-                        (typeof(T)).ToString(), pkValue);
+                        "The ISimpleDbEntity of type '{0}' is not decorated with a SimpleDbDomain attribute.",
+                        type.ToString());
                 throw new Exception(msg);
             }
             return domainAttribute.Domain;

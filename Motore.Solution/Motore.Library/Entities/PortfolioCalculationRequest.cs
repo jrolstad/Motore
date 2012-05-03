@@ -37,7 +37,19 @@ namespace Motore.Library.Entities
             set { _origin = value; }
         }
 
-        [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "RequestDate")]
+        [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "RequestTimestamp")]
+        protected internal virtual string RequestTimestampString
+        {
+            set
+            {
+                long timestamp;
+                if (long.TryParse(value, out timestamp))
+                {
+                    this.RequestDate = DateUtils.FromTimestamp(timestamp);
+                }
+            }
+        }
+
         public virtual DateTime RequestDate
         {
             get { return _requestDate; }
@@ -48,22 +60,61 @@ namespace Motore.Library.Entities
         public string ClientIp { get; set; }
 
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "Status")]
+        protected internal virtual string StatusString
+        {
+            set
+            {
+                this.Status =
+                    (PortfolioCalculationRequestStatus)
+                    Enum.Parse(typeof (PortfolioCalculationRequestStatus), value, true);
+            }
+        }
         public PortfolioCalculationRequestStatus Status { get; set; }
 
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "Errors")]
-        public string Errors { get; set; }
+        public virtual string Errors { get; set; }
 
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "CreateTimestamp")]
-        public long CreateTimestamp { get; set; }
+        protected internal virtual string CreateTimestampString
+        {
+            set
+            {
+                long timestamp;
+                if (!long.TryParse(value, out timestamp))
+                {
+                    timestamp = DateUtils.ToTimestamp(SystemTime.Now());
+                }
+                this.CreateTimestamp = timestamp;
+
+            }
+        }
+
+        public virtual long CreateTimestamp { get; set; }
 
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "ModifyTimestamp")]
-        public long ModifyTimestamp { get; set; }
+        protected internal virtual string ModifyTimestampString
+        {
+            set
+            {
+                long timestamp;
+                if (!long.TryParse(value, out timestamp))
+                {
+                    timestamp = DateUtils.ToTimestamp(SystemTime.Now());
+                }
+                this.ModifyTimestamp = timestamp;
+
+            }
+        }
+        public virtual long ModifyTimestamp { get; set; }
 
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "CreatedBy")]
-        public string CreatedBy { get; set; }
+        public virtual string CreatedBy { get; set; }
 
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "ModifiedBy")]
-        public string ModifiedBy { get; set; }
+        public virtual string ModifiedBy { get; set; }
+
+        [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "PortfolioFileInfo")]
+        public virtual string PortfolioFileInfo { get; set; }
 
     }
 }

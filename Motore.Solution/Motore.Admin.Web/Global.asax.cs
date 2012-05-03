@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Motore.Library.Aws.SimpleDb;
 
 namespace Motore.Admin.Web
 {
@@ -35,6 +36,15 @@ namespace Motore.Admin.Web
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            this.InitializeSimpleDbDomains();
+        }
+
+
+        protected internal virtual void InitializeSimpleDbDomains()
+        {
+            var initializer = new DomainInitializer();
+            initializer.Initialize();
         }
     }
 }

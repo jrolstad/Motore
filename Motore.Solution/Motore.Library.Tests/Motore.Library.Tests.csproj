@@ -74,6 +74,7 @@
     <Compile Include="TestCases\Factories\ProviderFactoryTests.cs" />
     <Compile Include="TestCases\MarketData\MarketDataRequestProcessorTests.cs" />
     <Compile Include="TestCases\MarketData\MarketDataRequestQueueTests.cs" />
+    <Compile Include="TestCases\Portfolio\CalculationRequests\PortfolioCalculationRequestProviderTests.cs" />
     <Compile Include="TestCases\Programs\AlphaProgramTests\When_saving_an_interested_customer.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -24,7 +24,7 @@ namespace Motore.Performance.Web.Controllers
         public ActionResult SubmitRequest(string requestId)
         {
             var actualRequestId = (String.IsNullOrWhiteSpace(requestId) ? this.Provider.CreateNewRequestId() : requestId);
-            var model = new PortfolioCalculationRequestModel
+            var model = new PortfolioCalculationRequestInputModel
                             {
                                 RequestId = actualRequestId,
                             };
@@ -33,7 +33,7 @@ namespace Motore.Performance.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult SubmitRequest(PortfolioCalculationRequestModel model)
+        public ActionResult SubmitRequest(PortfolioCalculationRequestInputModel model)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace Motore.Performance.Web.Controllers
 
         #region Protected Methods
 
-        protected internal virtual void ValidateNewRequest(PortfolioCalculationRequestModel model)
+        protected internal virtual void ValidateNewRequest(PortfolioCalculationRequestInputModel model)
         {
             PortfolioCalculationRequestValidationException exc = null;
 

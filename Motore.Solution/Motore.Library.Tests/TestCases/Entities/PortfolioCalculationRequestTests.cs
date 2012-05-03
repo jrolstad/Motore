@@ -62,11 +62,10 @@ namespace Motore.Library.Tests.TestCases.Entities
         {
             // arrange
             var expected = "PortfolioCalculationRequest";
-            var request = new PortfolioCalculationRequest();
             var helper = new SimpleDbEntityHelper();
 
             // act
-            var actual = helper.GetDomainNameOfEntity<PortfolioCalculationRequest>(request);
+            var actual = helper.GetDomainNameOfEntity<PortfolioCalculationRequest>();
 
             // assert
             Assert.That(actual, Is.EqualTo(expected));

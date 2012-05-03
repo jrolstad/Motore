@@ -86,8 +86,9 @@
     <Compile Include="Models\Logging\WriteLogResponse.cs" />
     <Compile Include="Models\MarketData\MarketDataRequestResponse.cs" />
     <Compile Include="Models\ModelFactory.cs" />
+    <Compile Include="Models\Portfolio\PortfolioCalculationRequestViewModel.cs" />
     <Compile Include="Models\Portfolio\PortfolioCalculationRequestExceptionModel.cs" />
-    <Compile Include="Models\Portfolio\PortfolioCalculationRequestModel.cs" />
+    <Compile Include="Models\Portfolio\PortfolioCalculationRequestInputModel.cs" />
     <Compile Include="Models\ReportWizard\Assumptions.cs" />
     <Compile Include="Models\ReportWizard\Custodian.cs" />
     <Compile Include="Models\ReportWizard\Step.cs" />

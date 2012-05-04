@@ -13,7 +13,7 @@ namespace Motore.Utils.Dates
 #else
         public static DateTime Now()
         {
-            return DateTime.Now;
+            return DateTime.UtcNow;
         }
 #endif
 

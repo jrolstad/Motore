@@ -80,6 +80,9 @@
     <Compile Include="Factories\ProviderFactory.cs" />
     <Compile Include="Factories\QueueFactory.cs" />
     <Compile Include="Factories\ReportWizardStepFactory.cs" />
+    <Compile Include="Entities\UserFile.cs" />
+    <Compile Include="Files\UserFiles.cs" />
+    <Compile Include="Files\UserFilesProvider.cs" />
     <Compile Include="MarketData\MarketDataRequestProcessor.cs" />
     <Compile Include="MarketData\MarketDataRequestQueue.cs" />
     <Compile Include="Models\Customer.cs" />

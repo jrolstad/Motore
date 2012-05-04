@@ -7,7 +7,6 @@ namespace Motore.Library.Aws.SimpleDb
 {
     public interface ISimpleDbEntity
     {
-        string Errors { get; set; }
         long CreateTimestamp { get; set; }
         long ModifyTimestamp { get; set; }
         string CreatedBy { get; set; }

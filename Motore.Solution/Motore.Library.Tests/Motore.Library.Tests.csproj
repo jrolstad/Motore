@@ -71,6 +71,7 @@
     <Compile Include="TestCases\Aws\SimpleDb\DomainsTests.cs" />
     <Compile Include="TestCases\Aws\SimpleDb\SimpleDbClientTests.cs" />
     <Compile Include="TestCases\Entities\PortfolioCalculationRequestTests.cs" />
+    <Compile Include="TestCases\Entities\UserFileTests.cs" />
     <Compile Include="TestCases\Factories\ProviderFactoryTests.cs" />
     <Compile Include="TestCases\MarketData\MarketDataRequestProcessorTests.cs" />
     <Compile Include="TestCases\MarketData\MarketDataRequestQueueTests.cs" />

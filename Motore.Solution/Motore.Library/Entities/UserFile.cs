@@ -8,59 +8,79 @@ using Motore.Utils.Dates;
 
 namespace Motore.Library.Entities
 {
-    public enum PortfolioCalculationRequestStatus
+    public enum UserFileStatus
     {
-        Pending = 1,
-        Started = 2,
-        Completed = 10,
-        Error = 666
+        Ok = 1,
+        Error = 2
     }
 
-    [SimpleDbDomain(Domain="PortfolioCalculationRequest")]
-    public class PortfolioCalculationRequest : ISimpleDbEntity
+    public enum UserFileType
     {
-        private DateTime _requestDate = SystemTime.Now();
-        private string _requestId = Guid.NewGuid().ToString();
-        private string _origin = null;
+        Portfolio = 1,
+    }
 
-        [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "RequestId", IsPrimaryKey = true)]
-        public virtual string RequestId
+    public enum FileSystemType
+    {
+        S3 = 1,
+    }
+
+    public class UserFile : ISimpleDbEntity
+    {
+        private DateTime _uploadDate = SystemTime.Now();
+        private string _id = Guid.NewGuid().ToString();
+
+        [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "Id")]
+        public virtual string Id
         {
-            get { return _requestId; }
-            set { _requestId = value; }
+            get { return _id; }
+            set { _id = value; }
         }
 
-        [SimpleDbColumn(Name="Origin", Multiplicity=ColumnMultiplicity.Single)]
-        public virtual string Origin
+        [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "UserFileType")]
+        protected internal virtual string UserFileTypeString
         {
-            get { return _origin; }
-            set { _origin = value; }
+            set
+            {
+                this.UserFileType =
+                    (UserFileType)
+                    Enum.Parse(typeof (UserFileType), value, true);
+            }
         }
+        public virtual UserFileType UserFileType { get; set; }
 
-        [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "RequestTimestamp")]
-        protected internal virtual string RequestTimestampString
+        [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "FileSystemType")]
+        protected internal virtual string FileSystemTypeString
+        {
+            set
+            {
+                this.FileSystemType =
+                    (FileSystemType)
+                    Enum.Parse(typeof (FileSystemType), value, true);
+            }
+        }
+        public virtual FileSystemType FileSystemType { get; set; }
+        
+        [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "Location")]
+        public virtual string Location { get; set; }
+        
+        [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "UploadTimestamp")]
+        protected internal virtual string UploadTimestampString
         {
             set
             {
                 long timestamp;
                 if (long.TryParse(value, out timestamp))
                 {
-                    this.RequestDate = DateUtils.FromTimestamp(timestamp);
+                    this.UploadDate = DateUtils.FromTimestamp(timestamp);
                 }
             }
         }
 
-        public virtual DateTime RequestDate
+        public virtual DateTime UploadDate
         {
-            get { return _requestDate; }
-            set { _requestDate = value; }
+            get { return _uploadDate; }
+            set { _uploadDate = value; }
         }
-
-        [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "ClientIp")]
-        public string ClientIp { get; set; }
-
-        [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "PortfolioFileInfo")]
-        public virtual string PortfolioFileInfo { get; set; }
 
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "Status")]
         protected internal virtual string StatusString
@@ -68,11 +88,11 @@ namespace Motore.Library.Entities
             set
             {
                 this.Status =
-                    (PortfolioCalculationRequestStatus)
-                    Enum.Parse(typeof (PortfolioCalculationRequestStatus), value, true);
+                    (UserFileStatus)
+                    Enum.Parse(typeof (UserFileStatus), value, true);
             }
         }
-        public virtual PortfolioCalculationRequestStatus Status { get; set; }
+        public virtual UserFileStatus Status { get; set; }
 
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "CreateTimestamp")]
         protected internal virtual string CreateTimestampString
@@ -113,6 +133,5 @@ namespace Motore.Library.Entities
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "ModifiedBy")]
         public virtual string ModifiedBy { get; set; }
 
-        
     }
 }

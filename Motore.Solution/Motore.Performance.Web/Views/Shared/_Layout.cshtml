@@ -1,22 +1,105 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <title>@ViewBag.Title</title>
-    
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/bootstrap/css/bootstrap.css")"/>
     @Html.Partial("~/Views/Shared/Css/css.cshtml")
-    
     <!-- JAVASCRIPT -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="@Url.Content("~/Content/bootstrap/js/bootstrap.js")"></script>
-    
     <!-- OTHER -->
     @RenderSection("head", false)
-
+    @Html.Partial("~/Views/Google/Analytics/tracking.cshtml")
 </head>
 <body>
-    @RenderBody()
+    <!-- navbar, fixed to top --> 
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/news/">News</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/about/">About</a></li>
+                        <li><a href="/help/">Help</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end navbar -->
+    <!-- body -->
+    <div class="row">
+        <div class="span12">
+            Boo boo boo1
+            <p/>
+            Bar bar bar2
+            <p/>
+            Boo boo boo3
+            <p/>
+            Bar bar bar4
+            <p/>
+            Boo boo boo
+            <p/>
+            Bar bar bar
+            <p/>
+            Boo boo boo
+            <p/>
+            Bar bar bar
+            <p/>
+            Boo boo boo
+            <p/>
+            Bar bar bar
+            <p/>
+            Boo boo boo
+            <p/>
+            Bar bar bar
+            <p/>
+            Boo boo boo
+            <p/>
+            Bar bar bar
+            <p/>
+            Boo boo boo
+            <p/>
+            Bar bar bar
+            <p/>
+            Boo boo boo
+            <p/>
+            Bar bar bar
+            <p/>
+            Boo boo boo
+            <p/>
+            Bar bar bar
+            <p/>
+            Boo boo boo
+            <p/>
+            Bar bar bar
+            <p/>
+            Boo boo boo
+            <p/>
+            Bar bar bar
+            <p/>
+            Boo boo boo
+            <p/>
+            Bar bar bar
+            <p/>
+            Boo boo boo
+            <p/>
+            Bar bar bar
+            <p/>
+            Boo boo boo
+            <p/>
+            Bar bar bar
+            <p/>
+            Boo boo boo
+            <p/>
+            Bar bar bar
+            <p/>
+            @RenderBody()    
+        </div>
+    </div>
 </body>
 </html>

@@ -95,6 +95,7 @@
     <Content Include="Content\bootstrap\img\glyphicons-halflings.png" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\bootstrap\README.txt" />
     <Content Include="Content\images\header\chart.png" />
     <Content Include="Content\images\header\header1.png" />
     <Content Include="Content\images\header\header2.png" />

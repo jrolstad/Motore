@@ -36,9 +36,30 @@ namespace Motore.Library.Entities
             set { _id = value; }
         }
 
+        [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "ClientFileName")]
+        public virtual string ClientFileName { get; set; }
+        
+        [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name="ContentLength")]
+        protected internal virtual string ContentLengthString
+        {
+            get
+            {
+                var ret = "";
+                if (this.ContentLength > 0)
+                {
+                    ret = this.ContentLength.ToString();
+                }
+                return ret;
+            }
+            set { this.ContentLength = long.Parse(value); }
+        }
+
+        public virtual long ContentLength { get; set; }
+
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "UserFileType")]
         protected internal virtual string UserFileTypeString
         {
+            get { return this.UserFileType.ToString(); }
             set
             {
                 this.UserFileType =

@@ -86,9 +86,11 @@
     <Compile Include="MarketData\MarketDataRequestProcessor.cs" />
     <Compile Include="MarketData\MarketDataRequestQueue.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\Logging\WriteLogResponse.cs" />
     <Compile Include="Models\MarketData\MarketDataRequestResponse.cs" />
     <Compile Include="Models\ModelFactory.cs" />
+    <Compile Include="Models\Portfolio\PortfolioCalculationRequestSubmitModel.cs" />
     <Compile Include="Models\Portfolio\PortfolioCalculationRequestViewModel.cs" />
     <Compile Include="Models\Portfolio\PortfolioCalculationRequestExceptionModel.cs" />
     <Compile Include="Models\Portfolio\PortfolioCalculationRequestInputModel.cs" />

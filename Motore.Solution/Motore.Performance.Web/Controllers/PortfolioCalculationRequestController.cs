@@ -38,8 +38,9 @@ namespace Motore.Performance.Web.Controllers
             try
             {
                 this.ValidateNewRequest(model);
-                this.Provider.SubmitRequest(model);
-                return View("~/Views/PortfolioCalculationRequest/ResponseOk.cshtml", model);
+                model.Origin = this.GetOrigin();
+                var postProcessingModel = this.Provider.SubmitRequest(model);
+                return View("~/Views/PortfolioCalculationRequest/ResponseOk.cshtml", postProcessingModel);
             }
             catch (PortfolioCalculationRequestValidationException pexc)
             {
@@ -55,6 +56,19 @@ namespace Motore.Performance.Web.Controllers
 
         #region Protected Methods
 
+        protected internal virtual string GetOrigin()
+        {
+            string origin = null;
+            try
+            {
+                origin = Request.Url.ToString();
+            }
+            catch (NullReferenceException)
+            {
+                System.Diagnostics.Debug.WriteLine("Unable to get the Request.Url property.");
+            }
+            return origin;
+        }
         protected internal virtual void ValidateNewRequest(PortfolioCalculationRequestInputModel model)
         {
             PortfolioCalculationRequestValidationException exc = null;

@@ -29,7 +29,7 @@ namespace Motore.Library.Portfolios.Requests
             Assert.Fail(()=>(String.IsNullOrWhiteSpace(input.RequestId)), "The RequestId property of the PortfolioCalculationRequestModel is null or whitespace");
 
             var model = new PortfolioCalculationRequestInputModel();
-            this.SaveRequestId(input.RequestId);
+            this.SaveInitialRequest(input);
             throw new NotImplementedException();
         }
 
@@ -74,9 +74,28 @@ namespace Motore.Library.Portfolios.Requests
             return model;
         }
 
-        protected internal virtual void SaveRequestId(string requestId)
+        protected internal virtual PortfolioCalculationRequest Convert(PortfolioCalculationRequestInputModel model)
         {
-            throw new NotImplementedException();
+            var request = new PortfolioCalculationRequest
+                              {
+                                  ClientIp = model.ClientIp,
+                                  CreatedBy = model.CreatedBy,
+                                  CreateTimestamp = model.CreateTimestamp,
+                                  ModifiedBy = model.ModifiedBy,
+                                  ModifyTimestamp = model.ModifyTimestamp,
+                                  Origin = model.Origin,
+                                  RequestDate = model.RequestDate,
+                                  RequestId = model.RequestId,
+                                  Status = PortfolioCalculationRequestStatus.Pending,
+
+                              };
+
+            return request;
+        }
+        protected internal virtual void SaveInitialRequest(PortfolioCalculationRequestInputModel model)
+        {
+            var request = this.Convert(model);
+            this.SimpleDbClient.SaveEntity<PortfolioCalculationRequest>(request);
         }
 
         #endregion

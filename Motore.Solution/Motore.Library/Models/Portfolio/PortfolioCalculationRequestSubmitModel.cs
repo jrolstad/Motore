@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Motore.Library.Models.Portfolio
 {
-    public class PortfolioCalculationRequestInputModel
+    public class PortfolioCalculationRequestSubmitModel
     {
         #region Member Variables
 
@@ -27,7 +27,7 @@ namespace Motore.Library.Models.Portfolio
         public virtual long ModifyTimestamp { get; set; }
         public virtual string Origin { get; set; }
 
-        public virtual System.Web.HttpPostedFileBase PortfolioFile { get; set; }
+        public virtual string PortfolioFileLocation { get; set; }
         
     }
 }

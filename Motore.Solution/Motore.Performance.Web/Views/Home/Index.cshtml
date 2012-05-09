@@ -1,4 +1,8 @@
-﻿@{
+﻿@model Motore.Library.Models.HomeModel
+@{
     ViewBag.Title = "Reputrade Portfolio Performance Reporting";
 }
 <h1>Reputrade</h1>
+<div>
+    @Html.Partial("~/Views/PortfolioCalculationRequest/_UploadPortfolioFile.cshtml", Model.PortfolioCalculationRequestInputModel)
+</div>

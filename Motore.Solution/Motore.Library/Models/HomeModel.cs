@@ -6,9 +6,16 @@ namespace Motore.Library.Models
     {
         private PortfolioCalculationRequestInputModel _portfolioCalculationRequestInputModel = null;
 
-        public virtual PortfolioCalculationRequestInputModel PortfolioRequestCalculationInputModel
+        public virtual PortfolioCalculationRequestInputModel PortfolioCalculationRequestInputModel
         {
-            get { return _portfolioCalculationRequestInputModel; }
+            get
+            {
+                if (_portfolioCalculationRequestInputModel == null)
+                {
+                    _portfolioCalculationRequestInputModel = new PortfolioCalculationRequestInputModel();
+                }
+                return _portfolioCalculationRequestInputModel;
+            }
             set { _portfolioCalculationRequestInputModel = value; }
         }
     }

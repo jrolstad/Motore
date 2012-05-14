@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Motore.Library.Aws;
+using Motore.Library.Aws.S3;
 using Motore.Library.Aws.SimpleDb;
+using Motore.Library.Configuration;
 using Motore.Library.Entities;
 using Motore.Library.Models.Portfolio;
 using Motore.Utils.Assertions;
+using Motore.Utils.Dates;
 using Motore.Utils.Logging;
 
 namespace Motore.Library.Portfolios.Requests
@@ -14,6 +17,7 @@ namespace Motore.Library.Portfolios.Requests
     public class PortfolioCalculationRequestProvider
     {
         private SimpleDbClient _simpleDbClient = null;
+        private S3Client _s3Client = null;
 
         public virtual IEnumerable<PortfolioCalculationRequestViewModel> GetMostRecent100Requests()
         {
@@ -22,14 +26,16 @@ namespace Motore.Library.Portfolios.Requests
             return this.Convert(requests);
         }
 
-        public virtual PortfolioCalculationRequestInputModel SubmitRequest(PortfolioCalculationRequestInputModel input)
+        public virtual PortfolioCalculationRequestSubmitModel SubmitRequest(PortfolioCalculationRequestInputModel input)
         {
             // save the request id
             Assert.Fail(() => (input != null), "The PortfolioCalculationRequestModel parameter is null");
-            Assert.Fail(()=>(String.IsNullOrWhiteSpace(input.RequestId)), "The RequestId property of the PortfolioCalculationRequestModel is null or whitespace");
+            Assert.Fail(()=>(!String.IsNullOrWhiteSpace(input.RequestId)), "The RequestId property of the PortfolioCalculationRequestModel is null or whitespace");
 
-            var model = new PortfolioCalculationRequestInputModel();
-            this.SaveInitialRequest(input);
+            var requestId = this.SaveInitialRequest(input);
+            this.SavePortfolioFile(input);
+
+            var model = new PortfolioCalculationRequestSubmitModel();
             throw new NotImplementedException();
         }
 
@@ -45,6 +51,47 @@ namespace Motore.Library.Portfolios.Requests
         }
 
         #region Protected Methods
+
+        protected internal virtual void SavePortfolioFile(PortfolioCalculationRequestInputModel input)
+        {
+            try
+            {
+                var path = this.CalculatePortfolioFileSavePath(input);
+                this.S3Client.Save(input.PortfolioFile.InputStream, this.PortfolioBucketName, this.CalculatePortfolioFileSavePath(input));
+            }
+            catch (Exception exc)
+            {
+                this.LogRequestError(input.RequestId, exc.ToString());
+                throw;
+            }
+        }
+
+        protected internal virtual string CalculatePortfolioFileSavePath(PortfolioCalculationRequestInputModel input)
+        {
+            // how do we determine where to save the file?    
+            var folder = this.GetS3PortfolioFolder(input);
+            var fileName = this.GetS3PortfolioFileName(input);
+            const string fmt = "{0}/{1}";
+            var path = String.Format(fmt, folder, fileName);
+            return path;
+        }
+
+        protected internal virtual string GetS3PortfolioFileName(PortfolioCalculationRequestInputModel input)
+        {
+            // what do we know about the input file?
+            return String.Format("{0}.{1}.port", input.RequestId, input.PortfolioFileType);
+        }
+
+        protected internal virtual string GetS3PortfolioFolder(PortfolioCalculationRequestInputModel input)
+        {
+            var now = SystemTime.Now().ToString("yyyy-MM-dd");
+            return now;
+        }
+    
+        protected internal virtual string PortfolioBucketName
+        {
+            get { return Config.PortfolioBucketName; }
+        }
 
         protected internal virtual IEnumerable<PortfolioCalculationRequestViewModel> Convert(List<PortfolioCalculationRequest> requests)
         {
@@ -92,10 +139,11 @@ namespace Motore.Library.Portfolios.Requests
 
             return request;
         }
-        protected internal virtual void SaveInitialRequest(PortfolioCalculationRequestInputModel model)
+        protected internal virtual string SaveInitialRequest(PortfolioCalculationRequestInputModel model)
         {
             var request = this.Convert(model);
             this.SimpleDbClient.SaveEntity<PortfolioCalculationRequest>(request);
+            return request.RequestId;
         }
 
         #endregion
@@ -106,6 +154,13 @@ namespace Motore.Library.Portfolios.Requests
         {
             get { return _simpleDbClient ?? (_simpleDbClient = AwsClientFactory.CreateSimpleDbClient()); }
             set { _simpleDbClient = value; }
+        }
+
+
+        protected internal virtual S3Client S3Client
+        {
+            get { return _s3Client ?? (_s3Client = AwsClientFactory.CreateS3Client()); }
+            set { _s3Client = value; }
         }
 
         #endregion

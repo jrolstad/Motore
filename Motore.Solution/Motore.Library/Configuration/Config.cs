@@ -4,6 +4,32 @@ namespace Motore.Library.Configuration
 {
     public class Config
     {
+        public static string S3ServiceUrl
+        {
+            get
+            {
+                var configValue = System.Configuration.ConfigurationManager.AppSettings["S3.ServiceUrl"];
+                return configValue;
+            }
+        }
+
+        public static string S3Scheme
+        {
+            get
+            {
+                var configValue = System.Configuration.ConfigurationManager.AppSettings["S3.Scheme"];
+                return configValue;
+            }
+        }
+
+        public static string PortfolioBucketName
+        {
+            get
+            {
+                var configValue = System.Configuration.ConfigurationManager.AppSettings["S3.PortfolioBucketName"];
+                return configValue;
+            }
+        }
         public static string AwsAccessKey
         {
             get

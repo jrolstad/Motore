@@ -38,6 +38,9 @@ namespace Motore.Utils.Logging
 
         public static void LogException(string message)
         {
+#if DEBUG
+            System.Diagnostics.Debug.WriteLine(message);
+#endif
             var logger = GetLogger();
             if (logger.IsErrorEnabled)
             {

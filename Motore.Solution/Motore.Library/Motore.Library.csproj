@@ -65,6 +65,8 @@
     <Compile Include="Aws\Attributes\SimpleDbDomainAttribute.cs" />
     <Compile Include="Aws\AwsClient.cs" />
     <Compile Include="Aws\AwsClientFactory.cs" />
+    <Compile Include="Aws\S3\S3Client.cs" />
+    <Compile Include="Aws\S3\S3PutInfo.cs" />
     <Compile Include="Aws\SimpleDb\Domain.cs" />
     <Compile Include="Aws\SimpleDb\DomainAction.cs" />
     <Compile Include="Aws\SimpleDb\DomainInitializer.cs" />

@@ -6,12 +6,34 @@ using Motore.Library.Entities;
 using Motore.Library.Models.Portfolio;
 using Motore.Library.Portfolios.Requests;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Motore.Library.Tests.TestCases.Portfolio.CalculationRequests
 {
     [TestFixture]
     public class PortfolioCalculationRequestProviderTests
     {
+        [Test]
+        public void GetS3PortfolioFileName_returns_correct_value()
+        {
+            // arrange
+            var requestId = "foo";
+            var portfolioFileType = "bar";
+            var expected = "foo.bar.port";
+
+            var input = MockRepository.GenerateStub<PortfolioCalculationRequestInputModel>();
+            input.RequestId = requestId;
+            input.PortfolioFileType = portfolioFileType;
+
+            var provider = new PortfolioCalculationRequestProvider();
+
+            // act
+            var actual = provider.GetS3PortfolioFileName(input);
+
+            // assert
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
         [Test]
         public void Convert_correctly_converts_list()
         {
@@ -90,6 +112,29 @@ namespace Motore.Library.Tests.TestCases.Portfolio.CalculationRequests
 
             // assert
             Assert.That(model.PortfolioFileInfo, Is.EqualTo(portfolioFileInfo));
+        }
+
+        [Test]
+        public void SubmitRequest_throws_if_input_is_null()
+        {
+            // arrange
+            var provider = new PortfolioCalculationRequestProvider();
+
+            // act
+            // assert
+            Assert.Throws<Exception>(() => provider.SubmitRequest(null));
+        }
+
+        [Test]
+        public void SubmitRequest_throws_if_input_RequestId_is_null()
+        {
+            // arrange
+            var provider = new PortfolioCalculationRequestProvider();
+            var input = new PortfolioCalculationRequestInputModel {RequestId = null};
+
+            // act
+            // assert
+            Assert.Throws<Exception>(() => provider.SubmitRequest(input));
         }
     }
 }

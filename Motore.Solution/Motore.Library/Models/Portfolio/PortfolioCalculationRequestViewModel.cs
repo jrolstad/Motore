@@ -30,6 +30,7 @@ namespace Motore.Library.Models.Portfolio
         public virtual string ClientIp { get; set; }
         public virtual PortfolioCalculationRequestStatus Status { get; set; }
         
+        // TODO
         // this seems very vague.  What am I trying to do here?  What's the client scenario that needs this data?
         public virtual string PortfolioFileInfo { get; set; }
 

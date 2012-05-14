@@ -9,6 +9,16 @@ namespace Motore.TestHelpers
 {
     public class EmbeddedResourceHelper
     {
+        public static Stream GetStream(Assembly assembly, string path)
+        {
+            var stream = assembly.GetManifestResourceStream(path);
+            if (stream == null)
+            {
+                throw new Exception(String.Format("The path '{0}' could not be found.", path));
+            }
+            return stream;
+        }
+
         public static string GetText(Assembly assembly, string path)
         {
             Stream inFile = null;

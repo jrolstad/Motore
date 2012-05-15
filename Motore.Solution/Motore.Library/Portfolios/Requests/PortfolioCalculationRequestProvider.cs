@@ -33,7 +33,8 @@ namespace Motore.Library.Portfolios.Requests
             Assert.Fail(()=>(!String.IsNullOrWhiteSpace(input.RequestId)), "The RequestId property of the PortfolioCalculationRequestModel is null or whitespace");
 
             var requestId = this.SaveInitialRequest(input);
-            this.SavePortfolioFile(input);
+            var fileInfo = this.SavePortfolioFile(input);
+            this.SaveUserFileRecord(requestId, fileInfo);
 
             var model = new PortfolioCalculationRequestSubmitModel();
             throw new NotImplementedException();
@@ -52,18 +53,56 @@ namespace Motore.Library.Portfolios.Requests
 
         #region Protected Methods
 
-        protected internal virtual void SavePortfolioFile(PortfolioCalculationRequestInputModel input)
+        protected internal virtual string SaveUserFileRecord(string requestId, PortfolioFileInfo fileInfo)
+        {
+            var nowTimestamp = SystemTime.Now().ToTimestamp();
+
+            var file = new UserFile
+                                {
+                                    ClientFileName = fileInfo.ClientFileName,
+                                    CreatedBy = "system",
+                                    ModifiedBy = "system",
+                                    CreateTimestamp = nowTimestamp,
+                                    ModifyTimestamp = nowTimestamp,
+                                    FileSystemType = fileInfo.FileSystemType,
+                                    Location = fileInfo.Uri,
+                                    RequestId = requestId,
+                                    Status = UserFileStatus.Pending,
+                                    UploadDate = fileInfo.UploadDate,
+                                    UserFileType = UserFileType.Portfolio,
+                                };
+
+            var info = this.SimpleDbClient.SaveEntity<UserFile>(file);
+            return info.PrimaryKey;
+        }
+
+        protected internal virtual PortfolioFileInfo SavePortfolioFile(PortfolioCalculationRequestInputModel input)
         {
             try
             {
+                string clientFileName = input.PortfolioFile.FileName;
                 var path = this.CalculatePortfolioFileSavePath(input);
-                this.S3Client.Save(input.PortfolioFile.InputStream, this.PortfolioBucketName, this.CalculatePortfolioFileSavePath(input));
+                var putInfo = this.S3Client.Save(input.PortfolioFile.InputStream, this.PortfolioBucketName, path);
+                var portfolioFileInfo = this.ConvertToPortfolioFileInfo(putInfo);
+                portfolioFileInfo.ClientFileName = clientFileName;
+                return portfolioFileInfo;
             }
             catch (Exception exc)
             {
                 this.LogRequestError(input.RequestId, exc.ToString());
                 throw;
             }
+        }
+
+        protected internal virtual PortfolioFileInfo ConvertToPortfolioFileInfo(S3PutInfo putInfo)
+        {
+            var portfolioFileInfo = new PortfolioFileInfo
+                                        {
+                                            FileSystemType = FileSystemType.S3,
+                                            Uri = putInfo.Uri,
+                                        };
+
+            return portfolioFileInfo;
         }
 
         protected internal virtual string CalculatePortfolioFileSavePath(PortfolioCalculationRequestInputModel input)
@@ -139,6 +178,7 @@ namespace Motore.Library.Portfolios.Requests
 
             return request;
         }
+
         protected internal virtual string SaveInitialRequest(PortfolioCalculationRequestInputModel model)
         {
             var request = this.Convert(model);

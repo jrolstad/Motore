@@ -10,8 +10,10 @@ namespace Motore.Library.Entities
 {
     public enum UserFileStatus
     {
-        Ok = 1,
-        Error = 2
+        Unknown = 1,
+        Pending = 2,
+        Ok = 5,
+        Error = 99
     }
 
     public enum UserFileType
@@ -24,16 +26,25 @@ namespace Motore.Library.Entities
         S3 = 1,
     }
 
+    [SimpleDbDomain(Domain="UserFile")]
     public class UserFile : ISimpleDbEntity
     {
         private DateTime _uploadDate = SystemTime.Now();
         private string _id = Guid.NewGuid().ToString();
+        private string _requestId = null;
 
-        [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "Id")]
+        [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "Id", IsPrimaryKey=true)]
         public virtual string Id
         {
             get { return _id; }
             set { _id = value; }
+        }
+
+        [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "RequestId")]
+        public virtual string RequestId
+        {
+            get { return _requestId; }
+            set { _requestId = value; }
         }
 
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "ClientFileName")]

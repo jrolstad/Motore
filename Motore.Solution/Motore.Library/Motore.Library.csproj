@@ -100,6 +100,8 @@
     <Compile Include="Models\ReportWizard\Custodian.cs" />
     <Compile Include="Models\ReportWizard\Step.cs" />
     <Compile Include="Models\ReportWizard\UploadFile.cs" />
+    <Compile Include="Aws\SimpleDb\SaveEntityInfo.cs" />
+    <Compile Include="Portfolios\PortfolioFileInfo.cs" />
     <Compile Include="Portfolios\Requests\PortfolioCalculationRequestProvider.cs" />
     <Compile Include="Programs\AlphaProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -109,7 +111,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Persistence\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Motore.MarketData.Yahoo\Motore.MarketData.Yahoo.csproj">
       <Project>{D5D5E37F-1B94-453A-8400-7F1D7A3CC942}</Project>

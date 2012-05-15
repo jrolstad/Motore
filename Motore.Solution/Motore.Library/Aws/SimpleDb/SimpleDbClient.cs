@@ -25,6 +25,16 @@ namespace Motore.Library.Aws.SimpleDb
             _config = config;
         }
 
+        public virtual T Get<T>(string primaryKey, bool consistentRead = false) where T: ISimpleDbEntity
+        {
+            var getAttributesRequest = this.CreateGetAttributesRequest<T>(primaryKey, consistentRead);
+            var response = this.GetAttributesResponse(getAttributesRequest);
+            var item = CreateItemFromResponse<T>(response);
+
+            return item;
+    
+        }
+
         public virtual List<T> Get<T>(int max, ref string nextToken) where T: ISimpleDbEntity
         {
             var selectRequest = this.CreateSelectRequest<T>(max, nextToken);
@@ -45,10 +55,16 @@ namespace Motore.Library.Aws.SimpleDb
             return new DomainAction { Action = DomainActionType.Created, DomainName = name };
         }
 
-        public virtual void SaveEntity<T>(ISimpleDbEntity entity) where T: ISimpleDbEntity
+        public virtual SaveEntityInfo SaveEntity<T>(ISimpleDbEntity entity) where T: ISimpleDbEntity
         {
             var request = this.CreatePutAttributesRequest<T>(entity);
             var response = this.PutAttributes(request);
+
+            return new SaveEntityInfo
+                       {
+                           EntityType = typeof (T),
+                           PrimaryKey = request.ItemName,
+                       };
         }
 
         public virtual Domains ListDomains(int maxNumberToRetrive = 100, string nextToken = null)
@@ -94,6 +110,11 @@ namespace Motore.Library.Aws.SimpleDb
             return this.GetClient().Select(request);
         }
 
+        protected internal virtual GetAttributesResponse GetAttributesResponse(GetAttributesRequest request)
+        {
+            return this.GetClient().GetAttributes(request);
+        }
+
         protected internal virtual List<T> CreateListFromResponse<T>(SelectResponse response) where T: ISimpleDbEntity
         {
             var list = new List<T>();
@@ -118,6 +139,39 @@ namespace Motore.Library.Aws.SimpleDb
             }
 
             return list;
+        }
+
+        protected internal virtual T CreateItemFromResponse<T>(GetAttributesResponse response) where T : ISimpleDbEntity
+        {
+            T item = default(T);
+
+            if (response.IsSetGetAttributesResult())
+            {
+                var getAttributesResult = response.GetAttributesResult;
+                if (getAttributesResult.IsSetAttribute())
+                {
+                    var attributes = getAttributesResult.Attribute;
+                    var obj = Activator.CreateInstance<T>();
+                    LoadFromSimpleDbAttributes(ref obj, attributes);
+                    item = obj;
+                }
+            }
+
+            return item;
+        }
+
+        protected internal virtual GetAttributesRequest CreateGetAttributesRequest<T>(string primaryKey, bool consistentRead = false)
+        {
+            var domainName = this.EntityHelper.GetDomainNameOfEntity<T>();
+            var getAttributesRequest = new GetAttributesRequest
+            {
+                DomainName = domainName,
+                ItemName = primaryKey,
+                ConsistentRead = consistentRead,
+            };
+
+            return getAttributesRequest;
+
         }
 
         protected internal virtual SelectRequest CreateSelectRequest<T>(int max, string nextToken)

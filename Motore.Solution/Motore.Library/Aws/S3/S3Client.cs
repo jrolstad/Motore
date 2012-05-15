@@ -6,6 +6,7 @@ using System.Text;
 using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.S3.Model;
+using Motore.Utils.Dates;
 using Motore.Utils.Logging;
 
 namespace Motore.Library.Aws.S3
@@ -70,12 +71,19 @@ namespace Motore.Library.Aws.S3
 
         protected internal virtual S3PutInfo CreateS3PutInfo(PutObjectResponse response, string bucket, string path)
         {
-
             var eTag = response.ETag;
             var versionId = response.VersionId;
             var encryptionMethod = response.ServerSideEncryptionMethod.ToString();
+            var putDate = SystemTime.Now();
+#if DEBUG
+            for (int i = 0; i < response.Headers.Count; i++)
+            {
+                var h = response.Headers[i];
+                System.Diagnostics.Debug.WriteLine(String.Format("{0}: {1}", h, response.Headers[h]));
+            }
+#endif
 
-            return new S3PutInfo
+    return new S3PutInfo
                        {
                            BucketName = bucket,
                            Path = path,
@@ -84,6 +92,7 @@ namespace Motore.Library.Aws.S3
                            ETag = eTag,
                            VersionId = versionId,
                            EncryptionMethod = encryptionMethod,
+                           PutDate = putDate,
                        };
         }
 

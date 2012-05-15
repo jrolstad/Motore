@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Motore.Library.Aws;
+using Motore.Library.Aws.SimpleDb;
 using Motore.Library.Entities;
 using Motore.Library.Models.Portfolio;
+using Motore.Library.Portfolios;
 using Motore.Library.Portfolios.Requests;
+using Motore.Utils.Dates;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -13,6 +17,37 @@ namespace Motore.Library.Tests.TestCases.Portfolio.CalculationRequests
     [TestFixture]
     public class PortfolioCalculationRequestProviderTests
     {
+        [TestFixtureSetUp]
+        public void TestFixtureSetUp()
+        {
+            var di = new DomainInitializer();
+            di.Initialize();
+        }
+
+        [Test]
+        [Category("Integration")]
+        [Category("AWS")]
+        public void SaveUserFileRecord_saves_to_simpledb()
+        {
+            // arrange
+            var provider = new PortfolioCalculationRequestProvider();
+            var fileInfo = new PortfolioFileInfo
+                               {
+                                   ClientFileName = "client",
+                                   FileSystemType = FileSystemType.S3,
+                                   UploadDate = SystemTime.Now(),
+                                   Uri = "some test uri",
+                               };
+            // act
+            var id = provider.SaveUserFileRecord("foo", fileInfo);
+
+            // assert
+            var client = AwsClientFactory.CreateSimpleDbClient();
+            var actualEntity = client.Get<UserFile>(id, true);
+
+            Assert.That(actualEntity.Location, Is.EqualTo("some test uri"));
+        }
+
         [Test]
         public void GetS3PortfolioFileName_returns_correct_value()
         {

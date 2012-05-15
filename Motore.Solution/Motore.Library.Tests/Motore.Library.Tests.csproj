@@ -70,6 +70,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestCases\Aws\AwsClientFactoryTests.cs" />
     <Compile Include="TestCases\Aws\S3\S3ClientTests.cs" />
+    <Compile Include="TestCases\Aws\S3\S3PutInfoTests.cs" />
     <Compile Include="TestCases\Aws\SimpleDb\DomainInitializerTests.cs" />
     <Compile Include="TestCases\Aws\SimpleDb\DomainsTests.cs" />
     <Compile Include="TestCases\Aws\SimpleDb\SimpleDbClientTests.cs" />

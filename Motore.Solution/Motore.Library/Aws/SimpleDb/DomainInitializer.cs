@@ -10,6 +10,7 @@ namespace Motore.Library.Aws.SimpleDb
         private List<string> _domainNames = new List<string>
                                                 {
                                                     "PortfolioCalculationRequest",
+                                                    "UserFile",
                                                 };
 
         private SimpleDbClient _simpleDbClient = null;

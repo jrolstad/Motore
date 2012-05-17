@@ -194,7 +194,7 @@ namespace Motore.Library.Aws.SimpleDb
         {
             var type = typeof (T);
             var props = typeof(T)
-                .GetProperties()
+                .GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.IgnoreCase | BindingFlags.SetProperty)
                 .Where(prop => System.Attribute.IsDefined(prop, typeof(SimpleDbColumnAttribute)));
             
             foreach (var prop in props)
@@ -237,29 +237,27 @@ namespace Motore.Library.Aws.SimpleDb
             putAttributeRequest.ItemName = pk;
                 
             var props = typeof(T)
-                .GetProperties()
+                .GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.IgnoreCase | BindingFlags.GetProperty)
                 .Where(prop => System.Attribute.IsDefined(prop, typeof(SimpleDbColumnAttribute)));
 
             foreach (var prop in props)
             {
                 var attributes = (SimpleDbColumnAttribute[])prop.GetCustomAttributes(typeof(SimpleDbColumnAttribute), false);
                 var attribute = attributes.First();
-                if (attribute.IsPrimaryKey == false)
-                {
-                    var columnName = attribute.Name;
+                var columnName = attribute.Name;
 
-                    var value = prop.GetValue(entity, (BindingFlags.GetProperty | BindingFlags.Instance), null, null,
-                                              CultureInfo.InvariantCulture);
+                var value = prop.GetValue(entity, (BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.NonPublic), null, null,
+                                            CultureInfo.InvariantCulture);
 
-                    var putAttribute = new ReplaceableAttribute
-                                           {
-                                               Name = columnName,
-                                               Replace = true,
-                                               Value = (value ?? "").ToString(),
-                                           };
+                var putAttribute = new ReplaceableAttribute
+                                        {
+                                            Name = columnName,
+                                            Replace = true,
+                                            Value = (value ?? "").ToString(),
+                                        };
 
-                    putAttributeRequest.Attribute.Add(putAttribute);
-                }
+                putAttributeRequest.Attribute.Add(putAttribute);
+                
             }
 
             return putAttributeRequest;

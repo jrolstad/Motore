@@ -240,3 +240,49 @@ Parameter name: awsAccessKeyId
    at System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<>c__DisplayClass17.<InvokeActionMethodWithFilters>b__14()
    at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
    at System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName)
+[2012-05-16 17:17:25,569]|DEBUG|Amazon.S3.AmazonS3Client|(null)|Starting request (id 83eb282c-249f-4eef-b7bd-2f548381d507) for 83eb282c-249f-4eef-b7bd-2f548381d507
+[2012-05-16 17:17:26,143]|INFO |Amazon.S3.AmazonS3Client|(null)|Received response for PutObject (id 83eb282c-249f-4eef-b7bd-2f548381d507) with status code OK in 00:00:00.5030287.
+[2012-05-16 17:17:26,147]|INFO |Amazon.S3.AmazonS3Client+S3AsyncResult|(null)|S3 request completed: S3Request: Type - Amazon.S3.Model.PutObjectRequest, ID - 83eb282c-249f-4eef-b7bd-2f548381d507, ResponseTime - 00:00:00.5030287, ResponseReadTime - 00:00:00, ResponseProcessingTime - 00:00:00, TotalRequestTime - 00:00:00.5870336, Unaccounted time - 00:00:00.0840049, Bytes processed - 0
+[2012-05-16 17:17:28,667]|ERROR|Motore.Performance.Web.Attributes.HandleErrorAndLogAttribute|(null)|System.NotImplementedException: The method or operation is not implemented.
+   at Motore.Library.Portfolios.Requests.PortfolioCalculationRequestProvider.SubmitRequest(PortfolioCalculationRequestInputModel input) in C:\Users\Anthony\Documents\RepuTrade\github\Motore\Motore.Solution\Motore.Library\Portfolios\Requests\PortfolioCalculationRequestProvider.cs:line 40
+   at Motore.Performance.Web.Controllers.PortfolioCalculationRequestController.SubmitRequest(PortfolioCalculationRequestInputModel model) in C:\Users\Anthony\Documents\RepuTrade\github\Motore\Motore.Solution\Motore.Performance.Web\Controllers\PortfolioCalculationRequestController.cs:line 42
+   at lambda_method(Closure , ControllerBase , Object[] )
+   at System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<InvokeActionMethodWithFilters>b__12()
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodFilter(IActionFilter filter, ActionExecutingContext preContext, Func`1 continuation)
+   at System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<>c__DisplayClass17.<InvokeActionMethodWithFilters>b__14()
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName)
+[2012-05-16 18:45:58,014]|ERROR|Motore.Performance.Web.Attributes.HandleErrorAndLogAttribute|(null)|System.ArgumentException: Property Get method was not found.
+   at System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   at Motore.Library.Aws.SimpleDb.SimpleDbClient.CreatePutAttributesRequest[T](ISimpleDbEntity entity) in C:\Users\Anthony\Documents\RepuTrade\github\Motore\Motore.Solution\Motore.Library\Aws\SimpleDb\SimpleDbClient.cs:line 249
+   at Motore.Library.Aws.SimpleDb.SimpleDbClient.SaveEntity[T](ISimpleDbEntity entity) in C:\Users\Anthony\Documents\RepuTrade\github\Motore\Motore.Solution\Motore.Library\Aws\SimpleDb\SimpleDbClient.cs:line 60
+   at Motore.Library.Portfolios.Requests.PortfolioCalculationRequestProvider.SaveInitialRequest(PortfolioCalculationRequestInputModel model) in C:\Users\Anthony\Documents\RepuTrade\github\Motore\Motore.Solution\Motore.Library\Portfolios\Requests\PortfolioCalculationRequestProvider.cs:line 185
+   at Motore.Library.Portfolios.Requests.PortfolioCalculationRequestProvider.SubmitRequest(PortfolioCalculationRequestInputModel input) in C:\Users\Anthony\Documents\RepuTrade\github\Motore\Motore.Solution\Motore.Library\Portfolios\Requests\PortfolioCalculationRequestProvider.cs:line 35
+   at Motore.Performance.Web.Controllers.PortfolioCalculationRequestController.SubmitRequest(PortfolioCalculationRequestInputModel model) in C:\Users\Anthony\Documents\RepuTrade\github\Motore\Motore.Solution\Motore.Performance.Web\Controllers\PortfolioCalculationRequestController.cs:line 42
+   at lambda_method(Closure , ControllerBase , Object[] )
+   at System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<InvokeActionMethodWithFilters>b__12()
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodFilter(IActionFilter filter, ActionExecutingContext preContext, Func`1 continuation)
+   at System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<>c__DisplayClass17.<InvokeActionMethodWithFilters>b__14()
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName)
+[2012-05-16 18:58:05,648]|DEBUG|Amazon.S3.AmazonS3Client|(null)|Starting request (id ba5d22c6-21c5-4fd6-99a3-5c20529d0ad7) for ba5d22c6-21c5-4fd6-99a3-5c20529d0ad7
+[2012-05-16 18:58:08,159]|INFO |Amazon.S3.AmazonS3Client|(null)|Received response for PutObject (id ba5d22c6-21c5-4fd6-99a3-5c20529d0ad7) with status code OK in 00:00:02.4951427.
+[2012-05-16 18:58:08,172]|INFO |Amazon.S3.AmazonS3Client+S3AsyncResult|(null)|S3 request completed: S3Request: Type - Amazon.S3.Model.PutObjectRequest, ID - ba5d22c6-21c5-4fd6-99a3-5c20529d0ad7, ResponseTime - 00:00:02.4951427, ResponseReadTime - 00:00:00.0010001, ResponseProcessingTime - 00:00:00, TotalRequestTime - 00:00:02.5311448, Unaccounted time - 00:00:00.0350020, Bytes processed - 0
+[2012-05-16 18:58:11,780]|ERROR|Motore.Performance.Web.Attributes.HandleErrorAndLogAttribute|(null)|System.NotImplementedException: The method or operation is not implemented.
+   at Motore.Library.Portfolios.Requests.PortfolioCalculationRequestProvider.SubmitRequest(PortfolioCalculationRequestInputModel input) in C:\Users\Anthony\Documents\RepuTrade\github\Motore\Motore.Solution\Motore.Library\Portfolios\Requests\PortfolioCalculationRequestProvider.cs:line 40
+   at Motore.Performance.Web.Controllers.PortfolioCalculationRequestController.SubmitRequest(PortfolioCalculationRequestInputModel model) in C:\Users\Anthony\Documents\RepuTrade\github\Motore\Motore.Solution\Motore.Performance.Web\Controllers\PortfolioCalculationRequestController.cs:line 42
+   at lambda_method(Closure , ControllerBase , Object[] )
+   at System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<InvokeActionMethodWithFilters>b__12()
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodFilter(IActionFilter filter, ActionExecutingContext preContext, Func`1 continuation)
+   at System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass15.<>c__DisplayClass17.<InvokeActionMethodWithFilters>b__14()
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName)

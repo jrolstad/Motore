@@ -19,6 +19,12 @@ namespace Motore.Admin.Web.Controllers
             return View(model);
         }
 
+        public ActionResult Details(string id)
+        {
+            var model = this.UserFilesProvider.Get(id);
+            return View(model);
+        }
+    
         #region Protected Properties
 
         protected internal virtual UserFilesProvider UserFilesProvider

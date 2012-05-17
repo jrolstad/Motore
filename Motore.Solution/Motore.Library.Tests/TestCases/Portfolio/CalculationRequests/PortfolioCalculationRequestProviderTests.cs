@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Motore.Library.Aws;
+using Motore.Library.Aws.S3;
 using Motore.Library.Aws.SimpleDb;
 using Motore.Library.Entities;
 using Motore.Library.Models.Portfolio;
@@ -11,17 +12,64 @@ using Motore.Library.Portfolios.Requests;
 using Motore.Utils.Dates;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Rhino.Mocks.Interfaces;
 
 namespace Motore.Library.Tests.TestCases.Portfolio.CalculationRequests
 {
     [TestFixture]
     public class PortfolioCalculationRequestProviderTests
     {
-        [TestFixtureSetUp]
-        public void TestFixtureSetUp()
+        [Test]
+        public void ConvertToPortfolioFileInfo_sets_UploadTimestamp_from_current_time()
         {
-            var di = new DomainInitializer();
-            di.Initialize();
+            // arrange
+            var dt = new DateTime(2011, 4, 1, 9, 33, 21);
+            var ts = dt.ToTimestamp();
+            SystemTime.Now = () => dt;
+            var putInfo = new S3PutInfo();
+            var provider = new PortfolioCalculationRequestProvider();
+
+            // act
+
+            var actual = provider.ConvertToPortfolioFileInfo(putInfo);
+
+            // assert
+            Assert.That(actual.UploadTimestamp, Is.EqualTo(ts));
+        }
+
+        [Test]
+        public void SavePortfolioFile_calls_correct_methods()
+        {
+            // arrange
+            var dt = new DateTime(2011, 4, 1, 9, 33, 21);
+            SystemTime.Now = () => dt;
+            var savePath = "foobarbat";
+            var clientFileName = "zeezing";
+            
+            var putInfo = MockRepository.GenerateMock<S3PutInfo>();
+            var fileInfo = MockRepository.GenerateMock<PortfolioFileInfo>();
+            fileInfo.Expect(f => f.UploadTimestamp).Return(dt.ToTimestamp());
+
+            var s3Client = MockRepository.GenerateStub<S3Client>(null, null);
+            s3Client.Expect(s => s.Save(null, null, null)).IgnoreArguments().Return(putInfo);
+
+            var model = MockRepository.GenerateStub<PortfolioCalculationRequestInputModel>();
+            model.Expect(m=>m.ClientFileName).Return(clientFileName);
+
+            var provider = MockRepository.GenerateMock<PortfolioCalculationRequestProvider>();
+            provider.Expect(p => p.S3Client).Return(s3Client);
+            provider.Expect(p => p.CalculatePortfolioFileSavePath(model)).Return(savePath);
+            provider.Expect(p => p.ConvertToPortfolioFileInfo(putInfo)).Return(fileInfo);
+            provider.Expect(p => p.SavePortfolioFile(model)).CallOriginalMethod(OriginalCallOptions.CreateExpectation);
+
+            // act
+            provider.SavePortfolioFile(model);
+
+            // assert
+            s3Client.VerifyAllExpectations();
+            model.VerifyAllExpectations();
+            provider.VerifyAllExpectations();
+
         }
 
         [Test]
@@ -35,7 +83,7 @@ namespace Motore.Library.Tests.TestCases.Portfolio.CalculationRequests
                                {
                                    ClientFileName = "client",
                                    FileSystemType = FileSystemType.S3,
-                                   UploadDate = SystemTime.Now(),
+                                   UploadTimestamp = SystemTime.Now().ToTimestamp(),
                                    Uri = "some test uri",
                                };
             // act
@@ -109,14 +157,15 @@ namespace Motore.Library.Tests.TestCases.Portfolio.CalculationRequests
         {
             // arrange
             var requestDate = new DateTime(2011, 2, 3, 15, 3, 21);
-            var request = new PortfolioCalculationRequest { RequestDate = requestDate  };
+            var ts = requestDate.ToTimestamp();
+            var request = new PortfolioCalculationRequest { RequestTimestamp = ts  };
             var provider = new PortfolioCalculationRequestProvider();
 
             // act
             var model = provider.Convert(request);
 
             // assert
-            Assert.That(model.RequestDate, Is.EqualTo(requestDate));
+            Assert.That(model.RequestTimestamp, Is.EqualTo(ts));
         }
 
         [Test]
@@ -171,5 +220,19 @@ namespace Motore.Library.Tests.TestCases.Portfolio.CalculationRequests
             // assert
             Assert.Throws<Exception>(() => provider.SubmitRequest(input));
         }
+
+        [TearDown]
+        public void TearDown()
+        {
+            SystemTime.Now = () => DateTime.Now;
+        }
+
+        [TestFixtureSetUp]
+        public void TestFixtureSetUp()
+        {
+            var di = new DomainInitializer();
+            di.Initialize();
+        }
+
     }
 }

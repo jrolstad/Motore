@@ -15,7 +15,7 @@ namespace Motore.Library.Exceptions
             set { _exceptions = value; }
         }
 
-        public virtual string Message
+        public override string Message
         {
             get { return this.CreateMessage(this.Exceptions, System.Environment.NewLine); }
         }

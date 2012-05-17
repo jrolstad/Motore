@@ -85,7 +85,8 @@ namespace Motore.Library.MarketData
                         }
                         catch (PossiblyPoisonMessageException ppme)
                         {
-                            // what to do here?
+                            System.Diagnostics.Debug.WriteLine(ppme.ToString());
+                            Log.LogException(ppme);
                         }
                         
                     }
@@ -128,7 +129,7 @@ namespace Motore.Library.MarketData
                 {
                     marketDataRequest = body.DeserializeFromJson<CombinedMarketDataRequest>();
                 }
-                catch (Exception exc)
+                catch
                 {
                     // if we can't deserialize, we may have a poison message
                     var msg =

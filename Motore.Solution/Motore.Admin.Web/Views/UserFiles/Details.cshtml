@@ -1,0 +1,66 @@
+﻿@model Motore.Library.Entities.UserFile
+@{
+    ViewBag.Title = "User File Details";
+}
+
+<div id="ViewUserFilePage">
+
+    <h2>User File Details</h2>
+    
+    <p/>
+    <table>
+        <tr>
+            <td class="header">ID</td>
+            <td class="data">@Model.Id</td>
+        </tr>
+        <tr>
+            <td class="header">File System Type</td>
+            <td class="data">@Model.FileSystemType.ToString()</td>
+        </tr>
+        <tr>
+            <td class="header">Location</td>
+            <td class="data">@Model.Location</td>
+        </tr>
+        <tr>
+            <td class="header">Client File Name</td>
+            <td class="data">@Model.ClientFileName</td>
+        </tr>
+        <tr>
+            <td class="header">Request ID</td>
+            <td class="data">@Model.RequestId</td>
+        </tr>
+        <tr>
+            <td class="header">Upload Timestamp</td>
+            <td class="data">@Model.UploadTimestamp</td>
+        </tr>
+        <tr>
+            <td class="header">User File Type</td>
+            <td class="data">@Model.UserFileType</td>
+        </tr>
+        <tr>
+            <td class="header">Content Length</td>
+            <td class="data">@Model.ContentLength</td>
+        </tr>
+        <tr>
+            <td class="header">Status</td>
+            <td class="data">@Model.Status</td>
+        </tr>
+        <tr>
+            <td class="header">Create Timestamp</td>
+            <td class="data">@Model.CreateTimestamp</td>
+        </tr>
+        <tr>
+            <td class="header">Created By</td>
+            <td class="data">@Model.CreatedBy</td>
+        </tr>
+        <tr>
+            <td class="header">Modify Timestamp</td>
+            <td class="data">@Model.ModifyTimestamp</td>
+        </tr>
+        <tr>
+            <td class="header">Modified By</td>
+            <td class="data">@Model.ModifiedBy</td>
+        </tr>
+    </table>
+</div>
+

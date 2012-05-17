@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Motore.Library.Entities;
+using Motore.Utils.Dates;
 
 namespace Motore.Library.Models.Portfolio
 {
@@ -11,7 +12,7 @@ namespace Motore.Library.Models.Portfolio
         #region Member Variables
 
         private string _requestId = Guid.NewGuid().ToString();
-        private DateTime _requestDate = DateTime.UtcNow;
+        private long _requestTimestamp = SystemTime.Now().ToTimestamp();
 
         #endregion
 
@@ -21,10 +22,23 @@ namespace Motore.Library.Models.Portfolio
             set { _requestId = value; }
         }
         
-        public virtual DateTime RequestDate
+        public virtual string RequestDateString
         {
-            get { return _requestDate; }
-            set { _requestDate = value; }
+            get
+            {
+                string result = "ERROR";
+                if (this.RequestTimestamp > 0)
+                {
+                    result = DateUtils.FromTimestamp(this.RequestTimestamp).ToString("R");
+                }
+                return result;
+            }
+        }
+
+        public virtual long RequestTimestamp
+        {
+            get { return _requestTimestamp; }
+            set { _requestTimestamp = value; }
         }
 
         public virtual string ClientIp { get; set; }
@@ -39,9 +53,5 @@ namespace Motore.Library.Models.Portfolio
         public virtual long CreateTimestamp { get; set; }
         public virtual long ModifyTimestamp { get; set; }
 
-        public virtual string RequestDateDisplayString
-        {
-            get { return this.RequestDate.ToUniversalTime().ToString("M/d/yy HH:mm"); }
-        }
     }
 }

@@ -33,14 +33,15 @@ namespace Motore.Library.Tests.TestCases.Entities
         public void Default_constructor_sets_UploadDate_to_now()
         {
             // arrange
-            var dt = new DateTime(2008, 3, 4, 2, 1, 3);
+            var dt = (new DateTime(2008, 3, 4, 2, 1, 3)).ToUniversalTime();
             SystemTime.Now = () => dt;
+            var expected = dt.ToTimestamp();
 
             // act
             var file = new UserFile();
 
             // assert
-            Assert.That(file.UploadDate, Is.EqualTo(dt));
+            Assert.That(file.UploadTimestamp, Is.EqualTo(expected));
         }
 
         [Test]

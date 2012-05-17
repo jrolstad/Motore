@@ -20,27 +20,28 @@ namespace Motore.Utils.Web
 
                 var results = new List<string>();
 
-                var mimeType = MimeType.CSV;
-
                 var request = (HttpWebRequest) WebRequest.Create(url);
                 var response = (HttpWebResponse)request.GetResponse();
                 Stream responseStream = null;
                 try
                 {
                     responseStream = response.GetResponseStream();
-                    StreamReader reader = null;
-                    try
+                    if (responseStream != null)
                     {
-                        reader = new StreamReader(responseStream);
-                        var line = reader.ReadLine();
-                        results.Add(line);
-                    }
-                    finally
-                    {
-                        if (reader != null)
+                        StreamReader reader = null;
+                        try
                         {
-                            reader.Close();
-                            reader.Dispose();
+                            reader = new StreamReader(responseStream);
+                            var line = reader.ReadLine();
+                            results.Add(line);
+                        }
+                        finally
+                        {
+                            if (reader != null)
+                            {
+                                reader.Close();
+                                reader.Dispose();
+                            }
                         }
                     }
                 }

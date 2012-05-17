@@ -33,14 +33,14 @@ namespace Motore.Library.Tests.TestCases.Entities
         public void Default_constructor_sets_request_date_to_now()
         {
             // arrange
-            var dt = new DateTime(2008, 3, 4, 2, 1, 3);
+            var dt = (new DateTime(2008, 3, 4, 2, 1, 3)).ToUniversalTime();
             SystemTime.Now = () => dt;
-
+            var expected = dt.ToString("R");
             // act
             var request = new PortfolioCalculationRequest();
 
             // assert
-            Assert.That(request.RequestDate, Is.EqualTo(dt));
+            Assert.That(request.RequestDateString, Is.EqualTo(expected));
         }
 
         [Test]

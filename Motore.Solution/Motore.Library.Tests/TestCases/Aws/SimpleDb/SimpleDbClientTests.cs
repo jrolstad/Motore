@@ -15,11 +15,55 @@ namespace Motore.Library.Tests.TestCases.Aws.SimpleDb
     [TestFixture]
     public class SimpleDbClientTests
     {
-        [TestFixtureSetUp]
-        public void TestFixtureSetUp()
+        [Test]
+        [Category("Integration")]
+        [Category("AWS")]
+        public void Get_UserFile_returns_expected_value()
         {
-            var initializer = new DomainInitializer();
-            initializer.Initialize();
+            // arrange
+            var guid = Guid.NewGuid().ToString();
+            var userFile = new UserFile
+                               {
+                                   Id = guid,
+                                   Location = "foo",
+                                   FileSystemType = FileSystemType.S3,
+                                   UserFileType = UserFileType.Test,
+                                   CreatedBy = "test",
+                                   RequestId = "foo",
+                                   Status = UserFileStatus.Unknown,
+                               };
+
+            var client = AwsClientFactory.CreateSimpleDbClient();
+            var info = client.SaveEntity<UserFile>(userFile);
+            
+            // act
+            var actual = client.Get<UserFile>(info.PrimaryKey, true);
+            Assert.That(actual.Location, Is.EqualTo("foo"));
+        }
+
+        [Test]
+        public void CreatePutAttributesRequest_gets_correct_number_of_attributes_for_UserFile()
+        {
+            // arrange
+            var client = AwsClientFactory.CreateSimpleDbClient();
+            var userFile = new UserFile
+                               {
+                                   ClientFileName = "a",
+                                   ContentLength = 1,
+                                   CreateTimestamp = 2,
+                                   FileSystemType = FileSystemType.S3,
+                                   Id = "b",
+                                   Location = "c",
+                                   ModifyTimestamp = 3,
+                               };
+            const int expectedCount = 13;
+
+            // act
+            var request = client.CreatePutAttributesRequest<UserFile>(userFile);
+            
+            // assert
+            var actualCount = request.Attribute.Count;
+            Assert.That(actualCount, Is.EqualTo(expectedCount));
         }
 
         [Test]
@@ -44,7 +88,6 @@ namespace Motore.Library.Tests.TestCases.Aws.SimpleDb
         {
             // arrange
             string nextToken = null;
-            const string selectStatement = "foo bar bat";
             var client = MockRepository.GenerateMock<SimpleDbClient>(null, null);
             client.Expect(p => p.Get<PortfolioCalculationRequest>(2, ref nextToken)).Repeat.Once().CallOriginalMethod(
                 OriginalCallOptions.CreateExpectation);
@@ -141,6 +184,13 @@ namespace Motore.Library.Tests.TestCases.Aws.SimpleDb
             // assert
             Assert.That(attributeValue, Is.EqualTo(""));
         }
-        
+
+        [TestFixtureSetUp]
+        public void TestFixtureSetUp()
+        {
+            var initializer = new DomainInitializer();
+            initializer.Initialize();
+        }
+
     }
 }

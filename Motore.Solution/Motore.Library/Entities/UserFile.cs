@@ -17,21 +17,28 @@ namespace Motore.Library.Entities
     }
 
     public enum UserFileType
-    {
+    {   
         Portfolio = 1,
+        Test = 123,
     }
 
     public enum FileSystemType
     {
+        Unknown = 0,
         S3 = 1,
     }
 
     [SimpleDbDomain(Domain="UserFile")]
     public class UserFile : ISimpleDbEntity
     {
-        private DateTime _uploadDate = SystemTime.Now();
         private string _id = Guid.NewGuid().ToString();
         private string _requestId = null;
+        private long _createTimestamp = SystemTime.Now().ToTimestamp();
+        private long _modifyTimestamp = SystemTime.Now().ToTimestamp();
+        private long _uploadTimestamp = SystemTime.Now().ToTimestamp();
+        private FileSystemType _fileSystemType = FileSystemType.Unknown;
+        private string _location = null;
+        private long _contentLength = -1;
 
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "Id", IsPrimaryKey=true)]
         public virtual string Id
@@ -56,16 +63,27 @@ namespace Motore.Library.Entities
             get
             {
                 var ret = "";
-                if (this.ContentLength > 0)
+                if (this.ContentLength >= 0)
                 {
                     ret = this.ContentLength.ToString();
                 }
                 return ret;
             }
-            set { this.ContentLength = long.Parse(value); }
+            set
+            {
+                long parsed;
+                if (long.TryParse(value, out parsed))
+                {
+                    this.ContentLength = parsed;
+                }
+            }
         }
 
-        public virtual long ContentLength { get; set; }
+        public virtual long ContentLength
+        {
+            get { return _contentLength; }
+            set { _contentLength = value; }
+        }
 
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "UserFileType")]
         protected internal virtual string UserFileTypeString
@@ -83,40 +101,67 @@ namespace Motore.Library.Entities
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "FileSystemType")]
         protected internal virtual string FileSystemTypeString
         {
+            get { return this.FileSystemType.ToString(); }
             set
             {
-                this.FileSystemType =
-                    (FileSystemType)
-                    Enum.Parse(typeof (FileSystemType), value, true);
+                FileSystemType fst;
+                if (Enum.TryParse(value, true, out fst))
+                {
+                    this.FileSystemType = fst;
+                }
             }
         }
-        public virtual FileSystemType FileSystemType { get; set; }
+
+        public virtual FileSystemType FileSystemType
+        {
+            get { return _fileSystemType; }
+            set { _fileSystemType = value; }
+        }
         
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "Location")]
-        public virtual string Location { get; set; }
+        public virtual string Location
+        {
+            get { return _location; }
+            set { _location = value; }
+        }
         
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "UploadTimestamp")]
         protected internal virtual string UploadTimestampString
         {
+            get { return this.UploadTimestamp.ToString(); }
             set
             {
                 long timestamp;
                 if (long.TryParse(value, out timestamp))
                 {
-                    this.UploadDate = DateUtils.FromTimestamp(timestamp);
+                    this.UploadTimestamp = timestamp;
                 }
             }
         }
 
-        public virtual DateTime UploadDate
+        public virtual long UploadTimestamp
         {
-            get { return _uploadDate; }
-            set { _uploadDate = value; }
+            get { return _uploadTimestamp; }
+            set { _uploadTimestamp = value; }
+        }
+
+        public virtual string UploadDateString
+        {
+            get
+            {
+                var result = "ERROR";
+                if (this.UploadTimestamp > 0)
+                {
+                    result = DateUtils.FromTimestamp(this.UploadTimestamp).ToString("R");
+                }
+                return result;
+            }
         }
 
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "Status")]
         protected internal virtual string StatusString
         {
+            get { return this.Status.ToString(); }
             set
             {
                 this.Status =
@@ -124,11 +169,13 @@ namespace Motore.Library.Entities
                     Enum.Parse(typeof (UserFileStatus), value, true);
             }
         }
+
         public virtual UserFileStatus Status { get; set; }
 
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "CreateTimestamp")]
         protected internal virtual string CreateTimestampString
         {
+            get { return this.CreateTimestamp.ToString(); }
             set
             {
                 long timestamp;
@@ -141,11 +188,16 @@ namespace Motore.Library.Entities
             }
         }
 
-        public virtual long CreateTimestamp { get; set; }
+        public virtual long CreateTimestamp
+        {
+            get { return _createTimestamp; }
+            set { _createTimestamp = value; }
+        }
 
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "ModifyTimestamp")]
         protected internal virtual string ModifyTimestampString
         {
+            get { return this.ModifyTimestamp.ToString(); }
             set
             {
                 long timestamp;
@@ -157,7 +209,12 @@ namespace Motore.Library.Entities
 
             }
         }
-        public virtual long ModifyTimestamp { get; set; }
+
+        public virtual long ModifyTimestamp
+        {
+            get { return _modifyTimestamp; }
+            set { _modifyTimestamp = value; }
+        }
 
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "CreatedBy")]
         public virtual string CreatedBy { get; set; }

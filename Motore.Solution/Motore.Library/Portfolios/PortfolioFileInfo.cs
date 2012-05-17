@@ -11,6 +11,6 @@ namespace Motore.Library.Portfolios
         public virtual FileSystemType FileSystemType { get; set; }
         public virtual string Uri { get; set; }
         public virtual string ClientFileName { get; set; }
-        public virtual DateTime UploadDate { get; set; }
+        public virtual long UploadTimestamp { get; set; }
     }
 }

@@ -1,5 +1,54 @@
-﻿@{
+﻿@model Motore.Library.Files.UserFiles
+@{
     ViewBag.Title = "User Files";
 }
 
-<h2>User Files</h2>
+<div id="ViewUserFilesPage">
+    <h2>User Files</h2>
+    <p/>
+    @if ((Model == null)
+        || (Model.Count <= 0))
+    {
+        <div>No rows found.</div>
+    }
+    else
+    {
+        <table>
+            <tr class="header">
+                <td>ID</td>
+                <td>File System Type</td>
+                <td>Location</td>
+                <td>Client File Name</td>
+                <td>Create Timestamp</td>
+                <td>Created By</td>
+                <td>Modified By</td>
+                <td>Modify Timestamp</td>
+                <td>Request ID</td>
+                <td>Status</td>
+                <td>Upload Date</td>
+                <td>User File Type</td>
+            </tr>
+        @foreach (var file in Model)
+        {
+            <tr class="data">
+                <td>
+                    @Html.ActionLink(file.Id, "Details", "UserFiles", new { id = file.Id }, null)
+                </td>
+                <td>@file.FileSystemType.ToString()</td>
+                <td>@file.Location</td>
+                <td>@file.ClientFileName</td>
+                <td>@file.CreateTimestamp</td>
+                <td>@file.CreatedBy</td>
+                <td>@file.ModifiedBy</td>
+                <td>@file.ModifyTimestamp</td>
+                <td>@file.RequestId</td>
+                <td>@file.Status</td>
+                <td>@file.UploadDateString</td>
+                <td>@file.UserFileType</td>
+            </tr>
+        }
+        </table>
+    }
+</div>
+
+

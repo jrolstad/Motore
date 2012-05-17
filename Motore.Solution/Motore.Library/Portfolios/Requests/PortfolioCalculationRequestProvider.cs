@@ -68,7 +68,7 @@ namespace Motore.Library.Portfolios.Requests
                                     Location = fileInfo.Uri,
                                     RequestId = requestId,
                                     Status = UserFileStatus.Pending,
-                                    UploadDate = fileInfo.UploadDate,
+                                    UploadTimestamp = fileInfo.UploadTimestamp,
                                     UserFileType = UserFileType.Portfolio,
                                 };
 
@@ -80,9 +80,9 @@ namespace Motore.Library.Portfolios.Requests
         {
             try
             {
-                string clientFileName = input.PortfolioFile.FileName;
+                string clientFileName = input.ClientFileName;
                 var path = this.CalculatePortfolioFileSavePath(input);
-                var putInfo = this.S3Client.Save(input.PortfolioFile.InputStream, this.PortfolioBucketName, path);
+                var putInfo = this.S3Client.Save(input.FileStream, this.PortfolioBucketName, path);
                 var portfolioFileInfo = this.ConvertToPortfolioFileInfo(putInfo);
                 portfolioFileInfo.ClientFileName = clientFileName;
                 return portfolioFileInfo;
@@ -100,6 +100,7 @@ namespace Motore.Library.Portfolios.Requests
                                         {
                                             FileSystemType = FileSystemType.S3,
                                             Uri = putInfo.Uri,
+                                            UploadTimestamp = SystemTime.Now().ToTimestamp(),
                                         };
 
             return portfolioFileInfo;
@@ -148,7 +149,7 @@ namespace Motore.Library.Portfolios.Requests
             var model = new PortfolioCalculationRequestViewModel
                             {
                                 RequestId = request.RequestId,
-                                RequestDate = request.RequestDate,
+                                RequestTimestamp = request.RequestTimestamp,
                                 ClientIp = request.ClientIp,
                                 CreatedBy = request.CreatedBy,
                                 CreateTimestamp = request.CreateTimestamp,
@@ -170,7 +171,7 @@ namespace Motore.Library.Portfolios.Requests
                                   ModifiedBy = model.ModifiedBy,
                                   ModifyTimestamp = model.ModifyTimestamp,
                                   Origin = model.Origin,
-                                  RequestDate = model.RequestDate,
+                                  RequestTimestamp = model.RequestTimestamp,
                                   RequestId = model.RequestId,
                                   Status = PortfolioCalculationRequestStatus.Pending,
 

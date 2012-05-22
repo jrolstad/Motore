@@ -87,9 +87,10 @@ namespace Motore.Library.Tests.TestCases.Portfolio.CalculationRequests
                                    Uri = "some test uri",
                                };
             // act
-            var id = provider.SaveUserFileRecord("foo", fileInfo);
+            var info = provider.SaveUserFileRecord("foo", fileInfo);
 
             // assert
+            var id = info.PrimaryKey;
             var client = AwsClientFactory.CreateSimpleDbClient();
             var actualEntity = client.Get<UserFile>(id, true);
 

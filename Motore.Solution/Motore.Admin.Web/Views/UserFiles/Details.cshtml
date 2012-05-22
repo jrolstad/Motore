@@ -1,4 +1,5 @@
-﻿@model Motore.Library.Entities.UserFile
+﻿@using Motore.Library.Entities
+@model Motore.Library.Entities.UserFile
 @{
     ViewBag.Title = "User File Details";
 }
@@ -6,7 +7,6 @@
 <div id="ViewUserFilePage">
 
     <h2>User File Details</h2>
-    
     <p/>
     <table>
         <tr>
@@ -62,5 +62,17 @@
             <td class="data">@Model.ModifiedBy</td>
         </tr>
     </table>
+    <p/>
+    <div>
+        <div>What would you like to do?</div>
+        <div>
+            <ul>
+                @if (Model.Status != UserFileStatus.InvalidLocation)
+                {
+                    <li>@Html.ActionLink("View the raw contents of the file", "GetRawContents", "UserFiles", new {id = @Model.Id}, null)</li>
+                }
+            </ul>
+        </div>
+    </div>
 </div>
 

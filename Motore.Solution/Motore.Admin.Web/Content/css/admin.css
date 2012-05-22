@@ -1,0 +1,6 @@
+﻿div.rawfile {
+    font-family: courier new, courier, monospace;
+}
+div.rawfile div.line {
+    white-space: nowrap;
+}

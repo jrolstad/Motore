@@ -10,9 +10,13 @@ namespace Motore.Library.Entities
 {
     public enum PortfolioCalculationRequestStatus
     {
-        Pending = 1,
-        Started = 2,
-        Completed = 10,
+        New = 1,
+        ProcessingInput = 3,
+        ValidatingData = 5,
+        Calculating = 8,
+        ReportGeneration = 12,
+        Notifying = 15,
+        Completed = 20,
         Error = 666
     }
 

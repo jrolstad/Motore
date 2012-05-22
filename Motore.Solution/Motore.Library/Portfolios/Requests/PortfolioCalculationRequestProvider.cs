@@ -19,6 +19,14 @@ namespace Motore.Library.Portfolios.Requests
         private SimpleDbClient _simpleDbClient = null;
         private S3Client _s3Client = null;
 
+        public virtual void AddNotifyDetails(PortfolioCalculationRequestNotifyDetailsModel model)
+        {
+            var id = model.RequestId;
+            var email = model.Email;
+            var request = this.SimpleDbClient.Get<PortfolioCalculationRequest>(id, true);
+            throw new NotImplementedException();
+        }
+
         public virtual IEnumerable<PortfolioCalculationRequestViewModel> GetMostRecent100Requests()
         {
             string nextToken = null;
@@ -28,16 +36,18 @@ namespace Motore.Library.Portfolios.Requests
 
         public virtual PortfolioCalculationRequestSubmitModel SubmitRequest(PortfolioCalculationRequestInputModel input)
         {
-            // save the request id
             Assert.Fail(() => (input != null), "The PortfolioCalculationRequestModel parameter is null");
             Assert.Fail(()=>(!String.IsNullOrWhiteSpace(input.RequestId)), "The RequestId property of the PortfolioCalculationRequestModel is null or whitespace");
 
+            // save the request id
             var requestId = this.SaveInitialRequest(input);
+            // save the file to S3
             var fileInfo = this.SavePortfolioFile(input);
-            this.SaveUserFileRecord(requestId, fileInfo);
+            // save the user record to SimpleDB that represents the actual file
+            var saveUserFileInfo = this.SaveUserFileRecord(requestId, fileInfo);
 
-            var model = new PortfolioCalculationRequestSubmitModel();
-            throw new NotImplementedException();
+            var model = this.CreateSubmitModel(requestId, fileInfo, saveUserFileInfo);
+            return model;
         }
 
         public virtual void LogRequestError(string requestId, string error)
@@ -53,7 +63,18 @@ namespace Motore.Library.Portfolios.Requests
 
         #region Protected Methods
 
-        protected internal virtual string SaveUserFileRecord(string requestId, PortfolioFileInfo fileInfo)
+        protected internal virtual PortfolioCalculationRequestSubmitModel CreateSubmitModel(string requestId, PortfolioFileInfo fileInfo, SaveEntityInfo userFileSaveInfo)
+        {
+            var model = new PortfolioCalculationRequestSubmitModel
+                            {
+                                RequestId = requestId,
+                                Status = PortfolioCalculationRequestStatus.New
+                            };
+
+            return model;
+        }
+
+        protected internal virtual SaveEntityInfo SaveUserFileRecord(string requestId, PortfolioFileInfo fileInfo)
         {
             var nowTimestamp = SystemTime.Now().ToTimestamp();
 
@@ -73,7 +94,7 @@ namespace Motore.Library.Portfolios.Requests
                                 };
 
             var info = this.SimpleDbClient.SaveEntity<UserFile>(file);
-            return info.PrimaryKey;
+            return info;
         }
 
         protected internal virtual PortfolioFileInfo SavePortfolioFile(PortfolioCalculationRequestInputModel input)
@@ -173,7 +194,7 @@ namespace Motore.Library.Portfolios.Requests
                                   Origin = model.Origin,
                                   RequestTimestamp = model.RequestTimestamp,
                                   RequestId = model.RequestId,
-                                  Status = PortfolioCalculationRequestStatus.Pending,
+                                  Status = PortfolioCalculationRequestStatus.New,
 
                               };
 
@@ -183,8 +204,8 @@ namespace Motore.Library.Portfolios.Requests
         protected internal virtual string SaveInitialRequest(PortfolioCalculationRequestInputModel model)
         {
             var request = this.Convert(model);
-            this.SimpleDbClient.SaveEntity<PortfolioCalculationRequest>(request);
-            return request.RequestId;
+            var info = this.SimpleDbClient.SaveEntity<PortfolioCalculationRequest>(request);
+            return info.PrimaryKey;
         }
 
         #endregion

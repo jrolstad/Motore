@@ -14,6 +14,27 @@ namespace Motore.Performance.Web.Controllers
     {
         private PortfolioCalculationRequestProvider _provider = null;
 
+        [HttpPost]
+        public ActionResult AddNotifyDetails(PortfolioCalculationRequestNotifyDetailsModel model)
+        {
+            try
+            {
+                this.Provider.AddNotifyDetails(model);
+                return View("~/Views/PortfolioCalculationRequest/Share.cshtml");
+            }
+            catch (PortfolioCalculationRequestValidationException pexc)
+            {
+                this.Provider.LogRequestError(model.RequestId, pexc.Message);
+                var exceptionModel = new PortfolioCalculationRequestExceptionModel
+                {
+                    RequestId = model.RequestId,
+                    ValidationException = pexc
+                };
+                return View("~/Views/PortfolioCalculationRequest/RequestException.cshtml", exceptionModel);
+            }
+            
+        }
+
         [HttpGet]
         public ActionResult Status(string id)
         {
@@ -39,8 +60,8 @@ namespace Motore.Performance.Web.Controllers
             {
                 this.ValidateNewRequest(model);
                 model.Origin = this.GetOrigin();
-                var postProcessingModel = this.Provider.SubmitRequest(model);
-                return View("~/Views/PortfolioCalculationRequest/ResponseOk.cshtml", postProcessingModel);
+                var submitModel = this.Provider.SubmitRequest(model);
+                return View("~/Views/PortfolioCalculationRequest/ResponseOk.cshtml", submitModel);
             }
             catch (PortfolioCalculationRequestValidationException pexc)
             {
@@ -69,6 +90,7 @@ namespace Motore.Performance.Web.Controllers
             }
             return origin;
         }
+
         protected internal virtual void ValidateNewRequest(PortfolioCalculationRequestInputModel model)
         {
             PortfolioCalculationRequestValidationException exc = null;

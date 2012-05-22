@@ -2,11 +2,29 @@
     ViewBag.Title = "Response";
 }
 
-<h2>Response</h2>
-<p/>
-This page will show the response to the user, with a link to check status, and maybe a note
-about how to check their email, and a big thank you, etc. etc.
-<p/>
-Perhaps a note about how long it might take to process.
-<p/>
-Obviously if there are any exceptions, etc.
+<div id="PortfolioCalculationRequestOkPage">
+    <h2>Request Received</h2>
+    <p/>
+    <div>We're working on your request!</div>
+    <p/>
+    <div>IMPORTANT:</div>
+    <div>Where can we email you when your request is complete?</div>
+    @using (Html.BeginForm("AddNotifyDetails", "PortfolioCalculationRequest", FormMethod.Post, null))
+    {
+        <div>
+            <input type="text" name="email"/>
+        </div>
+        <div>* standard privacy disclaimer about how we won't sell or rent their email address</div>
+        <div>
+            <button type="submit">Continue</button>
+        </div>
+    }
+    <div>
+        This page will show the response to the user, with a link to check status, and maybe a note
+        about how to check their email, and a big thank you, etc. etc.
+        <p/>
+        Perhaps a note about how long it might take to process.
+        <p/>
+        Obviously if there are any exceptions, etc.
+    </div>
+</div>

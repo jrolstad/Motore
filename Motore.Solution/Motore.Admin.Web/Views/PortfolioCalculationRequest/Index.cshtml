@@ -24,8 +24,8 @@ else
             {
                 <tr>
                     <td class="data">@request.RequestId</td>
-                    <td class="data">@request.RequestDateDisplayString</td>
-                    <td class="data">@request.FileInfo</td>
+                    <td class="data">@request.RequestDateString</td>
+                    <td class="data">@request.PortfolioFileInfo</td>
                     <td class="data">@request.Status</td>
                     <td class="data">
                         @Html.ActionLink("details", "Details", "PortfolioCalculationRequest", new { id = request.RequestId }, null)

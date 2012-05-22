@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Motore.Library.Entities;
 
 namespace Motore.Library.Models.Portfolio
 {
@@ -9,8 +10,8 @@ namespace Motore.Library.Models.Portfolio
     {
         #region Member Variables
 
-        private string _requestId = Guid.NewGuid().ToString();
-
+        private string _requestId = null;
+        private PortfolioCalculationRequestStatus _status = PortfolioCalculationRequestStatus.New;
         #endregion
 
         public virtual string RequestId
@@ -19,15 +20,11 @@ namespace Motore.Library.Models.Portfolio
             set { _requestId = value; }
         }
         
-        public virtual DateTime RequestDate { get; set; }
-        public virtual string ClientIp { get; set; }
-        public virtual string CreatedBy { get; set; }
-        public virtual string ModifiedBy { get; set; }
-        public virtual long CreateTimestamp { get; set; }
-        public virtual long ModifyTimestamp { get; set; }
-        public virtual string Origin { get; set; }
-
-        public virtual string PortfolioFileLocation { get; set; }
+        public virtual PortfolioCalculationRequestStatus Status
+        {
+            get { return _status; }
+            set { _status = value; }
+        }
         
     }
 }

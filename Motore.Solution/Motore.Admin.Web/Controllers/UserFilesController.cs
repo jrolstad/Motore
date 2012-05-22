@@ -10,8 +10,12 @@ namespace Motore.Admin.Web.Controllers
     public class UserFilesController : Controller
     {
         private UserFilesProvider _provider = null;
-        //
-        // GET: /UserFiles/
+
+        public ActionResult GetRawContents(string id)
+        {
+            var model = this.UserFilesProvider.GetRawFileContent(id);
+            return View(model);
+        }
 
         public ActionResult Index()
         {

@@ -13,6 +13,7 @@ namespace Motore.Library.Entities
         Unknown = 1,
         Pending = 2,
         Ok = 5,
+        InvalidLocation=98,
         Error = 99
     }
 
@@ -20,6 +21,14 @@ namespace Motore.Library.Entities
     {   
         Portfolio = 1,
         Test = 123,
+    }
+
+    public enum Custodian
+    {
+        Unknown = 0,
+        Fidelity = 10,
+        RBC = 20,
+        Schwab = 30
     }
 
     public enum FileSystemType
@@ -39,7 +48,7 @@ namespace Motore.Library.Entities
         private FileSystemType _fileSystemType = FileSystemType.Unknown;
         private string _location = null;
         private long _contentLength = -1;
-
+        private Custodian _custodian = Custodian.Unknown;
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "Id", IsPrimaryKey=true)]
         public virtual string Id
         {
@@ -96,7 +105,37 @@ namespace Motore.Library.Entities
                     Enum.Parse(typeof (UserFileType), value, true);
             }
         }
+
         public virtual UserFileType UserFileType { get; set; }
+
+        [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "Custodian")]
+        protected internal virtual string CustodianString
+        {
+            get
+            {
+                var value = "";
+                if (this.Custodian != Custodian.Unknown)
+                {
+                    value = this.Custodian.ToString();
+                }
+                return value;
+            }
+            set
+            {
+                var custodian = Custodian.Unknown;
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    custodian = (Custodian) Enum.Parse(typeof (Custodian), value, true);
+                }
+                this.Custodian = custodian;
+            }
+        }
+
+        public virtual Custodian Custodian
+        {
+            get { return _custodian; }
+            set { _custodian = value; }
+        }
 
         [SimpleDbColumn(Multiplicity = ColumnMultiplicity.Single, Name = "FileSystemType")]
         protected internal virtual string FileSystemTypeString

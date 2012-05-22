@@ -75,14 +75,18 @@
     <Compile Include="Aws\SimpleDb\SimpleDbClient.cs" />
     <Compile Include="Aws\SimpleDb\SimpleDbEntityHelper.cs" />
     <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Entities\Holding.cs" />
     <Compile Include="Entities\PortfolioCalculationRequest.cs" />
+    <Compile Include="Exceptions\InvalidFileLocationException.cs" />
     <Compile Include="Exceptions\PortfolioCalculationRequestValidationException.cs" />
     <Compile Include="Exceptions\PortfolioFileSizeException.cs" />
     <Compile Include="Exceptions\PossiblyPoisonMessageException.cs" />
+    <Compile Include="Factories\PortfolioFileParserFactory.cs" />
     <Compile Include="Factories\ProviderFactory.cs" />
     <Compile Include="Factories\QueueFactory.cs" />
     <Compile Include="Factories\ReportWizardStepFactory.cs" />
     <Compile Include="Entities\UserFile.cs" />
+    <Compile Include="Files\RawFileModel.cs" />
     <Compile Include="Files\UserFiles.cs" />
     <Compile Include="Files\UserFilesProvider.cs" />
     <Compile Include="MarketData\MarketDataRequestProcessor.cs" />
@@ -92,6 +96,7 @@
     <Compile Include="Models\Logging\WriteLogResponse.cs" />
     <Compile Include="Models\MarketData\MarketDataRequestResponse.cs" />
     <Compile Include="Models\ModelFactory.cs" />
+    <Compile Include="Models\Portfolio\PortfolioCalculationRequestNotifyDetailsModel.cs" />
     <Compile Include="Models\Portfolio\PortfolioCalculationRequestSubmitModel.cs" />
     <Compile Include="Models\Portfolio\PortfolioCalculationRequestViewModel.cs" />
     <Compile Include="Models\Portfolio\PortfolioCalculationRequestExceptionModel.cs" />
@@ -101,10 +106,15 @@
     <Compile Include="Models\ReportWizard\Step.cs" />
     <Compile Include="Models\ReportWizard\UploadFile.cs" />
     <Compile Include="Aws\SimpleDb\SaveEntityInfo.cs" />
+    <Compile Include="Portfolios\Parsers\IPortfolioFileParser.cs" />
+    <Compile Include="Portfolios\Parsers\FidelityFileParser.cs" />
+    <Compile Include="Portfolios\Portfolio.cs" />
     <Compile Include="Portfolios\PortfolioFileInfo.cs" />
+    <Compile Include="Portfolios\Parsers\PortfolioFileParser.cs" />
     <Compile Include="Portfolios\Requests\PortfolioCalculationRequestProvider.cs" />
     <Compile Include="Programs\AlphaProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\FileProvider.cs" />
     <Compile Include="Queuing\AddQueueResponse.cs" />
     <Compile Include="Queuing\AwsSqsQueueBase.cs" />
   </ItemGroup>

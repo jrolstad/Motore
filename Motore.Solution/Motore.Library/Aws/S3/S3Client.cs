@@ -8,6 +8,7 @@ using Amazon.S3;
 using Amazon.S3.Model;
 using Motore.Utils.Dates;
 using Motore.Utils.Logging;
+using Motore.Utils.Text;
 
 namespace Motore.Library.Aws.S3
 {
@@ -23,6 +24,13 @@ namespace Motore.Library.Aws.S3
         }
 
         #region Public Methods
+
+        public virtual Stream GetStream(string location)
+        {
+            var request = this.CreateGetObjectRequest(location);
+            var response = this.GetClient().GetObject(request);
+            return response.ResponseStream;
+        }
 
         public virtual bool Exists(string bucket, string path)
         {
@@ -52,6 +60,39 @@ namespace Motore.Library.Aws.S3
 
         #region Protected Methods
         
+        protected internal virtual GetObjectRequest CreateGetObjectRequest(string location)
+        {
+            var bucketName = this.ParseBucketNameFromLocation(location);
+            var key = this.ParseKeyFromLocation(location);
+
+            var request = new GetObjectRequest
+                              {
+                                  BucketName = bucketName,
+                                  Key = key,
+                                  ReadWriteTimeout = 60000,
+                              };
+
+            return request;
+        }
+
+        protected internal virtual string ParseBucketNameFromLocation(string location)
+        {
+            var uri = new Uri(location);
+            var path = uri.AbsolutePath;
+            path = (path ?? "").TrimStart(new char[1] {'/'});
+            var bucketName = Regex.GetValueBeforeFirstSlash(path);
+            return bucketName;
+        }
+
+        protected internal virtual string ParseKeyFromLocation(string location)
+        {
+            var uri = new Uri(location);
+            var path = uri.AbsolutePath;
+            path = (path ?? "").TrimStart(new char[1] {'/'});
+            var key = Regex.GetValueAfterFirstSlash(path);
+            return key;
+        }
+
         protected internal virtual void LogS3Error(string error)
         {
             var message = String.Format("S3: {0}", error);

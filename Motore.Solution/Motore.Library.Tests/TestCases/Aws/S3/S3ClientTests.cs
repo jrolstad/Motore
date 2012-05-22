@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Motore.Library.Aws;
+using Motore.Library.Aws.S3;
 using Motore.Library.Configuration;
 using Motore.Library.Tests.Classes;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Rhino.Mocks.Interfaces;
 
 namespace Motore.Library.Tests.TestCases.Aws.S3
 {
@@ -46,6 +49,42 @@ namespace Motore.Library.Tests.TestCases.Aws.S3
 
             // assert
             Assert.IsFalse(actual);
+
+        }
+
+        [Test]
+        public void ParseBucketFromLocation_returns_correct_value()
+        {
+            // arrange
+            var location = "https://s3.aws.com/my-bucket-name/my-path/more-my-path";
+            var expected = "my-bucket-name";
+            var client = MockRepository.GenerateMock<S3Client>(null, null);
+            client.Expect(c => c.ParseBucketNameFromLocation(location)).CallOriginalMethod(
+                OriginalCallOptions.CreateExpectation);
+
+            // act
+            var actual = client.ParseBucketNameFromLocation(location);
+
+            // assert
+            Assert.That(actual, Is.EqualTo(expected));
+
+        }
+
+        [Test]
+        public void ParseKeyFromLocation_returns_correct_value()
+        {
+            // arrange
+            var location = "https://s3.aws.com/my-bucket-name/my-path/more-my-path";
+            var expected = "my-path/more-my-path";
+            var client = MockRepository.GenerateMock<S3Client>(null, null);
+            client.Expect(c => c.ParseKeyFromLocation(location)).CallOriginalMethod(
+                OriginalCallOptions.CreateExpectation);
+
+            // act
+            var actual = client.ParseKeyFromLocation(location);
+
+            // assert
+            Assert.That(actual, Is.EqualTo(expected));
 
         }
 

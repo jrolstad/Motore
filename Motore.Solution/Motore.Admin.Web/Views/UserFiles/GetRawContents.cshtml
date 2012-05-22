@@ -1,0 +1,35 @@
+﻿@model Motore.Library.Files.RawFileModel
+@{
+    ViewBag.Title = "View Raw File";
+}
+
+<h2>Get Raw Contents</h2>
+
+<table>
+    <tr>
+        <td>User File ID</td>
+        <td>@Model.UserFileId</td>
+    </tr>
+    <tr>
+        <td>File System Type</td>
+        <td>@Model.FileSystemTypeString</td>
+    </tr>
+    <tr>
+        <td>Location</td>
+        <td>@Model.Location</td>
+    </tr>
+</table>
+<p/>
+<hr/>
+<h1>Contents</h1>
+<div id="RawFileContents">
+    @if (Model.Lines != null)
+    {
+        <div class="rawfile">
+            @foreach (var x in Model.Lines)
+            {
+                <div class="line">@x</div>
+            }
+        </div>
+    }
+</div>
